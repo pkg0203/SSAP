@@ -14,21 +14,25 @@ class User(AbstractUser):
     like_article = models.ManyToManyField(
         Article, 
         related_name="liked", 
-        symmetrical=False
+        symmetrical=False,
+        blank=True
     )
     bookmark_article = models.ManyToManyField(
         Article, 
         related_name="bookmarked", 
-        symmetrical=False
+        symmetrical=False,
+        blank=True
     )
     like_story = models.ManyToManyField(
         Story, 
         related_name="liked", 
-        symmetrical=False
+        symmetrical=False,
+        blank=True
     )
     bookmark_story = models.ManyToManyField(
         Story, 
         related_name="bookmarked", 
-        symmetrical=False
+        symmetrical=False,
+        blank=True
     )
     created_at = models.DateTimeField(auto_now=True)
