@@ -25,4 +25,5 @@ urlpatterns = [
     path('ssap/articles/', include('articles.urls')),
     path('ssap/comments/', include('comments.urls')),
     path('ssap/events/', include('events.urls')),
+    path('ssap/stories/', include('stories.urls')),
 ]
