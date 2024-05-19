@@ -42,17 +42,19 @@ INSTALLED_APPS = [
     # Third Party
     "django_seed",
     "django_extensions",
+    # DRF
     "rest_framework",
-    "rest_framework_simplejwt",
-    "rest_framework_simplejwt.token_blacklist",
     "rest_framework.authtoken",
+    "rest_framework_simplejwt",
+    # django-rest-auth
     "dj_rest_auth",
     "dj_rest_auth.registration",
+    # django-allauth
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",  # 소셜로그인을 사용한 제공업체 (Google)
-    # Local
+    # Apps
     "accounts",
     "articles",
     "comments",
@@ -125,22 +127,41 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-REST_USE_JWT = True
-
-ACCOUNT_EMAIL_REQUIRED = True  # email 필드 사용 o
-ACCOUNT_USERNAME_REQUIRED = True  # username 필드 사용 o
-ACCOUNT_AUTHENTICATION_METHOD = "email"
 
 REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-    )
+        "rest_framework.authentication.SessionAuthentication",
+        "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
+    ),
 }
+# DEFAULT_PERMISSION_CLASSES는 API에 접근 시에 인증된 유저, 즉 헤더에 access token을 포함하여 유효한 유저만이 접근이 가능하다는 것을 Default로 설정해준다.
+# 공개해야 하는 몇몇 API들에게만 따로 설정을 해주되, 이렇게 기본으로 설정해주면 일일이 function에서 decorator든 class에서 permission_classes 변수든 설정할 필요가 없다.
+
+
+# email field 는 필수이며, 유일해야한다.
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+
+# usename field 는 필수이며, 유일해야한다.
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_UNIQUE_USERNAME = True
+
+# 인증과정에서 user 식별을 위해 email을 사용한다.
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+
+# 가입과정에서 별도의 email 인증을 요구하지 않는다.
+ACCOUNT_EMAIL_VERIFICATION = "none"
+
+
+REST_USE_JWT = True
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=360),
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=2),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
-    "ROTATE_REFRESH_TOKENS": True,
+    "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": True,
 }
 
