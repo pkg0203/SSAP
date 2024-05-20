@@ -7,7 +7,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-2g8jc^!@g5j^d%wjfhxv-uzpbas5ws1xs%wjdv(zw2=7p!$^l2"
-
+SOCIAL_AUTH_GOOGLE_CLIENT_ID = (
+    "13195312683-2hdttpqi1168e2etahmq778h4ipmjbo2.apps.googleusercontent.com"
+)
+SOCIAL_AUTH_GOOGLE_SECRET = "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"
+STATE = ""
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -25,43 +29,46 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sites",
     # Third Party
-    "django_seed",
-    "django_extensions",
-    # DRF
     "rest_framework",
     "rest_framework.authtoken",
     "rest_framework_simplejwt",
-    # django-rest-auth
     "dj_rest_auth",
     "dj_rest_auth.registration",
-    # django-allauth
-    "allauth",
-    "allauth.account",
-    "allauth.socialaccount",
-    'allauth.socialaccount.providers.google',
     # Apps
     "accounts",
     "articles",
     "comments",
     "events",
     "stories",
+    # Allauth
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
 ]
 
-SITE_ID = 1  
+SITE_ID = 1
 
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        }
-    }
-}
+AUTH_USER_MODEL = "accounts.User"
 
 REST_USE_JWT = True
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    )
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=360),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -105,9 +112,6 @@ DATABASES = {
     }
 }
 
-# Custom User Model
-AUTH_USER_MODEL = "accounts.User"
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -126,32 +130,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-    )
-}
-
-# email field 는 필수이며, 유일해야한다.
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_UNIQUE_EMAIL = True
-
-# usename field 는 필수이며, 유일해야한다.
-ACCOUNT_USERNAME_REQUIRED = True
-ACCOUNT_UNIQUE_USERNAME = True
-
-# 인증과정에서 user 식별을 위해 email을 사용한다.
-ACCOUNT_AUTHENTICATION_METHOD = "email"
-
-
-
-
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(hours=2),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
-    "ROTATE_REFRESH_TOKENS": False,
-    "BLACKLIST_AFTER_ROTATION": True,
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -176,7 +154,6 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.google.GoogleOAuth2',
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
 )
