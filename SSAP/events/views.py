@@ -29,9 +29,20 @@ class EventAPIView(APIView):
 
 
 class EventDetailAPIView(APIView):
+    def get_event(self,pk):
+        return get_object_or_404(Event, pk=pk)
+
     def delete(self, request, pk):
-        # if request.user.is)superuser:
-        event = get_object_or_404(Event, pk=pk)
+        # if request.user.is_superuser:
+        event = self.get_event(pk)
         event.delete()
         message = f"event pk : {pk} has been successfully deleted"
         return Response({message}, status=HTTP_200_OK)
+    
+    def put(self,request,pk):
+        # if request.user.is_superuser:
+        event = self.get_event(pk)
+        serializer = EventCreateSerializer(event,data=request.data,partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
