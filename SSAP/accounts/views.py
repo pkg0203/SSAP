@@ -21,7 +21,7 @@ state = getattr(settings, "STATE")
 
 def google_login(request):
     scope = "https://www.googleapis.com/auth/userinfo.email"
-    client_id = os.environ.get("SOCIAL_AUTH_GOOGLE_CLIENT_ID")
+    client_id = getattr(settings, "SOCIAL_AUTH_GOOGLE_CLIENT_ID")
     return redirect(
         f"https://accounts.google.com/o/oauth2/v2/auth?client_id={client_id}&response_type=code&redirect_uri={GOOGLE_CALLBACK_URI}&scope={scope}"
     )

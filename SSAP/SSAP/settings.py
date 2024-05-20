@@ -7,10 +7,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-2g8jc^!@g5j^d%wjfhxv-uzpbas5ws1xs%wjdv(zw2=7p!$^l2"
-SOCIAL_AUTH_GOOGLE_CLIENT_ID = (
-    "13195312683-2hdttpqi1168e2etahmq778h4ipmjbo2.apps.googleusercontent.com"
-)
-SOCIAL_AUTH_GOOGLE_SECRET = "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"
+SOCIAL_AUTH_GOOGLE_CLIENT_ID = ""
+SOCIAL_AUTH_GOOGLE_SECRET = ""
 STATE = ""
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
