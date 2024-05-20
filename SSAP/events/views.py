@@ -17,7 +17,7 @@ class EventAPIView(APIView):
             serializer = EventViewSerializer(events, many=True)
             return Response(serializer.data, status=HTTP_200_OK)
         #else :
-            #return Response({'권한이 없습니다'},status=HTTP_401_UNAUTHORIZED)
+            #return Response({'로그인이 필요합니다.'},status=HTTP_401_UNAUTHORIZED)
 
     def post(self, request):
         #if request.user.is_superuser:
