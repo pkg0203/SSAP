@@ -14,7 +14,17 @@ from django.http import Http404
 class ArticleCommentAPIView(APIView):
     def get(self, request, pk):
         article = get_object_or_404(Article, pk=pk)
-        comments = article.comments.all()
+        comment_at = int(request.GET.get("comment_at", "0"))
+        if comment_at == 0:
+            all_comments = Article_Comment.objects.filter(
+                pk=pk, comment_at__isnull=True
+            ).select_related("user")
+
+        else:
+            all_comments = Article_Comment.objects.filter(
+                pk=pk, comment_at=comment_at
+            ).select_related("user")
+        comments = all_comments
         serializer = ArticleCommentSerializer(comments, many=True)
         return Response(serializer.data)
 
@@ -49,7 +59,17 @@ class ArticleCommentAPIView(APIView):
 class StoryCommentAPIView(APIView):
     def get(self, request, pk):
         story = get_object_or_404(Story, pk=pk)
-        comments = story.comments.all()
+        comment_at = int(request.GET.get("comment_at", "0"))
+        if comment_at == 0:
+            all_comments = Story_Comment.objects.filter(
+                pk=pk, comment_at__isnull=True
+            ).select_related("user")
+
+        else:
+            all_comments = Story_Comment.objects.filter(
+                pk=pk, comment_at=comment_at
+            ).select_related("user")
+        comments = all_comments
         serializer = StoryCommentSerializer(comments, many=True)
         return Response(serializer.data)
 

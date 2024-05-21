@@ -6,7 +6,9 @@ from django.conf import settings
 class Article_Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     content = models.TextField()
-    comment_at = models.PositiveIntegerField(default=None)
+    comment_at = models.ForeignKey(
+        "self", on_delete=models.CASCADE, null=True, blank=True
+    )
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 
@@ -14,6 +16,8 @@ class Article_Comment(models.Model):
 class Story_Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     content = models.TextField()
-    comment_at = models.PositiveIntegerField(default=None)
+    comment_at = models.ForeignKey(
+        "self", on_delete=models.CASCADE, null=True, blank=True
+    )
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
