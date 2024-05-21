@@ -3,6 +3,7 @@ from rest_framework.views import Response
 from django.db.models import Count
 from articles.models import Article
 from stories.models import Story
+from serializers import MainPageSerializer
 
 ARTICLE_TO_GET = 5
 STORY_TO_GET = 5
@@ -18,4 +19,5 @@ def index(request):
         count=Count("bookmarked"), 
         like=Count("liked")
     ).order_by("-count","-liked","-created_at")[:STORY_TO_GET]
-    return Response({})
+    serializer = MainPageSerializer(recs_articles,recs_stories)
+    return Response(serializer.data)
