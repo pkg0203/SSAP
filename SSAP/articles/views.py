@@ -1,11 +1,7 @@
 from django.shortcuts import get_object_or_404
-from django.core.paginator import Paginator
-from django.db.models import Count, F
 from .models import Article, ArticleLike, ArticleBookmark
-from django.core import serializers
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from rest_framework.views import APIView
 from .serializers import ArticleSerializer
@@ -18,9 +14,9 @@ class ArticleListAPIView(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        if not request.user.is_authenticated:
+        if not request.user.is_superuser:
             return Response(
-                {"error": "로그인 후 이용해주세요."},
+                {"error": "관리자 권한이 필요합니다."},
                 status=status.HTTP_401_UNAUTHORIZED,
             )
         serializer = ArticleSerializer(data=request.data)
@@ -39,24 +35,36 @@ class ArticleDetailAPIView(APIView):
         return Response(serializer.data)
 
     def put(self, request, pk):
-        if not request.user.is_authenticated:
+        if not request.user.is_superuser:
             return Response(
-                {"error": "로그인 후 이용해주세요."},
+                {"error": "관리자 권한이 필요합니다."},
                 status=status.HTTP_401_UNAUTHORIZED,
             )
-        article = self.get_object(pk)
+        try:
+            article = self.get_object(pk)
+        except Article.DoesNotExist:
+            return Response(
+                {"error": "Article not found."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
         serializer = ArticleSerializer(article, data=request.data, partial=True)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
 
     def delete(self, request, pk):
-        if not request.user.is_authenticated:
+        if not request.user.is_superuser:
             return Response(
-                {"error": "로그인 후 이용해주세요."},
+                {"error": "관리자 권한이 필요합니다."},
                 status=status.HTTP_401_UNAUTHORIZED,
             )
-        article = self.get_object(pk)
+        try:
+            article = self.get_object(pk)
+        except Article.DoesNotExist:
+            return Response(
+                {"error": "Article not found."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
         article.delete()
         data = {"pk": f"{pk} is deleted."}
         return Response(data, status=status.HTTP_200_OK)

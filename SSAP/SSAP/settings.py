@@ -5,10 +5,10 @@ from . import config
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# SECURITY WARNING: keep the secret key used in production secret!
+# Secret Keys
 SECRET_KEY = config.DJANGO_SECRET_KEY
-SOCIAL_AUTH_GOOGLE_CLIENT_ID = ""
-SOCIAL_AUTH_GOOGLE_SECRET = ""
+SOCIAL_AUTH_GOOGLE_CLIENT_ID = config.GOOGLE_CLIENT_ID
+SOCIAL_AUTH_GOOGLE_SECRET = config.GOOGLE_SECRET_PW
 STATE = ""
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

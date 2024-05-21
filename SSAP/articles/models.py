@@ -13,18 +13,22 @@ class Article(models.Model):
 
 
 class ArticleLike(models.Model):
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="likes")
+    article = models.ForeignKey(
+        Article, on_delete=models.CASCADE, related_name="article_likes"
+    )
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="likes"
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="article_likes"
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
 
 class ArticleBookmark(models.Model):
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="marks")
+    article = models.ForeignKey(
+        Article, on_delete=models.CASCADE, related_name="article_marks"
+    )
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="marks"
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="article_marks"
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
