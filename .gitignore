@@ -379,5 +379,5 @@ $RECYCLE.BIN/
 *.lnk
 # End of https://www.toptal.com/developers/gitignore/api/python,venv,visualstudiocode,pycharm,macos,windows
 
-migrations
+# migrations은 .gitignore에 추가하면 안 됨
 config.py
