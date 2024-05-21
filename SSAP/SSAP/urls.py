@@ -7,7 +7,7 @@ urlpatterns = [
     path("ssap/", views.index),
     path("ssap/accounts/", include("dj_rest_auth.urls")),
     path("ssap/accounts/", include("dj_rest_auth.registration.urls")),
-    path("ssap/accounts/", include("allauth.urls")),
+    path("accounts/", include("allauth.urls")),
     path("ssap/accounts/", include("accounts.urls")),
     path("ssap/articles/", include("articles.urls")),
     path("ssap/comments/", include("comments.urls")),

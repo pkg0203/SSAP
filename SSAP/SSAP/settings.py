@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.google",
 ]
 
-
 SITE_ID = 1
 
 AUTH_USER_MODEL = "accounts.User"
@@ -111,7 +110,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -158,5 +156,5 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
-LOGIN_REDIRECT_URL = "/"
-LOGOUT_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = ""
+LOGOUT_REDIRECT_URL = ""
