@@ -1,8 +1,5 @@
 from django.shortcuts import get_object_or_404
-from django.core.paginator import Paginator
-from django.db.models import Count, F
 from .models import Article, ArticleLike, ArticleBookmark
-from django.core import serializers
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -12,7 +9,7 @@ from .serializers import ArticleSerializer
 
 
 class ArticleListAPIView(APIView):
-    def get(self, request):
+    def get(self):
         articles = Article.objects.all()
         serializer = ArticleSerializer(articles, many=True)
         return Response(serializer.data)
@@ -33,7 +30,7 @@ class ArticleDetailAPIView(APIView):
     def get_object(self, pk):
         return get_object_or_404(Article, pk=pk)
 
-    def get(self, request, pk):
+    def get(self, pk):
         article = self.get_object(pk)
         serializer = ArticleSerializer(article)
         return Response(serializer.data)
