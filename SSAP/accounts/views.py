@@ -88,9 +88,8 @@ def google_callback(request):
     except User.DoesNotExist:    # DoesNotExist -> Django Model에서 기본 지원
         # 전달받은 이메일로 기존에 가입된 유저가 아예 없으면 => 새로 회원가입 & 해당 유저의 jwt 발급
         data = {'access_token': access_token, 'code': code}
-        accept = requests.post(f"{BASE_URL}ssap/accounts/google/login/finish/", data=data)
+        accept = requests.post(f"{BASE_URL}ssap/accounts/google/login/finish/", json=data)
         accept_status = accept.status_code
-
         # 뭔가 중간에 문제가 생기면 에러
         if accept_status != 200:
             return JsonResponse({'err_msg': 'failed to signup'}, status=accept_status)

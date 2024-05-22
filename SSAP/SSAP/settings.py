@@ -7,9 +7,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-2g8jc^!@g5j^d%wjfhxv-uzpbas5ws1xs%wjdv(zw2=7p!$^l2"
-SOCIAL_AUTH_GOOGLE_CLIENT_ID = "13195312683-2hdttpqi1168e2etahmq778h4ipmjbo2.apps.googleusercontent.com"
-SOCIAL_AUTH_GOOGLE_SECRET = "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"
-STATE = ""
+SOCIAL_AUTH_GOOGLE_CLIENT_ID = (
+    "13195312683-2hdttpqi1168e2etahmq778h4ipmjbo2.apps.googleusercontent.com"
+)
+SOCIAL_AUTH_GOOGLE_SECRET = "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"
+STATE = "ardhbateanart2h35h253"
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -26,20 +29,21 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
-    # django rest framework
-    'rest_framework',
-    'rest_framework.authtoken',
-    'rest_framework_simplejwt',
-    'rest_framework_simplejwt.token_blacklist',
-    # dj-rest-auth
-    'dj_rest_auth',
-    'dj_rest_auth.registration',
     # Apps
     "accounts",
     "articles",
     "comments",
     "events",
     "stories",
+    # django rest framework
+    "rest_framework",
+    "rest_framework.authtoken",
+    # 'rest_framework_simplejwt',
+    "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",
+    # dj-rest-auth
+    "dj_rest_auth",
+    "dj_rest_auth.registration",
     # Allauth
     "allauth",
     "allauth.account",
@@ -52,15 +56,19 @@ SITE_ID = 1
 AUTH_USER_MODEL = "accounts.User"
 
 ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_VERIFICATION = "none"  # 회원가입시 별도의 email 인증 생략
 
-# ACCOUNT_EMAIL_VERIFICATION = 'none' # 회원가입시 별도의 email 인증 생략
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.SessionAuthentication",
+        "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
+    ),
 }
 
 REST_USE_JWT = True
@@ -68,7 +76,7 @@ REST_USE_JWT = True
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=120),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
-    "ROTATE_REFRESH_TOKENS": True,
+    "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": True,
 }
 
@@ -80,7 +88,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "SSAP.urls"
@@ -136,9 +143,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -156,11 +163,3 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-# AUTHENTICATION_BACKENDS = (
-#     "django.contrib.auth.backends.ModelBackend",
-#     "allauth.account.auth_backends.AuthenticationBackend",
-# )
-
-# LOGIN_REDIRECT_URL = ""
-# LOGOUT_REDIRECT_URL = ""

@@ -32,7 +32,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractUser):
     username = models.CharField(max_length=30, unique=True)
-    email = models.EmailField(max_length=255, unique=True)
+    email = models.EmailField(_('email address'), unique=True)
     Nation_Choices = [
         ("Afghanistan", "Afghanistan"),
         ("Albania", "Albania"),
