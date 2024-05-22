@@ -26,18 +26,13 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
-    # Third Party
-    "rest_framework",
-    "rest_framework.authtoken",
-    "rest_framework_simplejwt",
-    "dj_rest_auth",
-    "dj_rest_auth.registration",
     # Apps
     "accounts",
     "articles",
     "comments",
     "events",
     "stories",
+    'frontend',
     # django rest framework
     "rest_framework",
     "rest_framework.authtoken",
@@ -52,6 +47,8 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
+    # For debug
+    'django_seed',
 ]
 
 SITE_ID = 1
