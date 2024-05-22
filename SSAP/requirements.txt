@@ -14,6 +14,7 @@ djangorestframework-simplejwt==5.3.1
 Faker==25.2.0
 idna==3.7
 pillow==10.3.0
+psycopg2-binary==2.9.9
 pycodestyle==2.11.1
 pycparser==2.22
 PyJWT==2.8.0
