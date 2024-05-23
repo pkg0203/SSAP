@@ -7,9 +7,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Secret Keys
-SECRET_KEY = config.DJANGO_SECRET_KEY
-SOCIAL_AUTH_GOOGLE_CLIENT_ID = config.GOOGLE_CLIENT_ID
-SOCIAL_AUTH_GOOGLE_SECRET = config.GOOGLE_SECRET_PW
+DJANGO_SECRET_KEY = "django-insecure-2g8jc^!@g5j^d%wjfhxv-uzpbas5ws1xs%wjdv(zw2=7p!$^l2"
+GOOGLE_CLIENT_ID = (
+    "13195312683-2hdttpqi1168e2etahmq778h4ipmjbo2.apps.googleusercontent.com"
+)
+GOOGLE_SECRET_PW = "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"
+DEEPL_SECRET_KEY = "cdf4e2d0-11ed-4363-9863-34b809e4bc0b:fx"
 STATE = ""
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -33,7 +36,7 @@ INSTALLED_APPS = [
     "comments",
     "events",
     "stories",
-    'frontend',
+    "frontend",
     # django rest framework
     "rest_framework",
     "rest_framework.authtoken",
@@ -49,7 +52,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
     # For debug
-    'django_seed',
+    "django_seed",
 ]
 
 SITE_ID = 1

@@ -1,9 +1,9 @@
 from django.shortcuts import get_object_or_404
-from .models import Article, ArticleLike, ArticleBookmark
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
+from .models import Article, ArticleLike, ArticleBookmark
 from .serializers import ArticleSerializer
 
 
@@ -40,13 +40,7 @@ class ArticleDetailAPIView(APIView):
                 {"error": "관리자 권한이 필요합니다."},
                 status=status.HTTP_401_UNAUTHORIZED,
             )
-        try:
-            article = self.get_object(pk)
-        except Article.DoesNotExist:
-            return Response(
-                {"error": "Article not found."},
-                status=status.HTTP_404_NOT_FOUND,
-            )
+        article = self.get_object(pk)
         serializer = ArticleSerializer(article, data=request.data, partial=True)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
@@ -58,13 +52,7 @@ class ArticleDetailAPIView(APIView):
                 {"error": "관리자 권한이 필요합니다."},
                 status=status.HTTP_401_UNAUTHORIZED,
             )
-        try:
-            article = self.get_object(pk)
-        except Article.DoesNotExist:
-            return Response(
-                {"error": "Article not found."},
-                status=status.HTTP_404_NOT_FOUND,
-            )
+        article = self.get_object(pk)
         article.delete()
         data = {"pk": f"{pk} is deleted."}
         return Response(data, status=status.HTTP_200_OK)
