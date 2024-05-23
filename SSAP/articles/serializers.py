@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Article, ArticleLike, ArticleBookmark
-from datetime import datetime, timedelta, timezone
+from comments.models import Article_Comment
+from comments.serializers import ArticleCommentSerializer
 
 
 class ArticleSerializer(serializers.ModelSerializer):
@@ -11,6 +12,8 @@ class ArticleSerializer(serializers.ModelSerializer):
 
 
 class ArticleDetailSerializer(ArticleSerializer):
+    comments = ArticleCommentSerializer(many=True, read_only=True)
+
     class Meta:
         model = Article
-        fields = "__all__"
+        fields = ["title", "img", "content", "created_at", "updated_at", "comments"]
