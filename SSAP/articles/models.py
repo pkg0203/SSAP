@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
 
-
 # Create your models here.
 class Article(models.Model):
     director = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -12,7 +11,7 @@ class Article(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     @property
     def article_comments(self):
-        return self.article_comment_set.all()
+        return self.comments.all()
 
 
 class ArticleLike(models.Model):

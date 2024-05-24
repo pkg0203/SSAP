@@ -5,7 +5,11 @@ from stories.models import *
 
 # Create your models here.
 class Article_Comment(models.Model):
-    article = models.ForeignKey(Article,on_delete=models.CASCADE)
+    article = models.ForeignKey(
+        Article,
+        on_delete=models.CASCADE,
+        related_name="comments"
+    )
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
