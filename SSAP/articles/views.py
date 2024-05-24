@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
@@ -8,6 +8,7 @@ from .serializers import ArticleSerializer
 
 
 class ArticleListAPIView(APIView):
+
     def get(self, request):
         articles = Article.objects.all()
         serializer = ArticleSerializer(articles, many=True)
@@ -59,7 +60,6 @@ class ArticleDetailAPIView(APIView):
 
 
 class ArticleLikeAPIView(APIView):
-    permission_classes = [IsAuthenticated]
 
     def post(self, request, pk):
         article = get_object_or_404(Article, id=pk)
@@ -74,7 +74,6 @@ class ArticleLikeAPIView(APIView):
 
 
 class ArticleBookmarkAPIView(APIView):
-    permission_classes = [IsAuthenticated]
 
     def post(self, request, pk):
         article = get_object_or_404(Article, id=pk)

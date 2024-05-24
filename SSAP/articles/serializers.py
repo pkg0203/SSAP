@@ -12,8 +12,15 @@ class ArticleSerializer(serializers.ModelSerializer):
 
 
 class ArticleDetailSerializer(ArticleSerializer):
-    comments = ArticleCommentSerializer(many=True, read_only=True)
+    article_comments = ArticleCommentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Article
-        fields = ["title", "img", "content", "created_at", "updated_at", "comments"]
+        fields = [
+            "title",
+            "img",
+            "content",
+            "created_at",
+            "updated_at",
+            "article_comments",
+        ]

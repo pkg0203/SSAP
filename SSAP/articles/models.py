@@ -12,7 +12,7 @@ class Article(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     @property
-    def comments(self):
+    def article_comments(self):
         return self.article_comment_set.all()
 
 
