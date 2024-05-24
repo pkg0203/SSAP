@@ -7,13 +7,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Secret Keys
-DJANGO_SECRET_KEY = "django-insecure-2g8jc^!@g5j^d%wjfhxv-uzpbas5ws1xs%wjdv(zw2=7p!$^l2"
-GOOGLE_CLIENT_ID = (
-    "13195312683-2hdttpqi1168e2etahmq778h4ipmjbo2.apps.googleusercontent.com"
-)
-GOOGLE_SECRET_PW = "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"
-DEEPL_SECRET_KEY = "cdf4e2d0-11ed-4363-9863-34b809e4bc0b:fx"
+SECRET_KEY = config.DJANGO_SECRET_KEY
+SOCIAL_AUTH_GOOGLE_CLIENT_ID = config.GOOGLE_CLIENT_ID
+SOCIAL_AUTH_GOOGLE_SECRET = config.GOOGLE_SECRET_PW
 STATE = ""
+DEEPL_SECRET_KEY = config.DEEPL_SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -80,7 +78,7 @@ REST_USE_JWT = True
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=120),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
-    "ROTATE_REFRESH_TOKENS": False,
+    "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
 }
 

@@ -10,7 +10,17 @@ from dj_rest_auth.registration.views import SocialLoginView
 from allauth.socialaccount.providers.google import views as google_view
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
 from allauth.socialaccount.models import SocialAccount
+
 from .models import User
+from .serializers import UserSerializer
+from articles.serializers import ArticleSerializer
+from stories.serializers import StorySerializer
+
+from rest_framework.views import APIView
+from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
+from rest_framework.permissions import AllowAny
+
 
 BASE_URL = "http://127.0.0.1:8000/"
 GOOGLE_CALLBACK_URI = BASE_URL + "ssap/accounts/google/callback/"
@@ -126,3 +136,64 @@ class GoogleLogin(SocialLoginView):
     adapter_class = google_view.GoogleOAuth2Adapter
     callback_url = GOOGLE_CALLBACK_URI
     client_class = OAuth2Client
+
+
+class UserProfileAPIView(APIView):
+    permission_classes = [AllowAny]
+    
+    def get(self, request, username):
+        user = get_object_or_404(get_user_model(), username=username)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
+
+class UserUpdateAPIView(APIView):    
+    def put(self, request, username):
+        user = get_object_or_404(User, username=username)
+        serializer = UserSerializer(instance=user, data=request.data, partial=True)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+        return Response(data=serializer.data)
+    
+    
+class UserDeleteView(APIView): 
+    def delete(self, request, username):
+        user = get_object_or_404(User, username=username)
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class UserLikedArticleListAPIView(APIView):
+    def get(self, request):
+        # 현재 사용자가 좋아하는 article들을 가져옴
+        liked_articles = request.user.like_article.all()
+        # 시리얼라이즈
+        serializer = ArticleSerializer(liked_articles, many=True)
+        return Response(data=serializer.data)
+    
+    
+class UserLikedStoryListAPIView(APIView):
+    def get(self, request):
+        # 현재 사용자가 좋아하는 story들을 가져옴
+        liked_stories = request.user.like_story.all()
+        # 시리얼라이즈
+        serializer = StorySerializer(liked_stories, many=True)
+        return Response(data=serializer.data)
+
+ 
+class UserBookmarkedArticleListAPIView(APIView):
+    def get(self, request):
+        # 현재 사용자가 북마크한 article들을 가져옴
+        bookmarked_articles = request.user.bookmark_article.all()
+        # 시리얼라이즈
+        serializer = ArticleSerializer(bookmarked_articles, many=True)
+        return Response(serializer.data)
+    
+    
+class UserBookmarkedStoryListAPIView(APIView):
+    def get(self, request):
+        # 현재 사용자가 북마크한 story들을 가져옴
+        bookmarked_stories = request.user.bookmark_story.all()
+        # 시리얼라이즈
+        serializer = StorySerializer(bookmarked_stories, many=True)
+        return Response(serializer.data)
