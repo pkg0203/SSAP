@@ -2,7 +2,7 @@ from datetime import timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser, BaseUserManager
-
+from . import choices
 from articles.models import Article
 from stories.models import Story
 
@@ -33,63 +33,10 @@ class UserManager(BaseUserManager):
 class User(AbstractUser):
     username = models.CharField(max_length=30, unique=True)
     email = models.EmailField(_("email address"), unique=True)
-    Nation_Choices = [
-        ("Afghanistan", "Afghanistan"),
-        ("Albania", "Albania"),
-        ("Algeria", "Algeria"),
-        ("Argentina", "Argentina"),
-        ("Armenia", "Armenia"),
-        ("Australia", "Australia"),
-        ("Austria", "Austria"),
-        ("Azerbaijan", "Azerbaijan"),
-        ("Bangladesh", "Bangladesh"),
-        ("Belarus", "Belarus"),
-        ("Belgium", "Belgium"),
-        ("Belize", "Belize"),
-        ("Bolivia", "Bolivia"),
-        ("Brazil", "Brazil"),
-        ("Bulgaria", "Bulgaria"),
-        ("Cambodia", "Cambodia"),
-        ("Canada", "Canada"),
-        ("Chile", "Chile"),
-        ("China", "China"),
-        ("Colombia", "Colombia"),
-        ("Croatia", "Croatia"),
-        ("Egypt", "Egypt"),
-        ("Estonia", "Estonia"),
-        ("Finland", "Finland"),
-        ("France", "France"),
-        ("Georgia", "Georgia"),
-        ("Germany", "Germany"),
-        ("Ghana", "Ghana"),
-        ("Greece", "Greece"),
-        ("Hungary", "Hungary"),
-        ("Iceland", "Iceland"),
-        ("India", "India"),
-        ("Indonesia", "Indonesia"),
-        ("Iran", "Iran"),
-        ("Iraq", "Iraq"),
-        ("Israel", "Israel"),
-        ("Italy", "Italy"),
-        ("Jamaica", "Jamaica"),
-        ("Japan", "Japan"),
-        ("Jordan", "Jordan"),
-        ("Kazakhstan", "Kazakhstan"),
-        ("USA", "USA"),
-        # ... 이게 맞나?..
-    ]
+    Nation_Choices = choices.nations
+    
     nation = models.CharField(choices=Nation_Choices, max_length=30)
     intro = models.CharField(max_length=100, null=True, blank=True)
-    like_article = models.ManyToManyField(
-        Article, related_name="liked", symmetrical=False
-    )
-    bookmark_article = models.ManyToManyField(
-        Article, related_name="bookmarked", symmetrical=False
-    )
-    like_story = models.ManyToManyField(Story, related_name="liked", symmetrical=False)
-    bookmark_story = models.ManyToManyField(
-        Story, related_name="bookmarked", symmetrical=False
-    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

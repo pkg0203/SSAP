@@ -1,8 +1,7 @@
 from django.db import models
 from django.conf import settings
-from articles.models import Article
-from stories.models import Story
-
+from articles.models import *
+from stories.models import *
 
 # Create your models here.
 class Article_Comment(models.Model):

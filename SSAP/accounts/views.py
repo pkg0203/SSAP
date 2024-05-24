@@ -163,37 +163,37 @@ class UserDeleteView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class UserLikedArticleListAPIView(APIView):
-    def get(self, request):
+#class UserLikedArticleListAPIView(APIView):
+    #def get(self, request):
         # 현재 사용자가 좋아하는 article들을 가져옴
-        liked_articles = request.user.like_article.all()
+        #liked_articles = request.user.like_article.all()
         # 시리얼라이즈
-        serializer = ArticleSerializer(liked_articles, many=True)
-        return Response(data=serializer.data)
+        #serializer = ArticleSerializer(liked_articles, many=True)
+        #return Response(data=serializer.data)
     
     
-class UserLikedStoryListAPIView(APIView):
-    def get(self, request):
-        # 현재 사용자가 좋아하는 story들을 가져옴
-        liked_stories = request.user.like_story.all()
-        # 시리얼라이즈
-        serializer = StorySerializer(liked_stories, many=True)
-        return Response(data=serializer.data)
+# class UserLikedStoryListAPIView(APIView):
+#     def get(self, request):
+#         # 현재 사용자가 좋아하는 story들을 가져옴
+#         liked_stories = request.user.like_story.all()
+#         # 시리얼라이즈
+#         serializer = StorySerializer(liked_stories, many=True)
+#         return Response(data=serializer.data)
 
  
-class UserBookmarkedArticleListAPIView(APIView):
-    def get(self, request):
-        # 현재 사용자가 북마크한 article들을 가져옴
-        bookmarked_articles = request.user.bookmark_article.all()
-        # 시리얼라이즈
-        serializer = ArticleSerializer(bookmarked_articles, many=True)
-        return Response(serializer.data)
+# class UserBookmarkedArticleListAPIView(APIView):
+#     def get(self, request):
+#         # 현재 사용자가 북마크한 article들을 가져옴
+#         bookmarked_articles = request.user.bookmark_article.all()
+#         # 시리얼라이즈
+#         serializer = ArticleSerializer(bookmarked_articles, many=True)
+#         return Response(serializer.data)
     
     
-class UserBookmarkedStoryListAPIView(APIView):
-    def get(self, request):
-        # 현재 사용자가 북마크한 story들을 가져옴
-        bookmarked_stories = request.user.bookmark_story.all()
-        # 시리얼라이즈
-        serializer = StorySerializer(bookmarked_stories, many=True)
-        return Response(serializer.data)
+# class UserBookmarkedStoryListAPIView(APIView):
+#     def get(self, request):
+#         # 현재 사용자가 북마크한 story들을 가져옴
+#         bookmarked_stories = request.user.bookmark_story.all()
+#         # 시리얼라이즈
+#         serializer = StorySerializer(bookmarked_stories, many=True)
+#         return Response(serializer.data)
