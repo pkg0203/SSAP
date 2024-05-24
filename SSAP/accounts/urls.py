@@ -11,6 +11,8 @@ urlpatterns = [
         name="google_login_todjango",
     ),
     path("<str:username>/", views.UserProfileAPIView.as_view(), name="user-profile"),
+    path("<str:username>/update/", views.UserUpdateAPIView.as_view(), name="user-update"),
+    path('<str:username>/delete/', views.UserDeleteView.as_view(), name='user-delete'),
     path(
         "liked/article/",
         views.UserLikedArticleListAPIView.as_view(),
@@ -31,5 +33,4 @@ urlpatterns = [
         views.UserBookmarkedStoryListAPIView.as_view(),
         name="bookmarked-story",
     ),
-    path('<str:username>/delete/', views.UserDeleteView.as_view(), name='user-delete'),
 ]

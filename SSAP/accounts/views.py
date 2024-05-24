@@ -19,7 +19,7 @@ from stories.serializers import StorySerializer
 from rest_framework.views import APIView
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny
 
 
 BASE_URL = "http://127.0.0.1:8000/"
@@ -139,15 +139,16 @@ class GoogleLogin(SocialLoginView):
 
 
 class UserProfileAPIView(APIView):
+    permission_classes = [AllowAny]
+    
     def get(self, request, username):
         user = get_object_or_404(get_user_model(), username=username)
         serializer = UserSerializer(user)
         return Response(serializer.data)
-    
+
+
+class UserUpdateAPIView(APIView):    
     def put(self, request, username):
-        
-        permission_classes = [IsAuthenticated]
-        
         user = get_object_or_404(User, username=username)
         serializer = UserSerializer(instance=user, data=request.data, partial=True)
         if serializer.is_valid(raise_exception=True):
@@ -156,8 +157,6 @@ class UserProfileAPIView(APIView):
     
     
 class UserDeleteView(APIView): 
-    permission_classes = [IsAuthenticated]
-
     def delete(self, request, username):
         user = get_object_or_404(User, username=username)
         user.delete()
@@ -165,8 +164,6 @@ class UserDeleteView(APIView):
 
 
 class UserLikedArticleListAPIView(APIView):
-    permission_classes = [IsAuthenticated]
-
     def get(self, request):
         # 현재 사용자가 좋아하는 article들을 가져옴
         liked_articles = request.user.like_article.all()
@@ -176,8 +173,6 @@ class UserLikedArticleListAPIView(APIView):
     
     
 class UserLikedStoryListAPIView(APIView):
-    permission_classes = [IsAuthenticated]
-
     def get(self, request):
         # 현재 사용자가 좋아하는 story들을 가져옴
         liked_stories = request.user.like_story.all()
@@ -187,8 +182,6 @@ class UserLikedStoryListAPIView(APIView):
 
  
 class UserBookmarkedArticleListAPIView(APIView):
-    permission_classes = [IsAuthenticated]
-
     def get(self, request):
         # 현재 사용자가 북마크한 article들을 가져옴
         bookmarked_articles = request.user.bookmark_article.all()
@@ -198,8 +191,6 @@ class UserBookmarkedArticleListAPIView(APIView):
     
     
 class UserBookmarkedStoryListAPIView(APIView):
-    permission_classes = [IsAuthenticated]
-
     def get(self, request):
         # 현재 사용자가 북마크한 story들을 가져옴
         bookmarked_stories = request.user.bookmark_story.all()
