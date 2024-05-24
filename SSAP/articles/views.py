@@ -10,6 +10,9 @@ from .serializers import ArticleSerializer
 class ArticleListAPIView(APIView):
 
     def get(self, request):
+        self.permission_classes = [AllowAny]
+        self.check_permissions(request)
+
         articles = Article.objects.all()
         serializer = ArticleSerializer(articles, many=True)
         return Response(serializer.data)
@@ -31,6 +34,9 @@ class ArticleDetailAPIView(APIView):
         return get_object_or_404(Article, pk=pk)
 
     def get(self, request, pk):
+        self.permission_classes = [AllowAny]
+        self.check_permissions(request)
+
         article = self.get_object(pk)
         serializer = ArticleSerializer(article)
         return Response(serializer.data)
