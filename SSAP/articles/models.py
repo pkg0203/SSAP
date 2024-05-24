@@ -11,7 +11,7 @@ class Article(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     @property
-    def comments(self):
+    def article_comments(self):
         return self.article_comment_set.all()
 
 

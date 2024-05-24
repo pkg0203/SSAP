@@ -61,7 +61,6 @@ class StoryDetailAPIView(APIView):
 
 
 class StoryLikeAPIView(APIView):
-    permission_classes = [IsAuthenticated]
 
     def post(self, request, pk):
         story = get_object_or_404(Story, id=pk)
@@ -76,7 +75,6 @@ class StoryLikeAPIView(APIView):
 
 
 class StoryBookmarkAPIView(APIView):
-    permission_classes = [IsAuthenticated]
 
     def post(self, request, pk):
         story = get_object_or_404(Story, id=pk)

@@ -12,6 +12,10 @@ class Story(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    @property
+    def story_comments(self):
+        return self.story_comment_set.all()
+
 
 class StoryLike(models.Model):
     user = models.ForeignKey(
