@@ -1,9 +1,8 @@
 from django.shortcuts import get_object_or_404
 
 from .models import Story, StoryLike, StoryBookmark
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from rest_framework.views import APIView
 from .serializers import StorySerializer
@@ -11,6 +10,9 @@ from .serializers import StorySerializer
 
 class StoryListAPIView(APIView):
     def get(self, request):
+        self.permission_classes = [AllowAny]
+        self.check_permissions(request)
+
         stories = Story.objects.all()
         serializer = StorySerializer(stories, many=True)
         return Response(serializer.data)
