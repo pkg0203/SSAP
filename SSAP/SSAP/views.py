@@ -1,4 +1,5 @@
 from rest_framework.views import Response
+from rest_framework.permissions import AllowAny
 from django.shortcuts import render
 from rest_framework.generics import ListAPIView
 from django.db.models import Count
@@ -11,6 +12,7 @@ ARTICLE_TO_GET = 5
 STORY_TO_GET = 5
 
 class MainPageListView(ListAPIView):
+    permission_classes=[AllowAny]
     serializer_class_Article = ArticleSerializer
     serializer_class_Story = StorySerializer
 
