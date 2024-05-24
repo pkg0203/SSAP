@@ -79,6 +79,7 @@ class User(AbstractUser):
         # ... 이게 맞나?..
     ]
     nation = models.CharField(choices=Nation_Choices, max_length=30)
+    intro = models.CharField(max_length=100, null=True, blank=True)
     like_article = models.ManyToManyField(
         Article, related_name="liked", symmetrical=False
     )
