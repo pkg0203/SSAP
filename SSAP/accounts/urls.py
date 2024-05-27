@@ -10,6 +10,10 @@ urlpatterns = [
         views.GoogleLogin.as_view(),
         name="google_login_todjango",
     ),
+    path("liked/article", views.LikedArticle.as_view(), name="liked_article"),
+    path("bookmarked/article", views.MarkedArticle.as_view(), name="marked_article"),
+    path("liked/story", views.LikedStory.as_view(), name="liked_story"),
+    path("bookmarked/story", views.MarkedStory.as_view(), name="marked_story"),
     path("<str:username>/", views.UserProfileAPIView.as_view(), name="user-profile"),
     path("<str:username>/update/", views.UserUpdateAPIView.as_view(), name="user-update"),
     path('<str:username>/delete/', views.UserDeleteView.as_view(), name='user-delete'),
@@ -34,3 +38,4 @@ urlpatterns = [
     #     name="bookmarked-story",
     # ),
 ]
+
