@@ -22,7 +22,7 @@ class StoryLike(models.Model):
         Story, on_delete=models.CASCADE, related_name="story_likes"
     )
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="story_likes"
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="liked_story"
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -33,7 +33,7 @@ class StoryBookmark(models.Model):
         Story, on_delete=models.CASCADE, related_name="story_marks"
     )
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="story_marks"
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="marked_story"
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

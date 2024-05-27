@@ -10,4 +10,8 @@ urlpatterns = [
         views.GoogleLogin.as_view(),
         name="google_login_todjango",
     ),
+    path("liked/article", views.LikedArticle.as_view(), name="liked_article"),
+    path("bookmarked/article", views.MarkedArticle.as_view(), name="marked_article"),
+    path("liked/story", views.LikedStory.as_view(), name="liked_story"),
+    path("bookmarked/story", views.MarkedStory.as_view(), name="marked_story"),
 ]
