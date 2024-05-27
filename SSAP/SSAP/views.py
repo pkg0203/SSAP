@@ -11,8 +11,9 @@ from stories.serializers import StorySerializer
 ARTICLE_TO_GET = 5
 STORY_TO_GET = 5
 
+
 class MainPageListView(ListAPIView):
-    permission_classes=[AllowAny]
+    permission_classes = [AllowAny]
     serializer_class_Article = ArticleSerializer
     serializer_class_Story = StorySerializer
 
@@ -29,13 +30,10 @@ class MainPageListView(ListAPIView):
     ).order_by("-count","-like","-created_at")[:STORY_TO_GET]
 
     def list(self, request, *args, **kwargs):
-        is_api_call = request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+        is_api_call = request.META.get("HTTP_X_REQUESTED_WITH") == "XMLHttpRequest"
         article = self.serializer_class_Article(self.get_queryset_Article(), many=True)
         story = self.serializer_class_Story(self.get_queryset_Story(), many=True)
         if is_api_call:
-            return Response({
-                "**Articles**": article.data,
-                "**Stories**": story.data
-            })
-        else :
-            return render(request,"index.html")
+            return Response({"**Articles**": article.data, "**Stories**": story.data})
+        else:
+            return render(request, "index.html")
