@@ -12,34 +12,16 @@ from django.http import Http404
 
 # APIView - Comment on Article
 class ArticleCommentAPIView(APIView):
-    def get(self, request, pk, comment_pk=None):
-        article = get_object_or_404(Article, pk=pk)
-        comment_at = int(request.GET.get("comment_at", "0"))
-        if comment_at == 0:
-            all_comments = Article_Comment.objects.filter(
-                pk=pk, comment_at__isnull=True
-            ).select_related("user")
-
-        else:
-            all_comments = Article_Comment.objects.filter(
-                pk=pk, comment_at=comment_at
-            ).select_related("user")
-        comments = all_comments
-        serializer = ArticleCommentSerializer(comments, many=True)
-        return Response(serializer.data)
-
-    def post(self, request, pk, comment_pk=None):
-        if request.user.is_authenticated:
-            data = request.data.copy()
-            data["posting"] = pk
-            if comment_pk:
-                data["comment_at"] = comment_pk
-            serializer = ArticleCommentSerializer(data=data)
-            if serializer.is_valid():
-                serializer.save(user=request.user)
+    def post(self, request, pk):
+            # data = request.data.copy()
+            # if comment_pk:
+            #     data["comment_at"] = comment_pk
+            serializer = ArticleCommentSerializer(data=request.data)
+            print(serializer)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save(user=request.user,article=get_object_or_404(Article,pk=pk))
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        return Response({"권한이 필요합니다."}, status=status.HTTP_401_UNAUTHORIZED)
 
     def put(self, request, pk, comment_pk):
         if request.user.is_authenticated:
@@ -64,22 +46,6 @@ class ArticleCommentAPIView(APIView):
 
 # APIView - Comment on Story
 class StoryCommentAPIView(APIView):
-    def get(self, request, pk, comment_pk=None):
-        story = get_object_or_404(Story, pk=pk)
-        comment_at = int(request.GET.get("comment_at", "0"))
-        if comment_at == 0:
-            all_comments = Story_Comment.objects.filter(
-                pk=pk, comment_at__isnull=True
-            ).select_related("user")
-
-        else:
-            all_comments = Story_Comment.objects.filter(
-                pk=pk, comment_at=comment_at
-            ).select_related("user")
-        comments = all_comments
-        serializer = StoryCommentSerializer(comments, many=True)
-        return Response(serializer.data)
-
     def post(self, request, pk, comment_pk=None):
         if request.user.is_authenticated:
             data = request.data.copy()
@@ -87,6 +53,8 @@ class StoryCommentAPIView(APIView):
             if comment_pk:
                 data["comment_at"] = comment_pk
             serializer = StoryCommentSerializer(data=data)
+            print("\n"*5)
+            print(serializer)
             if serializer.is_valid():
                 serializer.save(user=request.user)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)

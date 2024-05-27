@@ -9,11 +9,19 @@ class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
         fields = "__all__"
+        read_only_fields = ["director","img"]
 
 
 class ArticleDetailSerializer(ArticleSerializer):
-    comments = ArticleCommentSerializer(many=True, read_only=True)
+    article_comments = ArticleCommentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Article
-        fields = ["title", "img", "content", "created_at", "updated_at", "comments"]
+        fields = [
+            "title",
+            "img",
+            "content",
+            "created_at",
+            "updated_at",
+            "article_comments",
+        ]
