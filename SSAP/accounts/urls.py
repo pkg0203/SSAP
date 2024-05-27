@@ -14,4 +14,5 @@ urlpatterns = [
     path("bookmarked/article", views.MarkedArticle.as_view(), name="marked_article"),
     path("liked/story", views.LikedStory.as_view(), name="liked_story"),
     path("bookmarked/story", views.MarkedStory.as_view(), name="marked_story"),
+    path("<str:username>/", views.UserProfileAPIView.as_view(), name="user-profile"),
 ]

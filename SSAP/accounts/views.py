@@ -20,7 +20,7 @@ from stories.serializers import StorySerializer
 from rest_framework.views import APIView
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from rest_framework.permissions import AllowAny
+from .permissions import IsSelfOrReadOnly
 
 
 BASE_URL = "http://127.0.0.1:8000/"
@@ -175,98 +175,22 @@ class MarkedStory(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class LikedArticle(APIView):
-
-    def get(self, request):
-        user = request.user
-        likedarticle = user.liked_article.all()
-        serializer = ArticleSerializer(likedarticle, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-class MarkedArticle(APIView):
-
-    def get(self, request):
-        user = request.user
-        markedarticle = user.marked_article.all()
-        serializer = ArticleSerializer(markedarticle, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-class LikedStory(APIView):
-
-    def get(self, request):
-        user = request.user
-        likedstory = user.liked_story.all()
-        serializer = StorySerializer(likedstory, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-class MarkedStory(APIView):
-
-    def get(self, request):
-        user = request.user
-        markedstory = user.marked_story.all()
-        serializer = StorySerializer(markedstory, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
 class UserProfileAPIView(APIView):
-    permission_classes = [AllowAny]
-    
+    permission_classes = [IsSelfOrReadOnly]
+
     def get(self, request, username):
         user = get_object_or_404(get_user_model(), username=username)
         serializer = UserSerializer(user)
         return Response(serializer.data)
 
-
-class UserUpdateAPIView(APIView):    
     def put(self, request, username):
         user = get_object_or_404(User, username=username)
         serializer = UserSerializer(instance=user, data=request.data, partial=True)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
         return Response(data=serializer.data)
-    
-    
-class UserDeleteView(APIView): 
+
     def delete(self, request, username):
         user = get_object_or_404(User, username=username)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-#class UserLikedArticleListAPIView(APIView):
-    #def get(self, request):
-        # 현재 사용자가 좋아하는 article들을 가져옴
-        #liked_articles = request.user.like_article.all()
-        # 시리얼라이즈
-        #serializer = ArticleSerializer(liked_articles, many=True)
-        #return Response(data=serializer.data)
-    
-    
-# class UserLikedStoryListAPIView(APIView):
-#     def get(self, request):
-#         # 현재 사용자가 좋아하는 story들을 가져옴
-#         liked_stories = request.user.like_story.all()
-#         # 시리얼라이즈
-#         serializer = StorySerializer(liked_stories, many=True)
-#         return Response(data=serializer.data)
-
- 
-# class UserBookmarkedArticleListAPIView(APIView):
-#     def get(self, request):
-#         # 현재 사용자가 북마크한 article들을 가져옴
-#         bookmarked_articles = request.user.bookmark_article.all()
-#         # 시리얼라이즈
-#         serializer = ArticleSerializer(bookmarked_articles, many=True)
-#         return Response(serializer.data)
-    
-    
-# class UserBookmarkedStoryListAPIView(APIView):
-#     def get(self, request):
-#         # 현재 사용자가 북마크한 story들을 가져옴
-#         bookmarked_stories = request.user.bookmark_story.all()
-#         # 시리얼라이즈
-#         serializer = StorySerializer(bookmarked_stories, many=True)
-#         return Response(serializer.data)
