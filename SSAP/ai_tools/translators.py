@@ -13,6 +13,7 @@ sys.path.append(parent_path)
 
 # 상위 경로의 파일을 import하기 위함
 from SSAP.config import DEEPL_SECRET_KEY
+from .nation_list import tar_nation_dict
 
 TRANSLATOR = deepl.Translator(DEEPL_SECRET_KEY)
 
