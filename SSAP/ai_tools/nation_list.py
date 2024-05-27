@@ -7,6 +7,6 @@ tar_nation_dict={
     "France" : "FR",
     "Russia" : "RU",
     "Ukraine" : "UK",
-    "Turkey" : "TR",
+    "Turkiye" : "TR",
     "Germany" : "DE"
 }
