@@ -21,5 +21,3 @@ def translate_text(text, target_lang="EN-US"):
     result = TRANSLATOR.translate_text(text, target_lang=target_lang)
     return result.text
 
-
-print(translate_text("이거 맞냐?"))
