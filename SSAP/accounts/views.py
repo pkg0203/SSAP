@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django.http import JsonResponse
 from json.decoder import JSONDecodeError
 from rest_framework import status
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from dj_rest_auth.registration.views import SocialLoginView
 from allauth.socialaccount.providers.google import views as google_view
@@ -136,6 +137,78 @@ class GoogleLogin(SocialLoginView):
     adapter_class = google_view.GoogleOAuth2Adapter
     callback_url = GOOGLE_CALLBACK_URI
     client_class = OAuth2Client
+
+
+class LikedArticle(APIView):
+
+    def get(self, request):
+        user = request.user
+        likedarticle = user.liked_article.all()
+        serializer = ArticleSerializer(likedarticle, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class MarkedArticle(APIView):
+
+    def get(self, request):
+        user = request.user
+        markedarticle = user.marked_article.all()
+        serializer = ArticleSerializer(markedarticle, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class LikedStory(APIView):
+
+    def get(self, request):
+        user = request.user
+        likedstory = user.liked_story.all()
+        serializer = StorySerializer(likedstory, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class MarkedStory(APIView):
+
+    def get(self, request):
+        user = request.user
+        markedstory = user.marked_story.all()
+        serializer = StorySerializer(markedstory, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class LikedArticle(APIView):
+
+    def get(self, request):
+        user = request.user
+        likedarticle = user.liked_article.all()
+        serializer = ArticleSerializer(likedarticle, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class MarkedArticle(APIView):
+
+    def get(self, request):
+        user = request.user
+        markedarticle = user.marked_article.all()
+        serializer = ArticleSerializer(markedarticle, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class LikedStory(APIView):
+
+    def get(self, request):
+        user = request.user
+        likedstory = user.liked_story.all()
+        serializer = StorySerializer(likedstory, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class MarkedStory(APIView):
+
+    def get(self, request):
+        user = request.user
+        markedstory = user.marked_story.all()
+        serializer = StorySerializer(markedstory, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class UserProfileAPIView(APIView):
