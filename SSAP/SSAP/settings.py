@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     # Apps
     "accounts",
+    "ai_tools",
     "articles",
     "comments",
     "events",
