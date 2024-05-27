@@ -18,15 +18,15 @@ class MainPageListView(ListAPIView):
 
     def get_queryset_Article(self):
         return Article.objects.annotate(
-        count=Count("bookmarked"), 
-        like=Count("liked")
-    ).order_by("-count","-liked","-created_at")[:ARTICLE_TO_GET]
+        count=Count("article_marks"), 
+        like=Count("article_likes")
+    ).order_by("-count","-like","-created_at")[:ARTICLE_TO_GET]
     
     def get_queryset_Story(self):
         return Story.objects.annotate(
-        count=Count("bookmarked"), 
-        like=Count("liked")
-    ).order_by("-count","-liked","-created_at")[:STORY_TO_GET]
+        count=Count("story_marks"), 
+        like=Count("story_likes")
+    ).order_by("-count","-like","-created_at")[:STORY_TO_GET]
 
     def list(self, request, *args, **kwargs):
         is_api_call = request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
