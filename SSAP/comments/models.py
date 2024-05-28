@@ -3,14 +3,13 @@ from django.conf import settings
 from articles.models import *
 from stories.models import *
 
+
 # Create your models here.
 class Article_Comment(models.Model):
     article = models.ForeignKey(
-        Article,
-        on_delete=models.CASCADE,
-        related_name="comments"
+        Article, on_delete=models.CASCADE, related_name="comments"
     )
-    user = models.ForeignKey(
+    director = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="article_comments",
@@ -25,7 +24,11 @@ class Article_Comment(models.Model):
 
 class Story_Comment(models.Model):
     story = models.ForeignKey(Story, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    director = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="story_comments",
+    )
     content = models.TextField()
     comment_at = models.ForeignKey(
         "self", on_delete=models.CASCADE, null=True, blank=True
