@@ -18,9 +18,6 @@ class Story(models.Model):
 
 
 class StoryLike(models.Model):
-    story = models.ForeignKey(
-        Story, on_delete=models.CASCADE, related_name="story_likes"
-    )
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="liked_story"
     )
