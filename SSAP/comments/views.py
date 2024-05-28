@@ -13,71 +13,110 @@ from django.http import Http404
 # APIView - Comment on Article
 class ArticleCommentAPIView(APIView):
     def post(self, request, pk):
-            # data = request.data.copy()
-            # if comment_pk:
-            #     data["comment_at"] = comment_pk
-            serializer = ArticleCommentSerializer(data=request.data)
-            print(serializer)
-            if serializer.is_valid(raise_exception=True):
-                serializer.save(user=request.user,article=get_object_or_404(Article,pk=pk))
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer = ArticleCommentSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(
+                user=request.user, article=get_object_or_404(Article, pk=pk)
+            )
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def put(self, request, pk, comment_pk):
-        if request.user.is_authenticated:
-            comment = get_object_or_404(Article_Comment, pk=comment_pk, posting_id=pk)
+    def put(self, request, pk):
+        comment = get_object_or_404(Article_Comment, pk=pk)
+        serializer = ArticleCommentSerializer(comment, data=request.data, partial=True)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        comment = get_object_or_404(Article_Comment, pk=pk)
+        comment.delete()
+        data = {"댓글이 삭제되었습니다."}
+        return Response(data, status=status.HTTP_200_OK)
+
+
+# APIView - ReComment on Article Comment
+class ArticleReCommentAPIView(APIView):
+    def post(self, request, comment_at_pk):
+        serializer = ArticleCommentSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(
+                user=request.user,
+                article_comment=get_object_or_404(Article_Comment, pk=comment_at_pk),
+            )
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, comment_at_pk):
+        recomment = get_object_or_404(Article_Comment, pk=comment_at_pk)
+        if request.user == recomment.author:
             serializer = ArticleCommentSerializer(
-                comment, data=request.data, partial=True
+                recomment, data=request.data, partial=True
             )
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
                 return Response(serializer.data)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        return Response({"권한이 필요합니다."}, status=status.HTTP_401_UNAUTHORIZED)
+        return Response({"권한이 없습니다."})
 
-    def delete(self, request, pk, comment_pk):
-        if request.user.is_authenticated:
-            comment = get_object_or_404(Article_Comment, pk=comment_pk, posting_id=pk)
-            comment.delete()
-            data = {"댓글이 삭제되었습니다."}
-            return Response(data, status=status.HTTP_200_OK)
-        return Response({"권한이 필요합니다."}, status=status.HTTP_401_UNAUTHORIZED)
+    def delete(self, request, comment_at_pk):
+        recomment = get_object_or_404(Article_Comment, pk=comment_at_pk)
+        if request.user == recomment.author:
+            recomment.delete()
+            return Response({"대댓글이 삭제되었습니다"}, status=status.HTTP_200_OK)
+        return Response({"권한이 없습니다."})
 
 
 # APIView - Comment on Story
 class StoryCommentAPIView(APIView):
-    def post(self, request, pk, comment_pk=None):
-        if request.user.is_authenticated:
-            data = request.data.copy()
-            data["posting"] = pk
-            if comment_pk:
-                data["comment_at"] = comment_pk
-            serializer = StoryCommentSerializer(data=data)
-            print("\n"*5)
-            print(serializer)
-            if serializer.is_valid():
-                serializer.save(user=request.user)
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        return Response({"권한이 필요합니다."}, status=status.HTTP_401_UNAUTHORIZED)
+    def post(self, request, pk, comment_at_pk):
+        serializer = StoryCommentSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(user=request.user, pk=pk, comment_pk=comment_at_pk)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def put(self, request, pk, comment_pk):
-        if request.user.is_authenticated:
-            comment = get_object_or_404(Article_Comment, pk=comment_pk, posting_id=pk)
-            serializer = StoryCommentSerializer(
-                comment, data=request.data, partial=True
+    def put(self, request, comment_pk):
+        comment = get_object_or_404(Story_Comment, pk=comment_pk)
+        serializer = StoryCommentSerializer(comment, data=request.data, partial=True)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, comment_pk):
+        comment = get_object_or_404(Story_Comment, pk=comment_pk)
+        comment.delete()
+        data = {"댓글이 삭제되었습니다."}
+        return Response(data, status=status.HTTP_200_OK)
+
+
+# APIView - ReComment on Story Comment
+class StoryReCommentAPIView(APIView):
+    def post(self, request, comment_at_pk):
+        serializer = StoryCommentSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(
+                user=request.user,
+                article_comment=get_object_or_404(Story_Comment, pk=comment_at_pk),
             )
-            if serializer.is_valid():
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, comment_at_pk):
+        recomment = get_object_or_404(Story_Comment, pk=comment_at_pk)
+        if request.user == recomment.author:
+            serializer = StoryCommentSerializer(
+                recomment, data=request.data, partial=True
+            )
+            if serializer.is_valid(raise_exception=True):
                 serializer.save()
                 return Response(serializer.data)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        return Response({"권한이 필요합니다."}, status=status.HTTP_401_UNAUTHORIZED)
+        return Response({"권한이 없습니다."})
 
-    def delete(self, request, pk, comment_pk):
-        if request.user.is_authenticated:
-            comment = get_object_or_404(Article_Comment, pk=comment_pk, posting_id=pk)
-            comment.delete()
-            return Response(
-                {"detail": "댓글이 삭제되었습니다."}, status=status.HTTP_200_OK
-            )
-        return Response({"권한이 필요합니다."}, status=status.HTTP_401_UNAUTHORIZED)
+    def delete(self, request, comment_at_pk):
+        recomment = get_object_or_404(Story_Comment, pk=comment_at_pk)
+        if request.user == recomment.author:
+            recomment.delete()
+            return Response({"대댓글이 삭제되었습니다"})
+        return Response({"권한이 없습니다."})
