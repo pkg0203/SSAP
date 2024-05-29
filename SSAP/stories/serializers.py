@@ -9,6 +9,7 @@ class StorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Story
         fields = "__all__"
+        read_only_fields = ["user","img"]
 
 
 class StoryDetailSerializer(StorySerializer):

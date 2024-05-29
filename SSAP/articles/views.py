@@ -5,48 +5,39 @@ from rest_framework import status
 from rest_framework.views import APIView
 from .models import Article, ArticleLike, ArticleBookmark
 from .serializers import ArticleSerializer
+from .permissions import IsAdminOrReadOnly
 
 
 class ArticleListAPIView(APIView):
+    permission_classes = [IsAdminOrReadOnly]
 
     def get(self, request):
-        self.permission_classes = [AllowAny]
-        self.check_permissions(request)
-
         articles = Article.objects.all()
         serializer = ArticleSerializer(articles, many=True)
         return Response(serializer.data)
 
-    def post(self, request):
-        if not request.user.is_superuser:
-            return Response(
-                {"error": "관리자 권한이 필요합니다."},
-                status=status.HTTP_401_UNAUTHORIZED,
-            )
+    def post(self, request):    
         serializer = ArticleSerializer(data=request.data)
+        self.check_object_permissions(self.request, serializer)
         if serializer.is_valid(raise_exception=True):
             serializer.save(director=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 class ArticleDetailAPIView(APIView):
+    permission_classes = [IsAdminOrReadOnly]
+
     def get_object(self, pk):
-        return get_object_or_404(Article, pk=pk)
+        article = get_object_or_404(Article, pk=pk)
+        self.check_object_permissions(self.request, article)
+        return article
 
     def get(self, request, pk):
-        self.permission_classes = [AllowAny]
-        self.check_permissions(request)
-
         article = self.get_object(pk)
         serializer = ArticleSerializer(article)
         return Response(serializer.data)
 
     def put(self, request, pk):
-        if not request.user.is_superuser:
-            return Response(
-                {"error": "관리자 권한이 필요합니다."},
-                status=status.HTTP_401_UNAUTHORIZED,
-            )
         article = self.get_object(pk)
         serializer = ArticleSerializer(article, data=request.data, partial=True)
         if serializer.is_valid(raise_exception=True):
@@ -54,11 +45,6 @@ class ArticleDetailAPIView(APIView):
             return Response(serializer.data)
 
     def delete(self, request, pk):
-        if not request.user.is_superuser:
-            return Response(
-                {"error": "관리자 권한이 필요합니다."},
-                status=status.HTTP_401_UNAUTHORIZED,
-            )
         article = self.get_object(pk)
         article.delete()
         data = {"pk": f"{pk} is deleted."}
