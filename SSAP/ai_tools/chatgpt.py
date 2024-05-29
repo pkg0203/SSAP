@@ -16,31 +16,37 @@ sys.path.append(parent_path)
 from SSAP.config import OPEN_AI_SECRET_KEY
 
 MAX_TOKEN = 40
-CLIENT = OpenAI(
-    api_key=OPEN_AI_SECRET_KEY
-)
-prompt_message = """
-        너는 외국인의 이름을 받아서 한국 이름으로 지어주는 작명가야.
+CLIENT = OpenAI(api_key=OPEN_AI_SECRET_KEY)
 
-        예를 들어 LeBron James 라는 입력을 받았을 때,
-        이를 한국말로 발음하면 '리브론 제임스'니까 최대한 발음이 비슷하도록 한국이름으로 작명하면 돼
 
-        이와 같은 경우 '류재민'이나, '이재민'이 적절할 것 같아.
-    """
+def Korean_name(foreign_name):
+    prompt_message = """
+            너는 외국인의 이름을 받아서 한국 이름으로 지어주는 작명가야.
+            아래의 3가지 규칙을 준수해야 해.
+            1. 이름만 답변하면 돼
+            2. 질문으로 답하지마
+            3. 한국 이름은 2~3글자로 이루어져 있어
 
-completion = CLIENT.chat.completions.create(
-    model="gpt-3.5-turbo",
-    messages=[
-        {
-            "role": "system",
-            "content": prompt_message,
-        },
-        {
-            "role": "user",
-            "content": "Elon Reeve Musk",
-        },
-    ],
-    max_tokens=MAX_TOKEN,
-)
+            그리고 답변의 예를 몇 개 들면,
+            'LeBron James'은 '류재민' 또는 '이재민',
+            'Stephen Curry'는 '김성호',
+        """
 
-print(completion.choices[0].message.content)
+    completion = CLIENT.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {
+                "role": "system",
+                "content": prompt_message,
+            },
+            {
+                "role": "user",
+                "content": foreign_name,
+            },
+        ],
+        max_tokens=MAX_TOKEN,
+    )
+
+    return completion.choices[0].message.content
+
+print(Korean_name("尾田 栄一郎"))
