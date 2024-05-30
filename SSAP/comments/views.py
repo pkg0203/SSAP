@@ -40,7 +40,7 @@ class ArticleCommentAPIView(APIView):
         if request.user == comment.user:
             comment.delete()
             return Response(
-                {"message": "대댓글이 삭제되었습니다"}, status=status.HTTP_200_OK
+                {"message": "댓글이 삭제되었습니다"}, status=status.HTTP_200_OK
             )
         return Response(
             {"error": "작성자만 삭제할 수 있습니다."},
@@ -50,8 +50,8 @@ class ArticleCommentAPIView(APIView):
 
 # ReComment on Article Comment
 class ArticleReCommentAPIView(APIView):
-    def post(self, request, comment_at_pk):
-        parent_comment = get_object_or_404(Article_Comment, pk=comment_at_pk)
+    def post(self, request, comment_pk):
+        parent_comment = get_object_or_404(Article_Comment, pk=comment_pk)
         serializer = ArticleCommentSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save(
@@ -62,8 +62,8 @@ class ArticleReCommentAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def put(self, request, comment_at_pk):
-        recomment = get_object_or_404(Article_Comment, pk=comment_at_pk)
+    def put(self, request, comment_pk):
+        recomment = get_object_or_404(Article_Comment, pk=comment_pk)
         if request.user == recomment.user:
             serializer = ArticleCommentSerializer(
                 recomment, data=request.data, partial=True
@@ -76,8 +76,8 @@ class ArticleReCommentAPIView(APIView):
             status=status.HTTP_403_FORBIDDEN,
         )
 
-    def delete(self, request, comment_at_pk):
-        recomment = get_object_or_404(Article_Comment, pk=comment_at_pk)
+    def delete(self, request, comment_pk):
+        recomment = get_object_or_404(Article_Comment, pk=comment_pk)
         if request.user == recomment.user:
             recomment.delete()
             return Response(
@@ -91,14 +91,17 @@ class ArticleReCommentAPIView(APIView):
 
 # Comment on Story
 class StoryCommentAPIView(APIView):
-    def post(self, request, pk, comment_at_pk):
+    def post(self, request, pk):
         serializer = StoryCommentSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            serializer.save(user=request.user, pk=pk, comment_pk=comment_at_pk)
+            serializer.save(
+                user=request.user, story=get_object_or_404(Story, pk=pk)
+            )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def put(self, request, comment_pk):
+    def put(self, request, pk):
+        comment_pk = pk
         comment = get_object_or_404(Story_Comment, pk=comment_pk)
         if comment.user == request.user:
             serializer = StoryCommentSerializer(
@@ -112,12 +115,13 @@ class StoryCommentAPIView(APIView):
             status=status.HTTP_403_FORBIDDEN,
         )
 
-    def delete(self, request, comment_pk):
+    def delete(self, request, pk):
+        comment_pk=pk
         comment = get_object_or_404(Story_Comment, pk=comment_pk)
         if request.user == comment.user:
             comment.delete()
             return Response(
-                {"message": "대댓글이 삭제되었습니다"}, status=status.HTTP_200_OK
+                {"message": "댓글이 삭제되었습니다"}, status=status.HTTP_200_OK
             )
         return Response(
             {"error": "작성자만 삭제할 수 있습니다."},
@@ -127,8 +131,8 @@ class StoryCommentAPIView(APIView):
 
 # ReComment on Story Comment
 class StoryReCommentAPIView(APIView):
-    def post(self, request, comment_at_pk):
-        parent_comment = get_object_or_404(Story_Comment, pk=comment_at_pk)
+    def post(self, request, comment_pk):
+        parent_comment = get_object_or_404(Story_Comment, pk=comment_pk)
         serializer = StoryCommentSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save(
@@ -139,8 +143,8 @@ class StoryReCommentAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def put(self, request, comment_at_pk):
-        recomment = get_object_or_404(Story_Comment, pk=comment_at_pk)
+    def put(self, request, comment_pk):
+        recomment = get_object_or_404(Story_Comment, pk=comment_pk)
         if request.user == recomment.user:
             serializer = StoryCommentSerializer(
                 recomment, data=request.data, partial=True
@@ -153,8 +157,8 @@ class StoryReCommentAPIView(APIView):
             status=status.HTTP_403_FORBIDDEN,
         )
 
-    def delete(self, request, comment_at_pk):
-        recomment = get_object_or_404(Story_Comment, pk=comment_at_pk)
+    def delete(self, request, comment_pk):
+        recomment = get_object_or_404(Story_Comment, pk=comment_pk)
         if request.user == recomment.user:
             recomment.delete()
             return Response(

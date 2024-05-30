@@ -15,6 +15,8 @@ from allauth.socialaccount.models import SocialAccount
 
 
 from .models import User
+from articles.models import *
+from stories.models import *
 from .serializers import UserSerializer
 from articles.serializers import ArticleSerializer
 from stories.serializers import StorySerializer
@@ -142,96 +144,39 @@ class GoogleLogin(SocialLoginView):
 
 
 class LikedArticle(APIView):
-
-    def get(self, request):
-        user = request.user
-        likedarticle = user.liked_article.all()
-        serializer = ArticleSerializer(likedarticle, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-class MarkedArticle(APIView):
-
-    def get(self, request):
-        user = request.user
-        markedarticle = user.marked_article.all()
-        serializer = ArticleSerializer(markedarticle, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-class LikedStory(APIView):
-
-    def get(self, request):
-        user = request.user
-        likedstory = user.liked_story.all()
-        serializer = StorySerializer(likedstory, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-class MarkedStory(APIView):
-
-    def get(self, request):
-        user = request.user
-        markedstory = user.marked_story.all()
-        serializer = StorySerializer(markedstory, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-class UserProfileAPIView(APIView):
-    permission_classes = [IsSelfOrReadOnly]
-
     def get(self, request, username):
         user = get_object_or_404(get_user_model(), username=username)
-        serializer = UserSerializer(user)
-        return Response(serializer.data)
-
-    def put(self, request, username):
-        user = get_object_or_404(User, username=username)
-        serializer = UserSerializer(instance=user, data=request.data, partial=True)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-        return Response(data=serializer.data)
-
-    def delete(self, request, username):
-        user = get_object_or_404(User, username=username)
-        user.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-class LikedArticle(APIView):
-
-    def get(self, request):
-        user = request.user
-        likedarticle = user.liked_article.all()
+        likedarticle = Article.objects.filter(article_likes__user=user)
         serializer = ArticleSerializer(likedarticle, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class MarkedArticle(APIView):
-
-    def get(self, request):
-        user = request.user
-        markedarticle = user.marked_article.all()
-        serializer = ArticleSerializer(markedarticle, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    def get(self, request, username):
+        user = get_object_or_404(get_user_model(), username=username)
+        if request.user == user:
+            markedarticle = Article.objects.filter(article_marks__user=user)
+            serializer = ArticleSerializer(markedarticle, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({"본인만 볼 수 있습니다."},status=status.HTTP_401_UNAUTHORIZED)
 
 
 class LikedStory(APIView):
-
-    def get(self, request):
-        user = request.user
-        likedstory = user.liked_story.all()
+    def get(self, request, username):
+        user = get_object_or_404(get_user_model(), username=username)
+        likedstory = Story.objects.filter(story_likes__user=user)
         serializer = StorySerializer(likedstory, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class MarkedStory(APIView):
-
-    def get(self, request):
-        user = request.user
-        markedstory = user.marked_story.all()
-        serializer = StorySerializer(markedstory, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    def get(self, request, username):
+        user = get_object_or_404(get_user_model(), username=username)
+        if request.user == user :
+            markedstory = Story.objects.filter(story_marks__user=user)
+            serializer = StorySerializer(markedstory, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({"본인만 볼 수 있습니다."},status=status.HTTP_401_UNAUTHORIZED)
 
 
 class UserProfileAPIView(APIView):

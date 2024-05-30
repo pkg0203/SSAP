@@ -13,7 +13,6 @@ class StorySerializer(serializers.ModelSerializer):
 
 
 class StoryDetailSerializer(StorySerializer):
-
     story_comments = StoryCommentSerializer(many=True, read_only=True)
 
     class Meta:

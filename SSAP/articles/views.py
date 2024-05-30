@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from .models import Article, ArticleLike, ArticleBookmark
-from .serializers import ArticleSerializer
+from .serializers import ArticleSerializer,ArticleDetailSerializer
 from .permissions import IsAdminOrReadOnly
 
 
@@ -34,7 +34,7 @@ class ArticleDetailAPIView(APIView):
 
     def get(self, request, pk):
         article = self.get_object(pk)
-        serializer = ArticleSerializer(article)
+        serializer = ArticleDetailSerializer(article)
         return Response(serializer.data)
 
     def put(self, request, pk):

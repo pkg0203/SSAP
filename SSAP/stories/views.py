@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-from .serializers import StorySerializer
+from .serializers import StorySerializer,StoryDetailSerializer
 from .permissions import IsLoginOrReadOnly,IsSelfOrReadOnly
 
 class StoryListAPIView(APIView):
@@ -31,7 +31,7 @@ class StoryDetailAPIView(APIView):
 
     def get(self, request, pk):
         story = self.get_object(pk)
-        serializer = StorySerializer(story)
+        serializer = StoryDetailSerializer(story)
         return Response(serializer.data)
 
     def put(self, request, pk):
