@@ -10,7 +10,7 @@ from rest_framework.decorators import api_view
 from django.http import Http404
 
 
-# APIView - Comment on Article
+# Comment on Article
 class ArticleCommentAPIView(APIView):
     def post(self, request, pk):
         serializer = ArticleCommentSerializer(data=request.data)
@@ -23,51 +23,73 @@ class ArticleCommentAPIView(APIView):
 
     def put(self, request, pk):
         comment = get_object_or_404(Article_Comment, pk=pk)
-        serializer = ArticleCommentSerializer(comment, data=request.data, partial=True)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        if request.user == comment.user:
+            serializer = ArticleCommentSerializer(
+                comment, data=request.data, partial=True
+            )
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data)
+        return Response(
+            {"error": "작성자만 수정할 수 있습니다."},
+            status=status.HTTP_403_FORBIDDEN,
+        )
 
     def delete(self, request, pk):
         comment = get_object_or_404(Article_Comment, pk=pk)
-        comment.delete()
-        data = {"댓글이 삭제되었습니다."}
-        return Response(data, status=status.HTTP_200_OK)
+        if request.user == comment.user:
+            comment.delete()
+            return Response(
+                {"message": "대댓글이 삭제되었습니다"}, status=status.HTTP_200_OK
+            )
+        return Response(
+            {"error": "작성자만 삭제할 수 있습니다."},
+            status=status.HTTP_403_FORBIDDEN,
+        )
 
 
-# APIView - ReComment on Article Comment
+# ReComment on Article Comment
 class ArticleReCommentAPIView(APIView):
     def post(self, request, comment_at_pk):
+        parent_comment = get_object_or_404(Article_Comment, pk=comment_at_pk)
         serializer = ArticleCommentSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save(
                 user=request.user,
-                article_comment=get_object_or_404(Article_Comment, pk=comment_at_pk),
+                article=parent_comment.article,
+                comment_at=parent_comment,
             )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, comment_at_pk):
         recomment = get_object_or_404(Article_Comment, pk=comment_at_pk)
-        if request.user == recomment.author:
+        if request.user == recomment.user:
             serializer = ArticleCommentSerializer(
                 recomment, data=request.data, partial=True
             )
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
                 return Response(serializer.data)
-        return Response({"권한이 없습니다."})
+        return Response(
+            {"error": "작성자만 수정할 수 있습니다."},
+            status=status.HTTP_403_FORBIDDEN,
+        )
 
     def delete(self, request, comment_at_pk):
         recomment = get_object_or_404(Article_Comment, pk=comment_at_pk)
-        if request.user == recomment.author:
+        if request.user == recomment.user:
             recomment.delete()
-            return Response({"대댓글이 삭제되었습니다"}, status=status.HTTP_200_OK)
-        return Response({"권한이 없습니다."})
+            return Response(
+                {"message": "대댓글이 삭제되었습니다"}, status=status.HTTP_200_OK
+            )
+        return Response(
+            {"error": "작성자만 삭제할 수 있습니다."},
+            status=status.HTTP_403_FORBIDDEN,
+        )
 
 
-# APIView - Comment on Story
+# Comment on Story
 class StoryCommentAPIView(APIView):
     def post(self, request, pk, comment_at_pk):
         serializer = StoryCommentSerializer(data=request.data)
@@ -78,45 +100,67 @@ class StoryCommentAPIView(APIView):
 
     def put(self, request, comment_pk):
         comment = get_object_or_404(Story_Comment, pk=comment_pk)
-        serializer = StoryCommentSerializer(comment, data=request.data, partial=True)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        if comment.user == request.user:
+            serializer = StoryCommentSerializer(
+                comment, data=request.data, partial=True
+            )
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data)
+        return Response(
+            {"error": "작성자만 수정할 수 있습니다."},
+            status=status.HTTP_403_FORBIDDEN,
+        )
 
     def delete(self, request, comment_pk):
         comment = get_object_or_404(Story_Comment, pk=comment_pk)
-        comment.delete()
-        data = {"댓글이 삭제되었습니다."}
-        return Response(data, status=status.HTTP_200_OK)
+        if request.user == comment.user:
+            comment.delete()
+            return Response(
+                {"message": "대댓글이 삭제되었습니다"}, status=status.HTTP_200_OK
+            )
+        return Response(
+            {"error": "작성자만 삭제할 수 있습니다."},
+            status=status.HTTP_403_FORBIDDEN,
+        )
 
 
-# APIView - ReComment on Story Comment
+# ReComment on Story Comment
 class StoryReCommentAPIView(APIView):
     def post(self, request, comment_at_pk):
+        parent_comment = get_object_or_404(Story_Comment, pk=comment_at_pk)
         serializer = StoryCommentSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save(
                 user=request.user,
-                article_comment=get_object_or_404(Story_Comment, pk=comment_at_pk),
+                story=parent_comment.story,
+                comment_at=parent_comment,
             )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, comment_at_pk):
         recomment = get_object_or_404(Story_Comment, pk=comment_at_pk)
-        if request.user == recomment.author:
+        if request.user == recomment.user:
             serializer = StoryCommentSerializer(
                 recomment, data=request.data, partial=True
             )
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
                 return Response(serializer.data)
-        return Response({"권한이 없습니다."})
+        return Response(
+            {"error": "작성자만 수정할 수 있습니다."},
+            status=status.HTTP_403_FORBIDDEN,
+        )
 
     def delete(self, request, comment_at_pk):
         recomment = get_object_or_404(Story_Comment, pk=comment_at_pk)
-        if request.user == recomment.author:
+        if request.user == recomment.user:
             recomment.delete()
-            return Response({"대댓글이 삭제되었습니다"})
-        return Response({"권한이 없습니다."})
+            return Response(
+                {"message": "대댓글이 삭제되었습니다"}, status=status.HTTP_200_OK
+            )
+        return Response(
+            {"error": "작성자만 삭제할 수 있습니다."},
+            status=status.HTTP_403_FORBIDDEN,
+        )
