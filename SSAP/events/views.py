@@ -22,17 +22,20 @@ class EventAPIView(APIView):
         return Response(serializer.data, status=HTTP_200_OK)
 
     def post(self, request):
-        self.check_permissions(request)
         serializer = EventCreateSerializer(data=request.data)
+        self.check_object_permissions(serializer)
         if serializer.is_valid(raise_exception=True):
             serializer.save(user=request.user)
             return Response(serializer.data, status=HTTP_201_CREATED)
 
 
 class EventDetailAPIView(APIView):
-    permission_classes=[IsAdminUser]
+    permission_classes = [IsAdminUser]
+
     def get_event(self, pk):
-        return get_object_or_404(Event, pk=pk)
+        event = get_object_or_404(Event, pk=pk)
+        self.check_object_permissions(event)
+        return event
 
     def delete(self, request, pk):
         event = self.get_event(pk)
