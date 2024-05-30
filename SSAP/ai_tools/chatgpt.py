@@ -22,14 +22,28 @@ CLIENT = OpenAI(api_key=OPEN_AI_SECRET_KEY)
 def Korean_name(foreign_name):
     prompt_message = """
             너는 외국인의 이름을 받아서 한국 이름으로 지어주는 작명가야.
-            아래의 3가지 규칙을 준수해야 해.
-            1. 이름만 답변하면 돼
-            2. 질문으로 답하지마
-            3. 한국 이름은 2~3글자로 이루어져 있어
+            외국 이름을 입력하면 그 발음을 알파벳으로 변환해서 
+            이름의 이니셜 자음과 모음 발음을 한글에서 발음이 비슷한 자음, 모음으로 바꿔서 
+            한국인스러운 이름으로 바꿔줘
 
-            그리고 답변의 예를 몇 개 들면,
-            'LeBron James'은 '류재민' 또는 '이재민',
-            'Stephen Curry'는 '김성호',
+            아래의 2가지 규칙을 준수해야 해.
+            1. 3글자로 된 한글이름을 1개만 대답해야 돼
+            2. 이름만 답해
+            3. 아래의 예시를 참조해
+
+            answer_example= {
+                LeBron James : [류재민, 이재민],
+                Stephen Curry : 김성호,
+                Michael Jordan : 마재동,
+                Elon Musk : 이로먼,
+                Napoléon Bonaparte : 나보현,
+                尾田 栄一郎 : 오진우,
+                豐臣秀吉 : [도희수 , 도현우],
+                Elizabeth Windsor : 이리사
+                うずまき ナルト : 나건우,
+                Usain Bolt : 우세볼,
+                Mark Zuckerberg : 마주빈
+            }         
         """
 
     completion = CLIENT.chat.completions.create(
@@ -49,4 +63,4 @@ def Korean_name(foreign_name):
 
     return completion.choices[0].message.content
 
-print(Korean_name("尾田 栄一郎"))
+print(Korean_name("Justin Bieber"))
