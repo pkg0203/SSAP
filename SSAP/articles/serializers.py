@@ -13,7 +13,7 @@ class ArticleSerializer(serializers.ModelSerializer):
 
 
 class ArticleDetailSerializer(ArticleSerializer):
-    article_comments = ArticleCommentSerializer(many=True, read_only=True)
+    article_comments = serializers.SerializerMethodField()
 
     class Meta:
         model = Article
@@ -25,3 +25,6 @@ class ArticleDetailSerializer(ArticleSerializer):
             "updated_at",
             "article_comments",
         ]
+    def get_story_comments(self, obj):
+        comments = obj.article_comments.filter(comment_at__isnull=True)
+        return ArticleCommentSerializer(comments, many=True).data

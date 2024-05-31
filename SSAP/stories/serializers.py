@@ -13,7 +13,7 @@ class StorySerializer(serializers.ModelSerializer):
 
 
 class StoryDetailSerializer(StorySerializer):
-    story_comments = StoryCommentSerializer(many=True, read_only=True)
+    story_comments = serializers.SerializerMethodField()
 
     class Meta:
         model = Story
@@ -25,3 +25,6 @@ class StoryDetailSerializer(StorySerializer):
             "updated_at",
             "story_comments",
         ]
+    def get_story_comments(self, obj):
+        comments = obj.story_comments.filter(comment_at__isnull=True)
+        return StoryCommentSerializer(comments, many=True).data
