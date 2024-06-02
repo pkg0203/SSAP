@@ -1,5 +1,10 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "../pages/Home";
+import Article from "../pages/Article";
+import Story from "../pages/Story";
+import Community from "../pages/Community";
+import Profile from "../pages/Profile";
 
 const Router = () => {
   return (
