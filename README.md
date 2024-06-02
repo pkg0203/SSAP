@@ -77,12 +77,30 @@
 ||POST|**User with Login**|**`ssap/articles/like/<pk>/`**|article 좋아요|
 ||POST|**User with Login**|**`ssap/articles/bookmark/<pk>/`**|article 북마크|
 |**[Stories]**|
-||GET|None|**``**||
-||GET|None|**``**||
-||GET|None|**``**||
-||GET|None|**``**||
-||GET|None|**``**||
-||GET|None|**``**||
-||GET|None|**``**||
-||GET|None|**``**||
-||GET|None|**``**||
+||GET|None|**`ssap/stories/`**|article 리스트 조회|
+||POST|**User with Login**|**`ssap/stories/`**|article 생성|
+||GET|**User with Login**|**`ssap/stories/<pk>/`**|article 상세 조회(댓글과 대댓글도 조회하게 됨)|
+||PUT|**Only Self**|**`ssap/stories/<pk>/`**|article 수정|
+||DELETE|**Only Self**|**`ssap/stories/<pk>/`**|article 삭제|
+||POST|**User with Login**|**`ssap/stories/like/<pk>/`**|article 좋아요|
+||POST|**User with Login**|**`ssap/stories/bookmark/<pk>/`**|article 북마크|
+|**[Comments]**|
+||POST|**User with Login**|**`ssap/comments/article/<article_pk>/`**|article에 댓글 생성|
+||PUT|**Only Self**|**`ssap/comments/article/<comment_pk>/`**|article에 댓글 수정|
+||DELETE|**Only Self**|**`ssap/comments/article/<comment_pk>/`**|article에 댓글 삭제|
+||POST|**User with Login**|**`ssap/comments/article/comment_at/<comment_pk>/`**|article에 대댓글 생성|
+||PUT|**Only Self**|**`ssap/comments/article/comment_at/<comment_pk>/`**|article에 대댓글 수정|
+||DELETE|**Only Self**|**`ssap/comments/article/comment_at/<comment_pk>/`**|article에 대댓글 삭제|
+||
+||POST|**User with Login**|**`ssap/comments/story/<story_pk>/`**|story에 댓글 생성|
+||PUT|**Only Self**|**`ssap/comments/story/<comment_pk>/`**|story에 댓글 수정|
+||DELETE|**Only Self**|**`ssap/comments/story/<comment_pk>/`**|story에 댓글 삭제|
+||POST|**User with Login**|**`ssap/comments/story/comment_at/<comment_pk>/`**|story에 대댓글 생성|
+||PUT|**Only Self**|**`ssap/comments/story/comment_at/<comment_pk>/`**|story에 대댓글 수정|
+||DELETE|**Only Self**|**`ssap/comments/story/comment_at/<comment_pk>/`**|story에 대댓글 삭제|
+|**[Events]**|
+||GET|None|**`ssap/events/`**|유효한 event 조회|
+||POST|**Only Admin**|**`ssap/events/`**|event 생성|
+||PUT|**Only Admin**|**`ssap/events/<event_pk>/`**|event 수정|
+||DELETE|**Only Admin**|**`ssap/events/<event_pk>/`**|event 삭제|
+
