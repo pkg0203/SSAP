@@ -58,4 +58,31 @@
 |---|---|---|---|---|
 | **[Account]**|
 ||GET|None|**`ssap/accounts/google/login/`**|구글 로그인|
-|내용 9|내용 10|내용 11|내용 12|
+||POST|None|**`ssap/accounts/login/`**|로그인|
+||POST|None|**`ssap/accounts/registration/`**|회원가입|
+||POST|**Only Self**|**`ssap/accounts/logout/`**|로그아웃|
+||POST|**Only Self**|**`ssap/accounts/password/change/`**|비밀번호 변경|
+||POST|**Only Self**|**`ssap/accounts/token/refresh/`**|토큰 Refresh|
+||GET|**User with Login**|**`ssap/accounts/<str:username>/`**|프로필 조회|
+||GET|**User with Login**|**`ssap/accounts/liked/article/<str:username>/`**|유저가 좋아하는 article 조회|
+||GET|**Only Self**|**`ssap/accounts/bookmarked/article/<str:username>/`**|유저가 북마크한 article 조회|
+||GET|**User with Login**|**`ssap/accounts/liked/story/<str:username>/`**|유저가 좋아하는 story 조회|
+||GET|**Only Self**|**`ssap/accounts/bookmarked/story/<str:username>/`**|유저가 북마크한 story 조회|
+|**[Articles]**|
+||GET|None|**`ssap/articles/`**|article 리스트 조회|
+||POST|**Only Admin**|**`ssap/articles/`**|article 생성|
+||GET|None|**`ssap/articles/<pk>/`**|article 상세 조회(댓글과 대댓글도 조회하게 됨)|
+||PUT|**Only Admin**|**`ssap/articles/<pk>/`**|article 수정|
+||DELETE|**Only Admin**|**`ssap/articles/<pk>/`**|article 삭제|
+||POST|**User with Login**|**`ssap/articles/like/<pk>/`**|article 좋아요|
+||POST|**User with Login**|**`ssap/articles/bookmark/<pk>/`**|article 북마크|
+|**[Stories]**|
+||GET|None|**``**||
+||GET|None|**``**||
+||GET|None|**``**||
+||GET|None|**``**||
+||GET|None|**``**||
+||GET|None|**``**||
+||GET|None|**``**||
+||GET|None|**``**||
+||GET|None|**``**||
