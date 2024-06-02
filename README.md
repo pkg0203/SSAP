@@ -103,4 +103,8 @@
 ||POST|**Only Admin**|**`ssap/events/`**|event 생성|
 ||PUT|**Only Admin**|**`ssap/events/<event_pk>/`**|event 수정|
 ||DELETE|**Only Admin**|**`ssap/events/<event_pk>/`**|event 삭제|
+</br>
+</br>
 
+## 🎫 기능 상세
+### 🔒 Accounts
