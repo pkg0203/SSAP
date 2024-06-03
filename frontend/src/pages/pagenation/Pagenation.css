@@ -1,0 +1,23 @@
+.pagenation_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.pagenation_wrapper button {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    background-color: #fff;
+    margin: 0 2px;
+    font-size: 16px;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.pagenation_wrapper button:hover {
+    background-color: #f0f0f0;
+    border-color: #999;
+    color: #000;
+}
