@@ -103,6 +103,10 @@
 ||POST|**Only Admin**|**`ssap/events/`**|event 생성|
 ||PUT|**Only Admin**|**`ssap/events/<event_pk>/`**|event 수정|
 ||DELETE|**Only Admin**|**`ssap/events/<event_pk>/`**|event 삭제|
+|**[AI Tools]**|
+||GET|**User with Login**|**`ssap/ai/korean_name/<name>/`**|한국인 이름으로 변환|
+||GET|**User with Login**|**`ssap/ai/translate/<text>/`**|text를 자기 국적의 언어로 번역|
+|**[FE-Pages]**|
 </br>
 </br>
 
