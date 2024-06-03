@@ -1,0 +1,15 @@
+/* 예시 스타일 */
+.vertical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+h2 {
+    color: #666;
+}

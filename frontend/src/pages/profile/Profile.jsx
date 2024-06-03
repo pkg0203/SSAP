@@ -1,17 +1,19 @@
 import APiClient from '../api/APiClient'
-// import style from "./Profile.module.css"
-import {Link, userParams} from "react-router-dom"
-import React, {userContext, userEffect, userState} from "react"
-// import ProfileTop from "./ProfileTop"
+import style from "./Profile.module.css"
+import {Link, useParams} from "react-router-dom"
+import React, {useContext, useEffect, useState} from "react"
+import ProfileTop from "./ProfileTop"
+import ProfileMBTIForm from "./ProfileMBTIForm"
 
 const Profile = () => {
-    const {username} = userParams();
-    const [users, setUsers] = userState({})
-    const [error, setError] = userState(null)
-    const [UserMark, setShowUserMark] = userState();
-    const [UserLike, setShowUserLike] = userState([]);
-    const [Userpoststory, setUserPostStory] = userState([]);
-    const [Userpostcomment, setUserPostComment] = userState([]);
+    const {username} = useParams();
+    const [users, setUsers] = useState({});
+    const [error, setError] = useState(null);
+    const [showProfileMyPost, setShowProfileMyPost] = useState(false); // 임시로 정의
+    const [UserMark, setShowUserMark] = useState();
+    const [UserLike, setShowUserLike] = useState([]);
+    const [Userpoststory, setUserPostStory] = useState([]);
+    const [Userpostcomment, setUserPostComment] = useState([]);
     
     const handleGetUserData = () => {
         APiClient.get(`ssap/accounts/${username}/`)
@@ -27,13 +29,17 @@ const Profile = () => {
         setShowProfileMyPost(prevState => !prevState);
     };
 
-    userEffect(() => {
+    useEffect(() => {
         handleGetUserData();
     }, [username]);
 
     if (!users) {
         return <div></div>
     }
+
+    // 예시 데이터, 실제 데이터로 교체 필요
+    const followingRanks = [];
+    const followerRanks = []; 
 
     return (
         <div className={style.vertical}>

@@ -8,7 +8,7 @@ import Navbar from './Components/Navbar/Navbar'
 import Article from "./pages/Article"
 import Story from "./pages/Story"
 import Community from "./pages/Community"
-import Profile from "./pages/Profile"
+import Profile from "./pages/profile/Profile"
 import Main from "./pages/Main"
 
 function App() {
