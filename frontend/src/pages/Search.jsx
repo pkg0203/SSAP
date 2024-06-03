@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { IoSearch } from "react-icons/io5";
 import { useParams } from 'react-router-dom';
+import Card from '../componenets/Card';
 
 const Search = () => {
     const searchText = useParams();
@@ -46,10 +47,14 @@ const Search = () => {
             <input className='bg-[#ffddbe] outline-none w-full placeholder:text-[#ff6d18]' name='query' type='text' placeholder='Search for Tips!' id='search' required="" />
         
         </div>
-        <ul>
+
+        {loading && <p>Loading...</p>}
+        {error && <p>Unknown Error Happens...</p>}
+
+        <ul className='mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
             {
-                results && results.map((item) => (
-                    <li key={item._id}>{item.title}</li>
+                results && results?.map((item) => (
+                    <Card item={item} key={item._id}></Card>
                 ))
             }
         </ul>

@@ -1,5 +1,7 @@
 import Hero from "../../componenets/Hero"
 import CategoryWrapper from "../category/CategoryWrapper"
+import FeaturedSection from "./FeaturedSection"
+import LatestContent from "./LatestContent"
 
 function Home() {
   return (
@@ -8,6 +10,11 @@ function Home() {
         <Hero />
         <CategoryWrapper />
       </div>
+
+      {/* 추가 컴포넌트 */}
+      <FeaturedSection />
+      <LatestContent />
+
     </div>
   )
 }

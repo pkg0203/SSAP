@@ -11,6 +11,7 @@ import {
 import ErrorPage from './componenets/ErrorPage.jsx'
 import CategoryPage from './pages/category/CategoryPage.jsx'
 import Search from './pages/Search.jsx'
+import Calendar from './componenets/Calendar/Calendar.jsx'
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/search",
         element: <Search />,
+      },
+      {
+        path: "/calendar",
+        element: <Calendar />,
       }
     ],
   },
