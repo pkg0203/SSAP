@@ -1,8 +1,16 @@
-import React from "react";
-import Router from "./shared/Router";
+
+import { Outlet } from 'react-router-dom'
+import './App.css'
+import Header from './componenets/header/Header'
 
 function App() {
-  return <Router />;
+
+  return (
+    <div className="max-w-screen-2xl mx-auto">
+      <Header />
+      <Outlet />
+    </div>
+  )
 }
 
-export default App;
+export default App
