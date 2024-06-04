@@ -1,3 +1,5 @@
+// 첫 화면
+
 import Hero from "../../componenets/Hero"
 import CategoryWrapper from "../category/CategoryWrapper"
 import FeaturedSection from "./FeaturedSection"

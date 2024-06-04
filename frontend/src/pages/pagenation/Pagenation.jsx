@@ -1,3 +1,5 @@
+// 페이지네이션
+
 import React from 'react'
 import "./Pagenation.css"
 
