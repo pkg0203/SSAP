@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom'
 
 const DesktopNav = ({menuItems, logo}) => {
   return (
-    <div className="h-16 flex justify-between items-center px-6 lg:px-12">
-        <a href="/">
-            <img src={logo} alt="logo" />
-        </a>
+    <div className="h-16 flex justify-between items-center px-6 lg:px-12 shadow">
+        <div className="flex items-center">
+                <Link to="/">
+                    <img src={logo} alt="logo" className="logo" />
+                </Link>
+                <div className="ml-1"><em>All Tips for your life in Korea</em></div>
+            </div>
         <ul className='flex gap-7'>
             {
                 menuItems?.map((menu,index) => (

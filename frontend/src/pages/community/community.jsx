@@ -57,15 +57,7 @@ const Community = () => {
 
     return (
         <div className="community-container">
-            <header className="community-header">
-                <h1>SSAP</h1>
-                <p>All tips for your life in Korea</p>
-                <nav className="community-nav">
-                    <a href="/contents">Contents</a>
-                    <a href="/community" className="active">Community</a>
-                    <button className="signup-btn">Sign Up</button>
-                </nav>
-            </header>
+            
             <main className="community-main">
                 <CategoryList />
                 {selectedPost ? (
