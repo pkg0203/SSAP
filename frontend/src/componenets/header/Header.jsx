@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import logo from '/logo.png'
 import DesktopNav from './DesktopNav';
-import MobileNav from '../MobileNav';
+import MobileNav from './MobileNav';
 
 
 const Header = () => {

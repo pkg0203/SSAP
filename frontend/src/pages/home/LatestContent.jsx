@@ -15,7 +15,7 @@ const LatestContent = () => {
 
   return (
     <div className='px-5 xl:px-10 py-16'>
-        <h2 className='text-3xl mb-8 font-semibold text-secondary sm:text-5xl sm:leading-relaxed'>Latest Content</h2>
+        <h2 className='text-3xl mb-8 font-semibold text-secondary sm:text-5xl sm:leading-relaxed'>Just came up!</h2>
 
         {/* 컨텐츠 전체 조회 */}
 

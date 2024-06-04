@@ -32,10 +32,14 @@ const MobileNav = ({menuItems, logo, onClose, hideLeft, onOpen}) => {
                 {/* 회원가입 로그인 */}
                 <ul className='flex items-center gap-4 font-medium mt-20'>
                     <li>
-                        <button className='text-secondary px-4 py-2 rounded border'>Sign in</button>
+                        <Link to={"/login"}>
+                            <button className='text-secondary px-4 py-2 rounded border'>Sign in</button>
+                        </Link>
                     </li>
                     <li>
-                        <button className='text-secondary px-4 py-2 rounded border'>Sign up</button>
+                        <Link to={"/registration"}>
+                            <button className='text-secondary px-4 py-2 rounded border'>Sign up</button>
+                        </Link>
                     </li>
                 </ul>
             </div>

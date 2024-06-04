@@ -124,6 +124,20 @@ DATABASES = {
     }
 }
 
+# # mySQL DB settings
+# DATABASS = {
+#     "default": {
+#         "ENGINE": "django.db.backends.mysql",
+#         "HOST": "",
+#         "NAME": "",
+#         "USER": "",
+#         "PASSWORD": "",
+#         "PORT": "",
+#         "OPTIONS": {"charset": "utf8mb4"},
+#     }
+# }
+
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 

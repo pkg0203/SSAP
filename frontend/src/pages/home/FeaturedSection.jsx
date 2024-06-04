@@ -1,5 +1,6 @@
 import React from 'react'
 import 따릉이 from '../../assets/따릉이.png'
+import { Link } from 'react-router-dom'
 
 const FeaturedSection = () => {
   return (
@@ -13,7 +14,9 @@ const FeaturedSection = () => {
             <p className='text-xl mt-4 text-[#5c5c5c]'>Ttareungyi has no concept of reservation. In the past, a grace period of about one minute was given to proceed with the rental process, but this is only a preliminary time to complete the rental process.</p>
             <div className='lg:mt-0 lg:flex-shrink-0'>
                 <div className='mt-12 inline-flex'>
-                    <button className='py-4 px-8 hover:bg-[#71ff64] text-secondary hover:text-white w-full transition ease-in duration-200 text-center text-base font-semibold border border-[#71ff64] focus:outline-none rounded-lg'>Get Started</button>
+                    <Link to="/contents/1"> 
+                        <button className='py-4 px-8 hover:bg-[#71ff64] text-secondary hover:text-white w-full transition ease-in duration-200 text-center text-base font-semibold border border-[#71ff64] focus:outline-none rounded-lg'>Check out the Tip</button>
+                    </Link>
                 </div>
             </div>
         </div>

@@ -17,6 +17,8 @@ import Calendar from './componenets/Calendar/Calendar.jsx'
 import SingleContent from './pages/contents/SingleContent.jsx'
 import Contents from './pages/contents/Contents.jsx'
 import Community from './pages/community/community.jsx'
+import Login from './pages/login/Login.jsx'
+import Registration from './pages/login/Registration.jsx'
 
 
 const router = createBrowserRouter([
@@ -53,6 +55,14 @@ const router = createBrowserRouter([
       {
         path: "/community",
         element: <Community />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/registration",
+        element: <Registration />,
       }
     ],
   },
