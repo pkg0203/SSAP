@@ -1,0 +1,102 @@
+.community-container {
+    font-family: Arial, sans-serif;
+}
+
+.community-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.community-header h1 {
+    font-size: 36px;
+    margin: 0;
+}
+
+.community-header p {
+    font-size: 16px;
+    color: #555555;
+}
+
+.community-nav a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #000000;
+    font-size: 18px;
+}
+
+.community-nav .active {
+    font-weight: bold;
+}
+
+.signup-btn {
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.community-main {
+    padding: 40px 60px;
+    background-color: #f9f9f9;
+}
+
+.community-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.community-content h2 {
+    margin-top: 0;
+}
+
+.community-post {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.community-profile-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.community-body-text {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.community-comments {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.community-comment {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.community-comment h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.community-comment p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #333333;
+}

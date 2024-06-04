@@ -1,6 +1,6 @@
-import APiClient from './api/APiClient'
-import Pagenation from './pagenation/Pagenation'
-
+import APiClient from '../api/APiClient'
+import Pagenation from '../pagenation/Pagenation'
+import './community.css'
 
 const Community = () => {
   return (
