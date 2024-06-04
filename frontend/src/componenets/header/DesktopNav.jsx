@@ -24,7 +24,7 @@ const DesktopNav = ({menuItems, logo}) => {
         {/* 회원가입 로그인 */}
         <ul className='flex items-center gap-4 font-medium'>
             <li>
-                <button className='text-secondary px-4 py-2 rounded'>Sign in</button>
+                <Link to="login/">Sign in</Link>
             </li>
             <li>
                 <button className='text-secondary px-4 py-2 rounded'>Sign up</button>
