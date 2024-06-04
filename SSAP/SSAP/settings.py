@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     "comments",
     "events",
     "stories",
-    "frontend",
     # django rest framework
     "rest_framework",
     "rest_framework.authtoken",

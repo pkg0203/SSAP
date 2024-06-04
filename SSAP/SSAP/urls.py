@@ -13,7 +13,5 @@ urlpatterns = [
     path("ssap/comments/", include("comments.urls")),
     path("ssap/events/", include("events.urls")),
     path("ssap/stories/", include("stories.urls")),
-    path("ssap/ai_tools/", include("ai_tools.urls")),
-    # 이 url은 맨 아래에 위치하도록
-    path("", include("frontend.urls")),
+    path("ssap/ai/", include("ai_tools.urls")),
 ]
