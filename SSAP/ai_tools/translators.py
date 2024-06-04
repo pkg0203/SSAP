@@ -1,7 +1,7 @@
 import deepl
 import sys
 import os
-from nation_list import tar_nation_dict
+from .nation_list import tar_nation_dict
 
 # 현재 파일의 디렉토리 경로를 구합니다.
 current_path = os.path.dirname(__file__)

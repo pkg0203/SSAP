@@ -1,7 +1,6 @@
 from openai import OpenAI
 import sys
 import os
-from nation_list import tar_nation_dict
 
 # 현재 파일의 디렉토리 경로를 구합니다.
 current_path = os.path.dirname(__file__)
@@ -60,5 +59,3 @@ def Korean_name(foreign_name):
     )
 
     return completion.choices[0].message.content
-
-print(Korean_name("Aatrox"))
