@@ -4,7 +4,7 @@ const KoreannameAi=() =>{
 
     return (
         <div>
-
+            hi
         </div>
     )
 }
