@@ -15,17 +15,20 @@ from allauth.socialaccount.models import SocialAccount
 
 
 from .models import User
-from articles.models import *
-from stories.models import *
 from .serializers import UserSerializer
+from articles.models import *
 from articles.serializers import ArticleSerializer
+from stories.models import *
 from stories.serializers import StorySerializer
+from comments.models import *
+from comments.serializers import *
 
 from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from .permissions import IsSelfOrReadOnly
-
+from rest_framework.permissions import IsAuthenticated
 
 BASE_URL = "http://127.0.0.1:8000/"
 GOOGLE_CALLBACK_URI = BASE_URL + "ssap/accounts/google/callback/"
@@ -158,7 +161,7 @@ class MarkedArticle(APIView):
             markedarticle = Article.objects.filter(article_marks__user=user)
             serializer = ArticleSerializer(markedarticle, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response({"본인만 볼 수 있습니다."},status=status.HTTP_401_UNAUTHORIZED)
+        return Response({"본인만 볼 수 있습니다."}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class LikedStory(APIView):
@@ -172,11 +175,11 @@ class LikedStory(APIView):
 class MarkedStory(APIView):
     def get(self, request, username):
         user = get_object_or_404(get_user_model(), username=username)
-        if request.user == user :
+        if request.user == user:
             markedstory = Story.objects.filter(story_marks__user=user)
             serializer = StorySerializer(markedstory, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response({"본인만 볼 수 있습니다."},status=status.HTTP_401_UNAUTHORIZED)
+        return Response({"본인만 볼 수 있습니다."}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class UserProfileAPIView(APIView):
@@ -198,3 +201,30 @@ class UserProfileAPIView(APIView):
         user = get_object_or_404(User, username=username)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class UserCommentsAPIView(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    # 대댓글을 가져오지 않는 새로운 serializer가 필요함
+    serializer_class_Article = ArticleCommentGetSerializer
+    serializer_class_Story = StoryCommentGetSerializer
+
+    def get_queryset_Article(self, request):
+        return Article_Comment.objects.filter(user=request.user).order_by("-pk")
+
+    def get_queryset_Story(self, request):
+        return Story_Comment.objects.filter(user=request.user).order_by("-pk")
+
+    def list(self, request, *args, **kwargs):
+        article_comments = self.serializer_class_Article(
+            self.get_queryset_Article(request), many=True
+        )
+        story_comments = self.serializer_class_Story(
+            self.get_queryset_Story(request), many=True
+        )
+        return Response(
+            {
+                "Article_Comments": article_comments.data,
+                "Story_Comments": story_comments.data,
+            }
+        )
