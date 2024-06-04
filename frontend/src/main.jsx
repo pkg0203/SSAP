@@ -13,6 +13,7 @@ import CategoryPage from './pages/category/CategoryPage.jsx'
 import Search from './pages/Search.jsx'
 import Calendar from './componenets/Calendar/Calendar.jsx'
 import SingleContent from './pages/contents/SingleContent.jsx'
+import Community from './pages/community/community.jsx'
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
         path: "/contents/:id",
         element: <SingleContent />,
         loader: ({ params }) => fetch(`https://localhost:5000/api/contents/${params.id}`),
+      },
+      {
+        path: "/community",
+        element: <Community />,
       }
     ],
   },
