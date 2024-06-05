@@ -1,6 +1,7 @@
 from pathlib import Path
 from datetime import timedelta
 from . import config
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -51,6 +52,8 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.google",
     # For debug
     "django_seed",
+    # CORS
+    'corsheaders',
 ]
 
 SITE_ID = 1
@@ -82,6 +85,7 @@ SIMPLE_JWT = {
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -92,6 +96,8 @@ MIDDLEWARE = [
     #add to runserver
     #"allauth.account.middleware.AccountMiddleware",
 ]
+
+CORS_ORIGIN_WHITELIST = ('http://127.0.0.1:8000', 'http://localhost:5173')
 
 ROOT_URLCONF = "SSAP.urls"
 
@@ -175,6 +181,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+MEDIA_URL = "/media/"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

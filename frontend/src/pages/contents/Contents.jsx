@@ -7,7 +7,7 @@ const Contents = () => {
   const [items, setItems] = useState([]);
     useEffect(() => {
         const getLatesItems = async () => {
-            const response = await axios.get('/https://localhost:5000/api/all-items/')
+            const response = await axios.get('http://127.0.0.1:8000/ssap/articles/')
         }
 
         getLatesItems()

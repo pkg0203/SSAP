@@ -13,7 +13,7 @@ class ArticleListAPIView(APIView):
 
     def get(self, request):
         articles = Article.objects.all()
-        serializer = ArticleSerializer(articles, many=True)
+        serializer = ArticleSerializer(articles, many=True, context={'request': request})
         return Response(serializer.data)
 
     def post(self, request):    

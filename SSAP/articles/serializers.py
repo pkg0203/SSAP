@@ -11,6 +11,18 @@ class ArticleSerializer(serializers.ModelSerializer):
         fields = "__all__"
         read_only_fields = ["director","img"]
 
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        ret['img'] = instance.img.url
+        print(ret)
+        img_url = self.get_photo_url(instance)
+        print(img_url)
+        return ret
+    
+    def get_photo_url(self, obj):
+        request = self.context.get('request')
+        photo_url = obj.img.url
+        return request.build_absolute_uri(photo_url)
 
 class ArticleDetailSerializer(ArticleSerializer):
     article_comments = serializers.SerializerMethodField()
@@ -28,3 +40,5 @@ class ArticleDetailSerializer(ArticleSerializer):
     def get_story_comments(self, obj):
         comments = obj.article_comments.filter(comment_at__isnull=True)
         return ArticleCommentSerializer(comments, many=True).data
+    
+    
