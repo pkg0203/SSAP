@@ -16,7 +16,8 @@ import Search from './pages/Search.jsx'
 import Calendar from './componenets/Calendar/Calendar.jsx'
 import SingleContent from './pages/contents/SingleContent.jsx'
 import Contents from './pages/contents/Contents.jsx'
-import Community from './pages/community/community.jsx'
+import Community from './pages/community/Community.jsx'
+import CommunityDetail from './pages/community/CommunityDetail'
 import Login from './pages/login/Login.jsx'
 import Registration from './pages/login/Registration.jsx'
 
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: "/community",
         element: <Community />,
+      },
+      {
+        path: "/community/:postId",
+        element: <CommunityDetail />,
       },
       {
         path: "/login",

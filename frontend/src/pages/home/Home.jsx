@@ -4,7 +4,7 @@ import Hero from "../../componenets/Hero"
 import CategoryWrapper from "../category/CategoryWrapper"
 import FeaturedSection from "./FeaturedSection"
 import LatestContent from "./LatestContent"
-import KoreannameAI from "../../componenets/KoreannameAI"
+import KoreannameAI from "../../componenets/KoreannameAi"
 
 function Home() {
   return (

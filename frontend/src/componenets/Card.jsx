@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom'
 // 카테고리 버튼 색 지정
 const Card = ({item}) => {
     const categoryStyles = {
-        categoryname: {backgroundColor: "#FFA9A9", color: "#1E1D30"},
-        categoryname: {backgroundColor: "#FFA9A9", color: "#1E1D30"},
-        categoryname: {backgroundColor: "#FFA9A9", color: "#1E1D30"},
-        categoryname: {backgroundColor: "#FFA9A9", color: "#1E1D30"},
-        categoryname: {backgroundColor: "#FFA9A9", color: "#1E1D30"},
-        categoryname: {backgroundColor: "#FFA9A9", color: "#1E1D30"},
-        categoryname: {backgroundColor: "#FFA9A9", color: "#1E1D30"},
+        categoryname1: {backgroundColor: "#FFA9A9", color: "#1E1D30"},
+        categoryname2: {backgroundColor: "#FFA9A9", color: "#1E1D30"},
+        categoryname3: {backgroundColor: "#FFA9A9", color: "#1E1D30"},
+        categoryname4: {backgroundColor: "#FFA9A9", color: "#1E1D30"},
+        categoryname5: {backgroundColor: "#FFA9A9", color: "#1E1D30"},
+        categoryname6: {backgroundColor: "#FFA9A9", color: "#1E1D30"},
+        categoryname7: {backgroundColor: "#FFA9A9", color: "#1E1D30"},
         default: {backgroundColor: "#FFFFFF", color: "#1E1D30"},
     };
     const getCategoryStyle = (category) => {
