@@ -1,6 +1,5 @@
 from rest_framework.views import Response
 from rest_framework.permissions import AllowAny
-from django.shortcuts import render
 from rest_framework.generics import ListAPIView
 from django.db.models import Count
 from articles.models import Article
@@ -28,10 +27,6 @@ class MainPageListView(ListAPIView):
         ).order_by("-count", "-like", "-created_at")[:STORY_TO_GET]
 
     def list(self, request, *args, **kwargs):
-        is_api_call = request.META.get("HTTP_X_REQUESTED_WITH") == "XMLHttpRequest"
         article = self.serializer_class_Article(self.get_queryset_Article(), many=True)
         story = self.serializer_class_Story(self.get_queryset_Story(), many=True)
-        if is_api_call:
-            return Response({"Articles": article.data, "Stories": story.data})
-        else:
-            return render(request, "index.html")
+        return Response({"Articles": article.data, "Stories": story.data})
