@@ -25,6 +25,6 @@ class ArticleDetailSerializer(ArticleSerializer):
             "updated_at",
             "article_comments",
         ]
-    def get_story_comments(self, obj):
+    def get_article_comments(self, obj):
         comments = obj.article_comments.filter(comment_at__isnull=True)
         return ArticleCommentSerializer(comments, many=True).data
