@@ -17,14 +17,7 @@ class StoryDetailSerializer(StorySerializer):
 
     class Meta:
         model = Story
-        fields = [
-            "title",
-            "img",
-            "content",
-            "created_at",
-            "updated_at",
-            "story_comments",
-        ]
+        fields = '__all__'
     def get_story_comments(self, obj):
         comments = obj.story_comments.filter(comment_at__isnull=True)
         return StoryCommentSerializer(comments, many=True).data

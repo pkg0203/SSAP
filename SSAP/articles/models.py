@@ -13,6 +13,11 @@ class Article(models.Model):
     @property
     def article_comments(self):
         return self.comments.all()
+    
+    @property
+    def get_image_url(self) -> str:
+      if self.img and hasattr(self.img, 'url'):
+         return f"http://localhost:8000{self.img}"
 
 
 class ArticleLike(models.Model):
