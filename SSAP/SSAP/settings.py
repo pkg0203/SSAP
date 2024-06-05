@@ -16,7 +16,9 @@ DEEPL_SECRET_KEY = config.DEEPL_SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "3.38.179.248",
+]
 
 
 # Application definition
