@@ -4,7 +4,6 @@ import Hero from "../../componenets/Hero"
 import CategoryWrapper from "../category/CategoryWrapper"
 import FeaturedSection from "./FeaturedSection"
 import LatestContent from "./LatestContent"
-import KoreannameAI from "../../componenets/KoreannameAI"
 
 function Home() {
   return (
@@ -16,7 +15,6 @@ function Home() {
 
       {/* 추가 컴포넌트 */}
       <FeaturedSection />
-      <KoreannameAI/>
       <LatestContent />
 
     </div>
