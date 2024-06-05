@@ -20,7 +20,7 @@ function CategoryList () {
     return (
         <div className='flex flex-wrap items-center justify-center gap-8'>
             <CategoryItem name="shopping" href="/categories/shopping" backgroundColor="#FFA9A9" color="#1E1D30" />
-            <CategoryItem name="traffic" href="/categories/traffic" backgroundColor="#FFD8A9" color="#1E1D30" />
+            <CategoryItem name="transportation" href="/categories/traffic" backgroundColor="#FFD8A9" color="#1E1D30" />
             <CategoryItem name="food" href="/categories/food" backgroundColor="#D4FFA9" color="#1E1D30" />
             <CategoryItem name="health" href="/categories/health" backgroundColor="#A9FFD1" color="#1E1D30" />
             <CategoryItem name="festival" href="/categories/festival" backgroundColor="#A9F0FF" color="#1E1D30" />

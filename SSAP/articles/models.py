@@ -7,6 +7,7 @@ class Article(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     img = models.ImageField(blank=True)
+    category = models.CharField(max_length=30)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     @property

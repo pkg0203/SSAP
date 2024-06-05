@@ -8,5 +8,6 @@ class Event(models.Model):
     )
     title = models.CharField(max_length=100)
     content = models.TextField()
+    category = models.CharField(max_length=30)
     start_at = models.DateField()
     end_at = models.DateField()

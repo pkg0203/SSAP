@@ -8,6 +8,7 @@ class Story(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     img = models.ImageField(blank=True)
+    category = models.CharField(max_length=30)
     points = models.PositiveIntegerField(default=5)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
