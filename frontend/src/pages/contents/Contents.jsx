@@ -5,13 +5,20 @@ import { Link } from 'react-router-dom';
 
 const Contents = () => {
   const [items, setItems] = useState([]);
-    useEffect(() => {
-        const getLatesItems = async () => {
-            const response = await axios.get('http://127.0.0.1:8000/ssap/articles/')
-        }
+  useEffect(() => {
+      const getContents = async () => {
+          try {
+              const response = await axios.get('http://127.0.0.1:8000/ssap/articles/');
+              setItems(response.data); // Update state with response data                
+          }
+          catch (error) {
+              console.error('Error fetching latest items:', error);
+          }
+      };        
+      getContents();
+  }, []);
 
-        getLatesItems()
-    }, [])
+  console.log(items)
 
   return (
     <div className='px-5 xl:px-10 py-16'>
