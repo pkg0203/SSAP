@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 // 카테고리 버튼 색 지정
-const Card = ({item}) => {
+const Story = ({item}) => {
     const categoryStyles = {
         shoppong: {backgroundColor: "#FFA9A9", color: "#1E1D30"},
         transportation: {backgroundColor: "#FFD8A9", color: "#1E1D30"},
@@ -25,7 +25,7 @@ const Card = ({item}) => {
             <div className='bg-white relative shadow-lg hover:shadow-xl transition duration-500 rounded-lg'>
                 <img className='rounded-t-lg' src={`http://127.0.0.1:8000${item?.img}`} alt='image' />
                 <div className='py-6 px-5 rounded-lg bg-white'>
-                    <Link to={`/contents/${item.id}`}>
+                    <Link to={`/community/${item.id}`}>
                         <h1 className='text-gray-700 font-bold text-2x1 mb-8 hover:text-gray-900 hover:cursor-pointer'>{item?.title}</h1>
                     </Link>
 
