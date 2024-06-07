@@ -1,4 +1,4 @@
-from openai import OpenAI
+import openai
 import sys
 import os
 
@@ -15,7 +15,7 @@ sys.path.append(parent_path)
 from SSAP.config import OPEN_AI_SECRET_KEY
 
 MAX_TOKEN = 5
-CLIENT = OpenAI(api_key=OPEN_AI_SECRET_KEY)
+openai.api_key = OPEN_AI_SECRET_KEY
 
 
 def Korean_name(foreign_name):
@@ -43,7 +43,7 @@ def Korean_name(foreign_name):
     - Mark Zuckerberg : 마주빈        
 """
 
-    completion = CLIENT.chat.completions.create(
+    completion = openai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
             {
