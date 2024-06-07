@@ -99,7 +99,7 @@ MIDDLEWARE = [
     #"allauth.account.middleware.AccountMiddleware",
 ]
 
-CORS_ORIGIN_WHITELIST = ('http://127.0.0.1:8000', 'http://localhost:5173')
+CORS_ORIGIN_WHITELIST = ('http://127.0.0.1:8000', 'http://localhost:5173','http://3.38.179.248')
 
 ROOT_URLCONF = "SSAP.urls"
 
@@ -132,7 +132,7 @@ DATABASES = {
     }
 }
 
-# # mySQL DB settings
+# mySQL DB settings
 # DATABASS = {
 #     "default": {
 #         "ENGINE": "django.db.backends.mysql",
@@ -184,7 +184,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = BASE_DIR / "static"
 
 MEDIA_URL = "/media/"
 
