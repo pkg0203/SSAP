@@ -108,7 +108,23 @@
 |**[AI Tools]**|
 ||GET|**User with Login**|**`ssap/ai/korean_name/<name>/`**|한국인 이름으로 변환|
 ||GET|**User with Login**|**`ssap/ai/translate/<text>/`**|text를 자기 국적의 언어로 번역|
-|**[FE-Pages]**|
+</br>
+</br>
+
+## ⚜️ Front End Pages
+|Authorization|Domain|Description|
+|---|---|---|
+|None|**`{{domain}}`**|메인 페이지|
+|None|**`{{domain}}/login/`**|일반 로그인|
+|None|**`{{domain}}/login/google/`**|구글 로그인|
+|None|**`{{domain}}/registration/`**|회원가입|
+|**User with Login**|**`{{domain}}/profile/<username>/`**|프로필 조회|
+|**Only Self**|**`{{domain}}/profile/edit/username/`**|프로필 수정|
+|None|**`{{domain}}/contents/`**|article 리스트 조회|
+|None|**`{{domain}}/contents/<int:article_id>`**|article 상세 조회|
+|None|**`{{domain}}/community/`**|story 리스트 조회|
+|None|**`{{domain}}/community/<int:story_id>`**|story 상세 조회|
+|None|**`{{domain}}/calendar/`**|event 조회|
 </br>
 </br>
 
