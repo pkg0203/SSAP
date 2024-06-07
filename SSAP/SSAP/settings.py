@@ -13,6 +13,16 @@ SOCIAL_AUTH_GOOGLE_CLIENT_ID = config.GOOGLE_CLIENT_ID
 SOCIAL_AUTH_GOOGLE_SECRET = config.GOOGLE_SECRET_PW
 STATE = ""
 DEEPL_SECRET_KEY = config.DEEPL_SECRET_KEY
+AWS_ACCESS_KEY_ID = config.AWS_ACCESS_KEY
+AWS_SECRET_ACCESS_KEY = config.AWS_SECRET_ACCESS_KEY
+
+# AWS settings
+AWS_STORAGE_BUCKET_NAME = "ssap-bkt"
+AWS_S3_FILE_OVERWRITE = False
+AWS_S3_REGION_NAME = "ap-northeast-2"
+AWS_DEFAULT_ACL = None
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -56,6 +66,8 @@ INSTALLED_APPS = [
     "django_seed",
     # CORS
     'corsheaders',
+    # S3 storages
+    'storages',
 ]
 
 SITE_ID = 1
@@ -132,20 +144,6 @@ DATABASES = {
     }
 }
 
-# mySQL DB settings
-# DATABASS = {
-#     "default": {
-#         "ENGINE": "django.db.backends.mysql",
-#         "HOST": "",
-#         "NAME": "",
-#         "USER": "",
-#         "PASSWORD": "",
-#         "PORT": "",
-#         "OPTIONS": {"charset": "utf8mb4"},
-#     }
-# }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -182,13 +180,27 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATICFILES_DIRS = [
+    BASE_DIR / "static_assets",
+]
 
-STATIC_ROOT = BASE_DIR / "static"
 
-MEDIA_URL = "/media/"
+# static files
+STATICFILES_LOCATION = "static"
+STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+# media files
+MEDIAFILES_LOCATION = "media"
+MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/"
+
+# storage backends
+STORAGES = {
+    "default": {"BACKEND": "your_project.custom_storage.MediaStorage"},  # for media
+    "staticfiles": {"BACKEND": "your_project.custom_storage.StaticStorage"},
+}
+AWS_S3_OBJECT_PARAMETERS = {
+    "CacheControl": "max-age=2592000",
+}
 
 
 # Default primary key field type
