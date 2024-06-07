@@ -23,7 +23,7 @@ const Card = ({item}) => {
     <div className='container mx-auto flex justify-center md:justify-start'>
         <div className='max-w-sm'>
             <div className='bg-white relative shadow-lg hover:shadow-xl transition duration-500 rounded-lg'>
-                <img className='rounded-t-lg' src={`http://127.0.0.1:8000${item?.img}`} alt='image' />
+                <img className='rounded-t-lg' src={`http://3.38.179.248${item?.img}`} alt='image' />
                 <div className='py-6 px-5 rounded-lg bg-white'>
                     <Link to={`/contents/${item.id}`}>
                         <h1 className='text-gray-700 font-bold text-2x1 mb-8 hover:text-gray-900 hover:cursor-pointer'>{item?.title}</h1>

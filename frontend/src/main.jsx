@@ -50,7 +50,7 @@ const router = createBrowserRouter([
       {
         path: "/contents/:id",
         element: <SingleContent />,
-        loader: ({ params }) => fetch(`https://localhost:8000/ssap/articles/${params.id}`),
+        loader: ({ params }) => fetch(`http://3.38.179.248/ssap/articles/${params.id}`),
       },
       {
         path: "/community",

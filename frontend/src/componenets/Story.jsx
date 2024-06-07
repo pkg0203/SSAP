@@ -45,4 +45,4 @@ const Story = ({item}) => {
   )
 }
 
-export default Card
+export default Story
