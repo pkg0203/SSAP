@@ -195,8 +195,8 @@ MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/"
 
 # storage backends
 STORAGES = {
-    "default": {"BACKEND": "your_project.custom_storage.MediaStorage"},  # for media
-    "staticfiles": {"BACKEND": "your_project.custom_storage.StaticStorage"},
+    "default": {"BACKEND": "SSAP.custom_storage.MediaStorage"},  # for media
+    "staticfiles": {"BACKEND": "SSAP.custom_storage.StaticStorage"},
 }
 AWS_S3_OBJECT_PARAMETERS = {
     "CacheControl": "max-age=2592000",
