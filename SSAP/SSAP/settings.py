@@ -17,7 +17,7 @@ DEEPL_SECRET_KEY = config.DEEPL_SECRET_KEY
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "3.38.179.248",
+    "13.125.129.225",
     '127.0.0.1'
 ]
 
