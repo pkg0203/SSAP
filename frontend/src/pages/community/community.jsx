@@ -38,7 +38,7 @@ const Community = () => {
     useEffect(() => {
         const getCommunity = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/ssap/stories/');
+                const response = await axios.get('http://13.125.129.225/ssap/stories/');
                 setItems(response.data); // Update state with response data                
             }
             catch (error) {
@@ -57,7 +57,7 @@ const Community = () => {
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
               {
                   items.length > 0 ? items.map((item, index) => (
-                      <Story key={item._id} item={item} />
+                      <Story key={item.id} item={item} />
                   )) : <p>Loading...</p>
               }
           </div>

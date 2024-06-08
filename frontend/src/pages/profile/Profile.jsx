@@ -16,7 +16,7 @@ const Profile = () => {
     const [Userpostcomment, setUserPostComment] = useState([]);
     
     const handleGetUserData = () => {
-        APiClient.get(`ssap/accounts/${username}/`)
+        APiClient.get(`http://13.125.129.225/ssap/accounts/${username}/`)
             .then(response => {
                 setUsers(response.data)
             })
