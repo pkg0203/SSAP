@@ -23,7 +23,7 @@ const Search = () => {
         const fetchItems = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`https://localhost:5000/api/items`, {
+                const response = await axios.get(`http://13.125.129.225/ssap/`, {
                     params: {q: query}
                 });
                 setResults(response.data);
@@ -54,7 +54,7 @@ const Search = () => {
         <ul className='mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
             {
                 results && results?.map((item) => (
-                    <Card item={item} key={item._id}></Card>
+                    <Card item={item} key={item.id}></Card>
                 ))
             }
         </ul>

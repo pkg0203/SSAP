@@ -8,7 +8,7 @@ const LatestContent = () => {
     useEffect(() => {
         const getLatestItems = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/ssap/articles/');
+                const response = await axios.get('http://13.125.129.225/ssap/articles/');
                 setItems(response.data); // Update state with response data                
             }
             catch (error) {
