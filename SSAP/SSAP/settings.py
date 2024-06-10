@@ -14,7 +14,7 @@ SOCIAL_AUTH_GOOGLE_SECRET = config.GOOGLE_SECRET_PW
 STATE = ""
 DEEPL_SECRET_KEY = config.DEEPL_SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     "13.125.129.225",
