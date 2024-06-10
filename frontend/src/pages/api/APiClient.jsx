@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // Axios 인스턴스 생성
 const APiClient = axios.create({
-    baseURL: 'http://127.0.0.1:8000',
+    baseURL: 'http://13.125.129.225',
     timeout: 10000, // 요청 타임아웃
 })
 
@@ -35,7 +35,7 @@ APiClient.interceptors.response.use(
             console.log(refresh)
             if (refresh) {
                 try {
-                    const response = await axios.post('http://127.0.0.1:8000/ssap/accounts/token/refresh/', {
+                    const response = await axios.post('http://13.125.129.225/ssap/accounts/token/refresh/', {
                         refresh: refresh,
                     })
                     const access_token = response.data.access
