@@ -17,7 +17,7 @@ AWS_SECRET_ACCESS_KEY = config.AWS_SECRET_ACCESS_KEY
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     "13.125.129.225",
