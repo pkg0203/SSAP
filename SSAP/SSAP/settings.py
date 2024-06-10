@@ -11,24 +11,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config.DJANGO_SECRET_KEY
 SOCIAL_AUTH_GOOGLE_CLIENT_ID = config.GOOGLE_CLIENT_ID
 SOCIAL_AUTH_GOOGLE_SECRET = config.GOOGLE_SECRET_PW
-STATE = ""
 DEEPL_SECRET_KEY = config.DEEPL_SECRET_KEY
-AWS_ACCESS_KEY_ID = config.AWS_ACCESS_KEY
+AWS_ACCESS_KEY_ID = config.AWS_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY = config.AWS_SECRET_ACCESS_KEY
 
-# AWS settings
-AWS_STORAGE_BUCKET_NAME = "ssap-bkt"
-AWS_S3_FILE_OVERWRITE = False
-AWS_S3_REGION_NAME = "ap-northeast-2"
-AWS_DEFAULT_ACL = None
-AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = [
     "13.125.129.225",
-    '127.0.0.1'
+    '127.0.0.1',
 ]
 
 
@@ -71,10 +64,11 @@ INSTALLED_APPS = [
     'storages',
 ]
 
-SITE_ID = 1
 
 AUTH_USER_MODEL = "accounts.User"
 
+STATE = ""
+SITE_ID = 1
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = True
@@ -192,11 +186,6 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-
-# AWS configuration
-
-AWS_ACCESS_KEY_ID = config.AWS_ACCESS_KEY_ID
-AWS_SECRET_ACCESS_KEY = config.AWS_SECRET_ACCESS_KEY
 
 # Basic Storage configuration for Amazon S3
 
