@@ -21,6 +21,8 @@ import CommunityDetail from './pages/community/CommunityDetail.jsx'
 import Login from './pages/login/Login.jsx'
 import Registration from './pages/login/Registration.jsx'
 
+import { RecoilRoot } from "recoil";
+
 
 const router = createBrowserRouter([
   {
@@ -74,5 +76,7 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router} />,
+  <RecoilRoot>
+    <RouterProvider router={router} />,
+  </RecoilRoot>
 )

@@ -39,7 +39,7 @@ const Community = () => {
     const [endPages, setEndPages] = useState(1);
 
     useEffect(() => {
-        const getCommunity = async () => {
+        const fetchPosts = async () => {
             try {
                 const response = await axios.get('http://13.125.129.225/ssap/stories/');
                 setItems(response.data); // Update state with response data                

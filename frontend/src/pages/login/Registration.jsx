@@ -69,7 +69,7 @@ return classes.filter(Boolean).join(' ')
 
 
 const Registration = () => {
-    const [selected, setSelected] = useState(nationals[3])
+    const [selected, setSelected] = useState(nationals[0])
     
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -222,7 +222,7 @@ const Registration = () => {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Already a member?{' '}
-            <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+            <a href="/login" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                 Sign in 
             </a>
           </p>
