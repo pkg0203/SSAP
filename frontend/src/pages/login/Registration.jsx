@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
+import { useSetRecoilState } from 'recoil';
+import { TokenAtom } from '../../Recoil/TokenAtom';
 
 const nationals = [
   {"id": 1, "name": "Argentina"},
@@ -72,6 +74,7 @@ const Registration = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const setAcessToken = useSetRecoilState(TokenAtom);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -86,7 +89,7 @@ const Registration = () => {
 
     try {
       // 회원가입 요청 보내기
-      const response = await axios.post('http://13.125.129.225/ssap/accounts/registration/', {
+      await axios.post('http://13.125.129.225/ssap/accounts/registration/', {
         username,
         email,
         password1,
@@ -94,11 +97,18 @@ const Registration = () => {
         nation: selectedNational.name,
       });
 
-      // 회원가입 성공 시 리디렉션
+      // 회원가입 성공 시 로그인 요청 보내기
+      const response = await axios.post('http://13.125.129.225/ssap/accounts/login/', {
+        email,
+        password: password1,
+      });
+
+      // 로그인 성공 시 토큰 설정 및 리디렉션
+      setAcessToken(response.data.access_token);
       navigate('/');
     } catch (err) {
       // 오류 발생 시 오류 메시지 표시
-      setError('Failed to register. Please check your information and try again.');
+      setError('Failed to register or login. Please check your information and try again.');
     } finally {
       setLoading(false);
     }
