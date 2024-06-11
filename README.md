@@ -27,7 +27,7 @@
 - ### ![image](https://github.com/pkg0203/SpartaNews/assets/141356379/855e3eca-de30-4a79-9f97-f2fee6051ff6) 신연우 [@yeonwooshin] (https://github.com/yeonwooshin)
     * #### Article/Story CRUD 및 좋아요, 북마크 기능 구현
 - ###  ![image](https://github.com/pkg0203/SpartaNews/assets/141356379/99274cba-e3b6-4d5c-8892-b01d8ac3f714) 황수민 [@sumina-codewell] (https://github.com/sumina-codewell)
-    * #### Comments CRUD, 추천 게시글 개인화 AI 구현
+    * #### Comments CRUD, FE 페이지네이션
 - ###  🐅강슬범 [@kngslbm] (https://github.com/kngslbm)
     * #### Google OAuth 구현, React 활용 FE 구현
 </br>
@@ -42,7 +42,7 @@
 <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> <img src="https://img.shields.io/badge/django-80FF00?style=for-the-badge&logo=django&logoColor=black">
 
 - ### DB
-<img src="https://img.shields.io/badge/mysql-yellow?style=for-the-badge&logo=mysql&logoColor=white">
+<img src="https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=mysql&logoColor=white">
 
 - ### AI
 <img src="https://img.shields.io/badge/amazonaws-black?style=for-the-badge&logo=amazonaws&logoColor=white"> <img src="https://img.shields.io/badge/openai-412991?style=for-the-badge&logo=openai&logoColor=white"> <img src="https://img.shields.io/badge/DeepL-0F2B46?style=for-the-badge&logo=DeepL&logoColor=white">
@@ -165,6 +165,8 @@
 </br>
 
 ### 🌈 Events
+
+- ##### 화면을 달력으로 구성하여 각 행사의 기간을 한 눈에 확인 가능
 
 - ##### Article과 비슷하게 정보를 알려주는 목적이지만, 기한이 한정되어 있는 경우
 
