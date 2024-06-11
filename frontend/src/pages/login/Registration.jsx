@@ -4,7 +4,6 @@ import axios from 'axios';
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
-
 const nationals = [
   {"id": 1, "name": "Argentina"},
   {"id": 2, "name": "Australia"},
@@ -64,7 +63,6 @@ const nationals = [
   {"id": 56, "name": "Vietnam"}
 ]
 
-  
 const Registration = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
@@ -73,12 +71,18 @@ const Registration = () => {
   const [selectedNational, setSelectedNational] = useState(nationals[0]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match.');
+      setLoading(false);
+      return;
+    }
 
     try {
       // 회원가입 요청 보내기
@@ -134,7 +138,7 @@ const Registration = () => {
                 <input
                   id="username"
                   name="username"
-                  type="username"
+                  type="text"
                   autoComplete="username"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -144,15 +148,14 @@ const Registration = () => {
               </div>
             </div>
 
-
-            <Listbox value={selected} onChange={setSelected}>
+            <Listbox value={selectedNational} onChange={setSelectedNational}>
                 {({ open }) => (
                     <>
-                    <Label className="block text-sm font-medium leading-6 text-gray-900">National</Label>
+                    <label className="block text-sm font-medium leading-6 text-gray-900">National</label>
                     <div className="relative">
                         <ListboxButton className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
                         <span className="flex items-center">
-                            <span className="ml-3 block truncate">{selected.name}</span>
+                            <span className="ml-3 block truncate">{selectedNational.name}</span>
                         </span>
                         <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                             <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -164,20 +167,17 @@ const Registration = () => {
                             {nationals.map((national) => (
                             <ListboxOption
                                 key={national.id}
-                                className={({ focus }) =>
-                                classNames(
-                                    focus ? 'bg-indigo-600 text-white' : '',
-                                    !focus ? 'text-gray-900' : '',
-                                    'relative cursor-default select-none py-2 pl-3 pr-9'
-                                )
+                                className={({ active }) =>
+                                `${active ? 'bg-indigo-600 text-white' : 'text-gray-900'}
+                                relative cursor-default select-none py-2 pl-3 pr-9`
                                 }
                                 value={national}
                             >
-                                {({ selected, focus }) => (
+                                {({ selected }) => (
                                 <>
                                     <div className="flex items-center">
                                     <span
-                                        className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')}
+                                        className={`${selected ? 'font-semibold' : 'font-normal'} ml-3 block truncate`}
                                     >
                                         {national.name}
                                     </span>
@@ -185,10 +185,9 @@ const Registration = () => {
 
                                     {selected ? (
                                     <span
-                                        className={classNames(
-                                        focus ? 'text-white' : 'text-indigo-600',
-                                        'absolute inset-y-0 right-0 flex items-center pr-4'
-                                        )}
+                                        className={`${
+                                        selected ? 'text-white' : 'text-indigo-600'
+                                        } absolute inset-y-0 right-0 flex items-center pr-4`}
                                     >
                                         <CheckIcon className="h-5 w-5" aria-hidden="true" />
                                     </span>
@@ -203,7 +202,6 @@ const Registration = () => {
                     </>
                 )}
             </Listbox>
-
 
             <div>
               <div className="flex items-center justify-between">
@@ -227,14 +225,14 @@ const Registration = () => {
 
             <div>
               <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                <label htmlFor="confirm-password" className="block text-sm font-medium leading-6 text-gray-900">
                 Confirm password
                 </label>
               </div>
               <div className="mt-2">
                 <input
-                  id="password"
-                  name="password"
+                  id="confirm-password"
+                  name="confirm-password"
                   type="password"
                   autoComplete="current-password"
                   required
@@ -251,7 +249,6 @@ const Registration = () => {
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 disabled={loading}
               >
-                Sign up
                 {loading ? 'Signing up...' : 'Sign up'}
               </button>
             </div>
@@ -269,13 +266,13 @@ const Registration = () => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <hr class="h-px mb-10 bg-gray-300 border-0"></hr>
+        <hr className="h-px mb-10 bg-gray-300 border-0"></hr>
         <button
           className="flex w-full justify-center rounded-md bg-white px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-lg hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-          <svg class="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+          <svg className="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
               viewBox="-0.5 0 48 48" version="1.1">
 
-              <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="Icons" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                   <g id="Color-" transform="translate(-401.000000, -860.000000)">
                       <g id="Google" transform="translate(401.000000, 860.000000)">
                           <path
