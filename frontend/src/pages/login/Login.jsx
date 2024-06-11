@@ -22,9 +22,9 @@ const Login = () => {
 
     try {
       const response = await axios.post(LOGIN_URL, { email, password });
-      setAcessToken(response.data.accessToken);
+      setAcessToken(response.data.access_token);
       navigate('/');
-      console.log(response.data.accessToken);
+      console.log(response.data.access_token);
     } catch (err) {
       setError('Failed to login. Please check your email and password.');
     } finally {
