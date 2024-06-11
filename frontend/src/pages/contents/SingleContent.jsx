@@ -22,6 +22,15 @@ const SingleContent = () => {
                 <div className='comments-section'>
                     <Comments comments={item.article_comments} articleId={item.id} />
                 </div>
+
+                <div className='recommended-section'>
+                    <h3 className='text-2xl mb-4 mt-12'>How about these tips?</h3>
+                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
+                        {/* {recommended.map((rec) => (
+                            <Card key={rec.id} item={rec} />
+                        ))} */}
+                    </div>
+                </div>
                     
             </div>
         </section>

@@ -60,8 +60,9 @@ const router = createBrowserRouter([
         element: <Community />,
       },
       {
-        path: "/community/:postId",
+        path: "/community/:id",
         element: <CommunityDetail />,
+        loader: ({ params }) => fetch(`http://13.125.129.225/ssap/stories/${params.id}`),
       },
       {
         path: "/login",
