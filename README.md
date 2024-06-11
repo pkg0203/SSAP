@@ -1,4 +1,4 @@
-# 🏫 SSAP
+# 🏫 SSAP *www.ssap-tip.com*
 
 ### '서울, 시골 아무데나 Possible'의 준말로
 
@@ -42,10 +42,10 @@
 <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> <img src="https://img.shields.io/badge/django-80FF00?style=for-the-badge&logo=django&logoColor=black">
 
 - ### DB
-<img src="https://img.shields.io/badge/mysql-yellow?style=for-the-badge&logo=mysql&logoColor=white">
+<img src=https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=SQLite&logoColor=white> <img src=https://img.shields.io/badge/AmazonS3-569A31?style=for-the-badge&logo=amazons3&logoColor=white>
 
 - ### AI
-<img src="https://img.shields.io/badge/amazonaws-black?style=for-the-badge&logo=amazonaws&logoColor=white"> <img src="https://img.shields.io/badge/openai-412991?style=for-the-badge&logo=openai&logoColor=white"> <img src="https://img.shields.io/badge/DeepL-0F2B46?style=for-the-badge&logo=DeepL&logoColor=white">
+<img src="https://img.shields.io/badge/openai-412991?style=for-the-badge&logo=openai&logoColor=white"> <img src="https://img.shields.io/badge/DeepL-0F2B46?style=for-the-badge&logo=DeepL&logoColor=white">
 
 - ### Version Control
 <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
@@ -165,6 +165,7 @@
 </br>
 
 ### 🌈 Events
+- ##### 화면을 달력으로 구성하여 각 행사의 기간을 한 눈에 확인 가능
 
 - ##### Article과 비슷하게 정보를 알려주는 목적이지만, 기한이 한정되어 있는 경우
 
