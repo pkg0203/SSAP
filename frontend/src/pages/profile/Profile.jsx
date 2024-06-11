@@ -1,9 +1,8 @@
-import APiClient from '../api/APiClient'
 import style from "./Profile.module.css"
 import {Link, useParams} from "react-router-dom"
 import React, {useContext, useEffect, useState} from "react"
-import ProfileTop from "./ProfileTop"
-import ProfileMBTIForm from "./ProfileMBTIForm"
+import axios from 'axios'
+
 
 const Profile = () => {
     const {username} = useParams();

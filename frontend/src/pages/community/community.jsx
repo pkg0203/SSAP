@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import APiClient from '../api/APiClient'
 import Pagenation from '../pagenation/Pagenation'
 import { Link } from 'react-router-dom'
-// import './community.css'
 import Story from '../../componenets/Story';
+import axios from 'axios'
+import Card from '../../componenets/Card'
 
 function CategoryItem({ name, href, backgroundColor, color }) {
     const style = {
@@ -34,50 +34,33 @@ function CategoryList() {
 }
 
 const Community = () => {
-    const [posts, setPosts] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [endPages, setEndPages] = useState(1);
-
+    const [items, setItems] = useState([]);
     useEffect(() => {
-        const fetchPosts = async () => {
+        const getStories = async () => {
             try {
                 const response = await axios.get('http://13.125.129.225/ssap/stories/');
-                setItems(response.data); // Update state with response data                
+                setItems(response.data);                
             }
             catch (error) {
                 console.error('Error fetching latest items:', error);
             }
         };
-        fetchPosts();
-    }, [currentPage]);
+        getStories();
+    }, []);
 
     return (
-        <div className="community-container">
-            <main className="community-main">
-                <CategoryList />
-                <div className="content-list">
-                    {posts.map((post) => (
-                        <div className="community-content" key={post.id}>
-                            <h2>{post.title}</h2>
-                            <div className="community-post">
-                                <img src={post.profile_image} alt="Profile" className="community-profile-img" />
-                                <div>
-                                    <h3>{post.author}</h3>
-                                    <p>{post.description}</p>
-                                </div>
-                            </div>
-                            <p className="community-body-text">{post.body}</p>
-                        </div>
-                    ))}
-                    <Pagenation 
-                        currentPage={currentPage} 
-                        endPages={endPages} 
-                        onPageChange={(page) => setCurrentPage(page)} 
-                    />
-                </div>
-            </main>
+        <div className='px-5 xl:px-10 py-16'>
+            <CategoryList />
+            <h2 className='text-3xl mb-8 font-semibold text-secondary sm:text-5xl sm:leading-relaxed'>Recommended Content</h2>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
+                {
+                    items.length > 0 ? items.map((item, index) => (
+                        <Card key={item.id} item={item} />
+                    )) : <p>Loading...</p>
+                }
+            </div>
         </div>
-    );
+    )
 };
 
 export default Community;
