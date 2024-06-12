@@ -79,13 +79,13 @@
 ||POST|**User with Login**|**`ssap/articles/like/<pk>/`**|article 좋아요|
 ||POST|**User with Login**|**`ssap/articles/bookmark/<pk>/`**|article 북마크|
 |**[Stories]**|
-||GET|None|**`ssap/stories/`**|article 리스트 조회|
-||POST|**User with Login**|**`ssap/stories/`**|article 생성|
-||GET|**User with Login**|**`ssap/stories/<pk>/`**|article 상세 조회(댓글과 대댓글도 조회하게 됨)|
-||PUT|**Only Self**|**`ssap/stories/<pk>/`**|article 수정|
-||DELETE|**Only Self**|**`ssap/stories/<pk>/`**|article 삭제|
-||POST|**User with Login**|**`ssap/stories/like/<pk>/`**|article 좋아요|
-||POST|**User with Login**|**`ssap/stories/bookmark/<pk>/`**|article 북마크|
+||GET|None|**`ssap/stories/`**|story 리스트 조회|
+||POST|**User with Login**|**`ssap/stories/`**|story 생성|
+||GET|**User with Login**|**`ssap/stories/<pk>/`**|story 상세 조회(댓글과 대댓글도 조회하게 됨)|
+||PUT|**Only Self**|**`ssap/stories/<pk>/`**|story 수정|
+||DELETE|**Only Self**|**`ssap/stories/<pk>/`**|story 삭제|
+||POST|**User with Login**|**`ssap/stories/like/<pk>/`**|story 좋아요|
+||POST|**User with Login**|**`ssap/stories/bookmark/<pk>/`**|story 북마크|
 |**[Comments]**|
 ||POST|**User with Login**|**`ssap/comments/article/<article_pk>/`**|article에 댓글 생성|
 ||PUT|**Only Self**|**`ssap/comments/article/<comment_pk>/`**|article에 댓글 수정|
