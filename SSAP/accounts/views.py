@@ -230,5 +230,27 @@ class UserCommentsAPIView(ListAPIView):
             }
         )
 
+from allauth.account import app_settings as allauth_settings
+from dj_rest_auth.app_settings import (JWTSerializer, TokenSerializer,
+                                       create_token)
+from dj_rest_auth.utils import jwt_encode
+from allauth.account.utils import complete_signup
+
 class CustomRegisterView(RegisterView):
     serializer_class = UserSerializer
+        
+    def perform_create(self, serializer):
+        user = serializer.save(self.request)
+        user.nation = serializer.validated_data.get('nation', '')
+        user.save()
+        if allauth_settings.EMAIL_VERIFICATION != \
+                allauth_settings.EmailVerificationMethod.MANDATORY:
+            if getattr(settings, 'REST_USE_JWT', False):
+                self.access_token, self.refresh_token = jwt_encode(user)
+            else:
+                create_token(self.token_model, user, serializer)
+
+        complete_signup(self.request._request, user,
+                        allauth_settings.EMAIL_VERIFICATION,
+                        None)
+        return user
