@@ -51,7 +51,7 @@ const Contents = () => {
   return (
     <div className='px-5 xl:px-10 py-16'>
         <CategoryList />
-        <h2 className='text-3xl mb-8 font-semibold text-secondary sm:text-5xl sm:leading-relaxed'>Recommended Content</h2>
+        <h2 className='text-3xl mt-10 mb-8 font-semibold text-secondary sm:text-5xl sm:leading-relaxed'>Recommended Content</h2>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
             {
                 items.length > 0 ? items.map((item, index) => (
