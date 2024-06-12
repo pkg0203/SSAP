@@ -31,3 +31,19 @@ class MainPageListView(ListAPIView):
         article = self.serializer_class_Article(self.get_queryset_Article(), many=True)
         story = self.serializer_class_Story(self.get_queryset_Story(), many=True)
         return Response({"Articles": article.data, "Stories": story.data})
+    
+class CategoryListView(ListAPIView):
+    permission_classes=[AllowAny]
+    serializer_class_Article = ArticleSerializer
+    serializer_class_Story = StorySerializer
+
+    def get_queryset_Article(self,category):
+        return Article.objects.filter(category=category)
+
+    def get_queryset_Story(self,category):
+        return Story.objects.filter(category=category)
+        
+    def list(self, request, category):
+        article = self.serializer_class_Article(self.get_queryset_Article(category), many=True)
+        story = self.serializer_class_Story(self.get_queryset_Story(category), many=True)
+        return Response({"Articles": article.data, "Stories": story.data})
