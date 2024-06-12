@@ -31,7 +31,7 @@ from .permissions import IsSelfOrReadOnly
 from rest_framework.permissions import IsAuthenticated
 from dj_rest_auth.registration.views import RegisterView
 
-BASE_URL = "http://127.0.0.1:8000/"
+BASE_URL = "http://www.ssap-tip.com/"
 GOOGLE_CALLBACK_URI = BASE_URL + "ssap/accounts/google/callback/"
 
 state = getattr(settings, "STATE")
