@@ -54,6 +54,12 @@
 </br>
 
 ## 🚊 API 명세
+
+- ### 아래의 도메인 뒤에 End point를 붙여주셔야 합니다.
+
+- ### http://13.125.129.225/
+</br>
+  
 |Index|Http Method|Authorization|End point|Description|
 |---|---|---|---|---|
 | **[Account]**|
