@@ -25,7 +25,7 @@ def translate_text(text, target_lang):
         return result.text
     # 지원하지 않는 언어일 때
     except:
-        error_message="It's not supported Language. Following Languages are supported\n"+"---"*20 +"\n"+ str(tar_nation_dict.keys())[12:-2]
-        return error_message
+        result = TRANSLATOR.translate_text(text, target_lang="EN-US")
+        return result.text
 
 
