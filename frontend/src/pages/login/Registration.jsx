@@ -97,6 +97,8 @@ const Registration = () => {
         nation: selectedNational.name,
       });
 
+      console.log(selectedNational.name)
+
       // 회원가입 성공 시 로그인 요청 보내기
       const response = await axios.post('http://13.125.129.225/ssap/accounts/login/', {
         email,

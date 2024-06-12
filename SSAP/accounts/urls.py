@@ -14,6 +14,7 @@ urlpatterns = [
         views.GoogleLogin.as_view(),
         name="google_login_todjango",
     ),
+    path("registration/", views.CustomRegisterView.as_view(), name="user-registration"),
     path("liked/article/<str:username>/", views.LikedArticle.as_view(), name="liked_article"),
     path("bookmarked/article/<str:username>/", views.MarkedArticle.as_view(), name="marked_article"),
     path("liked/story/<str:username>/", views.LikedStory.as_view(), name="liked_story"),

@@ -2,6 +2,7 @@ from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from django.contrib.auth import get_user_model
+from dj_rest_auth.registration.serializers import RegisterSerializer
 
 class CustomTokenRefreshSerializer(serializers.Serializer):
     refresh_token = serializers.CharField()
@@ -13,7 +14,6 @@ class CustomTokenRefreshSerializer(serializers.Serializer):
         return data
     
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = get_user_model()
-        fields = ["username", "email", "nation", "intro", "created_at"]
+class UserSerializer(RegisterSerializer):
+    
+    nation = serializers.CharField()

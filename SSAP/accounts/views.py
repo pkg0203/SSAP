@@ -29,6 +29,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from .permissions import IsSelfOrReadOnly
 from rest_framework.permissions import IsAuthenticated
+from dj_rest_auth.registration.views import RegisterView
 
 BASE_URL = "http://127.0.0.1:8000/"
 GOOGLE_CALLBACK_URI = BASE_URL + "ssap/accounts/google/callback/"
@@ -228,3 +229,6 @@ class UserCommentsAPIView(ListAPIView):
                 "Story_Comments": story_comments.data,
             }
         )
+
+class CustomRegisterView(RegisterView):
+    serializer_class = UserSerializer

@@ -22,7 +22,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "13.125.129.225",
     "127.0.0.1",
-    "3.38.179.248"
+    "3.38.179.248",
+    "http://www.ssap-tip.com/"
 ]
 
 
@@ -108,7 +109,8 @@ MIDDLEWARE = [
 CORS_ORIGIN_WHITELIST = (
     "http://127.0.0.1:8000",
     "http://localhost:5173",
-    "http://54.180.231.212"
+    "http://54.180.231.212",
+    "http://www.ssap-tip.com"
 )
 
 ROOT_URLCONF = "SSAP.urls"
