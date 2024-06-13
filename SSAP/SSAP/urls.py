@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from . import views
+from .views import search_content
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -14,5 +15,6 @@ urlpatterns = [
     path("ssap/comments/", include("comments.urls")),
     path("ssap/events/", include("events.urls")),
     path("ssap/stories/", include("stories.urls")),
-    path("ssap/ai/", include("ai_tools.urls")),   
-]
+    path("ssap/ai/", include("ai_tools.urls")),
+    path("ssap/search/", search_content, name='search_content'),
+]   

@@ -2,11 +2,17 @@ from rest_framework.views import Response
 from rest_framework.permissions import AllowAny
 from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
+from rest_framework.decorators import api_view
 from django.db.models import Count
 from articles.models import Article
 from stories.models import Story
 from articles.serializers import ArticleSerializer
 from stories.serializers import StorySerializer
+from django.db.models import Q
+from stories.models import Story
+from stories.serializers import StorySerializer
+from articles.models import Article
+from articles.serializers import ArticleSerializer
 
 ARTICLE_TO_GET = 5
 STORY_TO_GET = 5
@@ -47,3 +53,29 @@ class CategoryListView(ListAPIView):
         article = self.serializer_class_Article(self.get_queryset_Article(category), many=True)
         story = self.serializer_class_Story(self.get_queryset_Story(category), many=True)
         return Response({"Articles": article.data, "Stories": story.data})
+    
+@api_view(["GET"])
+def search_content(request):
+    query = request.GET.get("query", "")
+    stories = []
+    articles = []
+
+    if query:
+        stories = Story.objects.filter(
+            Q(title__icontains=query)
+            | Q(content__icontains=query)
+        )
+        articles = Article.objects.filter(
+            Q(title__icontains=query)
+            | Q(content__icontains=query)
+        )
+
+    story_serializer = StorySerializer(stories, many=True)
+    article_serializer = ArticleSerializer(articles, many=True)
+
+    results = {
+        "stories": story_serializer.data,
+        "articles": article_serializer.data,
+    }
+
+    return Response({results})

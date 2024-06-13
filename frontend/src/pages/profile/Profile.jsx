@@ -1,51 +1,42 @@
 import style from "./Profile.module.css"
-import {Link, useParams} from "react-router-dom"
+import {useParams} from "react-router-dom"
 import React, {useContext, useEffect, useState} from "react"
 import axios from 'axios'
+import profilescreen from './profilescreen.png'
+import profilescreen2 from './profilescreen2.png'
 
 
 const Profile = () => {
-    const {username} = useParams();
-    const [users, setUsers] = useState({});
-    const [error, setError] = useState(null);
-    const [showProfileMyPost, setShowProfileMyPost] = useState(false); // 임시로 정의
-    const [UserMark, setShowUserMark] = useState();
-    const [UserLike, setShowUserLike] = useState([]);
-    const [Userpoststory, setUserPostStory] = useState([]);
-    const [Userpostcomment, setUserPostComment] = useState([]);
-    
-    const handleGetUserData = () => {
-        APiClient.get(`http://13.125.129.225/ssap/accounts/${username}/`)
-            .then(response => {
-                setUsers(response.data)
-            })
-            .catch(error => {
-                setError('권한이 없습니다.');
-            });
-    }
-
-    const handleToggleShow = () => {
-        setShowProfileMyPost(prevState => !prevState);
-    };
+    const { username } = useParams(); 
+    console.log('Username from URL:', username);
+    const [user, setUser] = useState(null); 
 
     useEffect(() => {
-        handleGetUserData();
+        const getUser = async () => {
+            try {
+                const response = await axios.get(`http://13.125.129.225/ssap/account/${username}/`);
+                console.log('API response:', response.data);
+                setUser(response.data);                
+            }
+            catch (error) {
+                console.error('Error fetching latest items:', error);
+            }
+        };
+        getUser();
     }, [username]);
 
-    if (!users) {
-        return <div></div>
-    }
-
-    // 예시 데이터, 실제 데이터로 교체 필요
-    const followingRanks = [];
-    const followerRanks = []; 
-
+    if (!user) return null; 
+    
     return (
-        <div className={style.vertical}>
-            <ProfileTop user={users} onFollowUpdate={handleGetUserData}/>
-            <ProfileMBTIForm user={users} followingRanks={followingRanks} followerRanks={followerRanks}/>
+        <div class="border-b border-indigo-950">
+            <div class="divide-y divide-slate-700 ...">
+                <div>{user.username}</div>
+                <div>{user.country}</div>
+                <div>{user.intro}</div>
+                </div>
         </div>
-    )
+
+)
 }
 
 export default Profile

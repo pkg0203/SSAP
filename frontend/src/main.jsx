@@ -20,7 +20,7 @@ import Community from './pages/community/Community.jsx'
 import CommunityDetail from './pages/community/CommunityDetail.jsx'
 import Login from './pages/login/Login.jsx'
 import Registration from './pages/login/Registration.jsx'
-
+import Profile from './pages/profile/Profile.jsx'
 import { RecoilRoot } from "recoil";
 
 
@@ -71,7 +71,11 @@ const router = createBrowserRouter([
       {
         path: "/registration",
         element: <Registration />,
-      }
+      },
+      {
+        path: "/mypage",
+        element: <Profile />
+      },
     ],
   },
 ]);

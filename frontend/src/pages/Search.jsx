@@ -23,7 +23,7 @@ const Search = () => {
         const fetchItems = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`http://13.125.129.225/ssap/articles/`, {
+                const response = await axios.get(`http://13.125.129.225/ssap/search/?query=${query}`, {
                     params: {q: query}
                 });
                 setResults(response.data);
