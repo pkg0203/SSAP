@@ -12,7 +12,7 @@ const Search = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const params = new URLSearchParams(window, location.search);
+        const params = new URLSearchParams(window.location.search);
         const queryParam = params.get('query');
         if (queryParam) {
             setQuery(queryParam);
@@ -23,7 +23,7 @@ const Search = () => {
         const fetchItems = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`http://13.125.129.225/ssap/search/?query=${query}`, {
+                const response = await axios.get(`http://13.125.129.225/ssap/검색기능url필요`, {
                     params: {q: query}
                 });
                 setResults(response.data);
