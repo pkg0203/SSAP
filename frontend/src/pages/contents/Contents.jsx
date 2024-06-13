@@ -21,12 +21,12 @@ function CategoryItem({ name, href, backgroundColor, color }) {
 function CategoryList() {
     return (
         <div className='flex flex-wrap items-center justify-center gap-8'>
-            <CategoryItem name="shopping" href="/categories/shopping" backgroundColor="#FFA9A9" color="#1E1D30" />
-            <CategoryItem name="traffic" href="/categories/traffic" backgroundColor="#FFD8A9" color="#1E1D30" />
-            <CategoryItem name="food" href="/categories/food" backgroundColor="#D4FFA9" color="#1E1D30" />
-            <CategoryItem name="health" href="/categories/health" backgroundColor="#A9FFD1" color="#1E1D30" />
-            <CategoryItem name="festival" href="/categories/festival" backgroundColor="#A9F0FF" color="#1E1D30" />
-            <CategoryItem name="lifestyle" href="/categories/lifestyle" backgroundColor="#A9BCFF" color="#1E1D30" />
+            <CategoryItem name="SHOPPING" href="/categories/SHOPPING" backgroundColor="#FFA9A9" color="#1E1D30" />
+            <CategoryItem name="TRANSPORTATION" href="/categories/TRANSPORTATION" backgroundColor="#FFD8A9" color="#1E1D30" />
+            <CategoryItem name="FOOD" href="/categories/FOOD" backgroundColor="#D4FFA9" color="#1E1D30" />
+            <CategoryItem name="HEALTH" href="/categories/HEALTH" backgroundColor="#A9FFD1" color="#1E1D30" />
+            <CategoryItem name="FESTIVAL" href="/categories/FESTIVAL" backgroundColor="#A9F0FF" color="#1E1D30" />
+            <CategoryItem name="LIFESTYLE" href="/categories/LIFESTYLE" backgroundColor="#A9BCFF" color="#1E1D30" />
         </div>
     );
 }

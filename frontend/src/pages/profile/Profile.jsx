@@ -2,9 +2,6 @@ import style from "./Profile.module.css"
 import {useParams} from "react-router-dom"
 import React, {useContext, useEffect, useState} from "react"
 import axios from 'axios'
-import profilescreen from './profilescreen.png'
-import profilescreen2 from './profilescreen2.png'
-
 
 const Profile = () => {
     const { username } = useParams(); 
