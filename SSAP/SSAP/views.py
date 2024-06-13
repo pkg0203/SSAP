@@ -2,7 +2,7 @@ from rest_framework.views import Response
 from rest_framework.permissions import AllowAny
 from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from django.db.models import Count
 from articles.models import Article
 from stories.models import Story
@@ -55,7 +55,9 @@ class CategoryListView(ListAPIView):
         return Response({"Articles": article.data, "Stories": story.data})
     
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def search_content(request):
+    
     query = request.GET.get("query", "")
     stories = []
     articles = []
@@ -78,4 +80,4 @@ def search_content(request):
         "articles": article_serializer.data,
     }
 
-    return Response({results})
+    return Response(results)
