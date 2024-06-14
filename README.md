@@ -63,7 +63,7 @@
 |Index|Http Method|Authorization|End point|Description|
 |---|---|---|---|---|
 ||GET|None|**`ssap/`**|추천 article과 story - 북마크,좋아요가 높고 최신순 조회|
-||GET|None|**`ssap/categories/<str:category>`**|category에 해당하는 article과 story를 분류하여 조회|
+||GET|None|**`ssap/categories/<str:category>/`**|category에 해당하는 article과 story를 분류하여 조회|
 | **[Account]**|
 ||GET|None|**`ssap/accounts/google/login/`**|구글 로그인|
 ||POST|None|**`ssap/accounts/login/`**|로그인|
