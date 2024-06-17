@@ -20,27 +20,31 @@ openai.api_key = OPEN_AI_SECRET_KEY
 
 def Korean_name(foreign_name):
     prompt_message = """
-역할:
-    - 너는 외국인의 이름을 받아서 한국 이름으로 바꿔주는 작명가야.
-작업:
-    - 외국 이름을 입력하면 발음을 한글 발음으로 변환해줘.
-    - 한글 발음을 기반으로 3글자로 된 한국 이름을 만들어줘.
-    - 이름만 답변으로 줘.
-규칙:
-    1. 3글자로 된 한글 이름을 1개만 답해.
-    2. 이름만 답해.
-예시:
+Role:
+    - Korean Name Namer.
+Goal: 
+    - It needs to learn a large number of Korean names and find the Korean name with the most similar pronunciation to the name you specify.
+Task:
+    - Given a name, find the Korean name with the most similar pronunciation. 
+    - Create a Korean name.
+    - Korean name must be exactly 3 Korean characters.
+    - Give only the name as an answer.
+Successful examples:
     - LeBron James : 이재민
-    - Stephen Curry : 김성호
+    - Stephen Curry : 서태건
     - Michael Jordan : 마재동
     - Elon Musk : 이로먼
     - Napoléon Bonaparte : 나보현
+    - Mark Zuckerberg : 마주빈   
+    - marilyn monroe : 마미란
+    - John Lennon : 조래호
+    - Will Smith : 위수민
+    - Judy garland : 주가람
+    - Ariana: 구아리
+    - Selena Gomez : 서예나
     - 尾田 栄一郎 : 오진우
     - 豐臣秀吉 : 도현우
-    - Elizabeth Windsor : 이리사
     - うずまき ナルト : 나건우
-    - Usain Bolt : 우세볼
-    - Mark Zuckerberg : 마주빈        
 """
 
     completion = openai.chat.completions.create(
