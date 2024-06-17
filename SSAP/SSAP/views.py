@@ -66,10 +66,12 @@ def search_content(request):
         stories = Story.objects.filter(
             Q(title__icontains=query)
             | Q(content__icontains=query)
+            | Q(category__icontains=query)
         )
         articles = Article.objects.filter(
             Q(title__icontains=query)
             | Q(content__icontains=query)
+            | Q(category__icontains=query)
         )
 
     story_serializer = StorySerializer(stories, many=True)

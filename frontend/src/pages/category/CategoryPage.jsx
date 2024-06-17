@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import CategoryWrapper from './CategoryWrapper';
 import axios from 'axios';
 import Card from '../../componenets/Card';

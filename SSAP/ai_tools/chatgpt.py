@@ -40,7 +40,7 @@ Successful examples:
     - John Lennon : 조래호
     - Will Smith : 위수민
     - Judy garland : 주가람
-    - Ariana: 구아리
+    - Ariana Grande : 구아리
     - Selena Gomez : 서예나
     - 尾田 栄一郎 : 오진우
     - 豐臣秀吉 : 도현우
