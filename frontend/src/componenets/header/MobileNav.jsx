@@ -24,7 +24,7 @@ const MobileNav = ({ menuItems, logo, onClose, hideLeft, onOpen, isLogin }) => {
         <ul className="flex flex-col items-center gap-4 font-medium mt-6">
           {menuItems?.map((menu, index) => (
             <li key={index}>
-              <Link to={menu} className='font-medium capitalizetext-secondary'>{menu}</Link>
+              <Link to={menu} onClick={onClose} className='font-medium capitalizetext-secondary'>{menu}</Link>
             </li>
           ))}
           {isLogin ? (
@@ -42,12 +42,12 @@ const MobileNav = ({ menuItems, logo, onClose, hideLeft, onOpen, isLogin }) => {
             <>
               <li>
                 <Link to={"/login"}>
-                  <button className='text-secondary px-4 py-2 rounded'>Sign in</button>
+                  <button onClick={onClose} className='text-secondary px-4 py-2 rounded'>Sign in</button>
                 </Link>
               </li>
               <li>
                 <Link to={"/registration"}>
-                  <button className='text-secondary px-4 py-2 rounded'>Sign up</button>
+                  <button onClick={onClose} className='text-secondary px-4 py-2 rounded'>Sign up</button>
                 </Link>
               </li>
             </>
