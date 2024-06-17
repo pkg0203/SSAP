@@ -11,9 +11,9 @@ from accounts.models import User
 
 
 class EventAPIView(APIView):
-    # 이번 달에 속한 이벤트만 가져오도록
     permission_classes = [IsAdminOrReadOnly]
 
+    # 이번 달에 속한 이벤트만 가져오도록
     def get(self, request):
         self.check_permissions(request)
         now = datetime.datetime.now()
