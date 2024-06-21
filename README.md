@@ -119,7 +119,7 @@
 </br>
 </br>
 
-## ⚜️ Front End Pages
+## ⚜️ Frontend Pages
 |Authorization|Domain|Description|
 |---|---|---|
 |None|**`{{domain}}`**|메인 페이지|
