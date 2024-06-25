@@ -31,7 +31,7 @@ const MobileNav = ({ menuItems, logo, onClose, hideLeft, onOpen, isLogin }) => {
             <>
               <li>
                 <Link to={"/mypage"}>
-                  <button className='text-secondary px-4 py-2 rounded'>My page</button>
+                  <button onClick={onClose} className='text-secondary px-4 py-2 rounded'>My page</button>
                 </Link>
               </li>
               <li>
