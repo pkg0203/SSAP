@@ -1,6 +1,5 @@
-import style from "./Profile.module.css"
 import {useParams} from "react-router-dom"
-import React, {useContext, useEffect, useState} from "react"
+import React, {useEffect, useState} from "react"
 import axios from 'axios'
 
 const Profile = () => {
