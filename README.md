@@ -20,6 +20,14 @@
 </br>
 </br>
 
+## 🏗️ 서비스 아키텍처
+
+<img width="827" alt="Architecture drawio (3) drawio" src="https://github.com/pkg0203/SSAP/assets/141356379/52e75769-4864-4c40-95d1-352f44268400">
+
+</br>
+</br>
+
+
 ## 🧑‍🤝‍🧑 팀 멤버 구성
 
 - ### 🦔 박강균 [@pkg0203] (https://github.com/pkg0203)
@@ -119,7 +127,7 @@
 </br>
 </br>
 
-## ⚜️ Front End Pages
+## ⚜️ Frontend Pages
 |Authorization|Domain|Description|
 |---|---|---|
 |None|**`{{domain}}`**|메인 페이지|
