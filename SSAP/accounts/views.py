@@ -24,7 +24,7 @@ from stories.models import *
 from stories.serializers import StorySerializer
 
 from .models import User
-from .permissions import IsSelfOrReadOnly
+from SSAP.permissions import IsOwner,ReadOnly
 from .serializers import UserSerializer
 
 BASE_URL = "http://13.125.129.225/"
@@ -180,7 +180,7 @@ class MarkedStory(APIView):
 
 
 class UserProfileAPIView(APIView):
-    permission_classes = [IsSelfOrReadOnly]
+    permission_classes = [IsOwner | ReadOnly]
 
     def get(self, request, username):
         user = get_object_or_404(get_user_model(), username=username)
