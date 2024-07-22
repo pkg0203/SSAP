@@ -1,35 +1,31 @@
-import requests
-from django.shortcuts import redirect
-from django.conf import settings
-from django.utils.translation import gettext_lazy as _
-from django.http import JsonResponse
 from json.decoder import JSONDecodeError
-from rest_framework import status
-from rest_framework.views import APIView
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from dj_rest_auth.registration.views import SocialLoginView
+
+import requests
+from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.google import views as google_view
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
-from allauth.socialaccount.models import SocialAccount
+from dj_rest_auth.registration.views import RegisterView, SocialLoginView
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, redirect
+from django.utils.translation import gettext_lazy as _
+from rest_framework import status
+from rest_framework.generics import ListAPIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-
-from .models import User
-from .serializers import UserSerializer
 from articles.models import *
 from articles.serializers import ArticleSerializer
-from stories.models import *
-from stories.serializers import StorySerializer
 from comments.models import *
 from comments.serializers import *
+from stories.models import *
+from stories.serializers import StorySerializer
 
-from rest_framework.views import APIView
-from rest_framework.generics import ListAPIView
-from django.contrib.auth import get_user_model
-from django.shortcuts import get_object_or_404
+from .models import User
 from .permissions import IsSelfOrReadOnly
-from rest_framework.permissions import IsAuthenticated
-from dj_rest_auth.registration.views import RegisterView
+from .serializers import UserSerializer
 
 BASE_URL = "http://13.125.129.225/"
 GOOGLE_CALLBACK_URI = "http://www.ssap-tip.com/ssap/accounts/google/callback/"
@@ -230,27 +226,31 @@ class UserCommentsAPIView(ListAPIView):
             }
         )
 
+
 from allauth.account import app_settings as allauth_settings
+from allauth.account.utils import complete_signup
 from dj_rest_auth.app_settings import (JWTSerializer, TokenSerializer,
                                        create_token)
 from dj_rest_auth.utils import jwt_encode
-from allauth.account.utils import complete_signup
+
 
 class CustomRegisterView(RegisterView):
     serializer_class = UserSerializer
-        
+
     def perform_create(self, serializer):
         user = serializer.save(self.request)
-        user.nation = serializer.validated_data.get('nation', '')
+        user.nation = serializer.validated_data.get("nation", "")
         user.save()
-        if allauth_settings.EMAIL_VERIFICATION != \
-                allauth_settings.EmailVerificationMethod.MANDATORY:
-            if getattr(settings, 'REST_USE_JWT', False):
+        if (
+            allauth_settings.EMAIL_VERIFICATION
+            != allauth_settings.EmailVerificationMethod.MANDATORY
+        ):
+            if getattr(settings, "REST_USE_JWT", False):
                 self.access_token, self.refresh_token = jwt_encode(user)
             else:
                 create_token(self.token_model, user, serializer)
 
-        complete_signup(self.request._request, user,
-                        allauth_settings.EMAIL_VERIFICATION,
-                        None)
+        complete_signup(
+            self.request._request, user, allauth_settings.EMAIL_VERIFICATION, None
+        )
         return user

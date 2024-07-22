@@ -1,6 +1,7 @@
-from .models import Article_Comment, Story_Comment
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from django.contrib.auth import get_user_model 
+
+from .models import Article_Comment, Story_Comment
 
 
 class ArticleCommentSerializer(serializers.ModelSerializer):
@@ -18,8 +19,9 @@ class ArticleCommentSerializer(serializers.ModelSerializer):
             return ArticleCommentSerializer(replies, many=True).data
         return None
 
-    def get_username(self,obj):
+    def get_username(self, obj):
         return obj.user.username
+
 
 class ArticleCommentGetSerializer(serializers.ModelSerializer):
     class Meta:
@@ -31,6 +33,7 @@ class ArticleCommentGetSerializer(serializers.ModelSerializer):
 class StoryCommentSerializer(serializers.ModelSerializer):
     replies = serializers.SerializerMethodField()
     username = serializers.SerializerMethodField()
+
     class Meta:
         model = Story_Comment
         fields = "__all__"
@@ -41,8 +44,8 @@ class StoryCommentSerializer(serializers.ModelSerializer):
             replies = Story_Comment.objects.filter(comment_at=obj)
             return StoryCommentSerializer(replies, many=True).data
         return None
-    
-    def get_username(self,obj):
+
+    def get_username(self, obj):
         return obj.user.username
 
 

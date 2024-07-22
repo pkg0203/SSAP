@@ -1,6 +1,8 @@
-import deepl
-import sys
 import os
+import sys
+
+import deepl
+
 from .nation_list import tar_nation_dict
 
 # 현재 파일의 디렉토리 경로를 구합니다.
@@ -20,12 +22,12 @@ TRANSLATOR = deepl.Translator(DEEPL_SECRET_KEY)
 
 def translate_text(text, target_lang):
     # 본인 국가의 언어로 번역 시도
-    try: 
-        result = TRANSLATOR.translate_text(text, target_lang=tar_nation_dict[target_lang])
+    try:
+        result = TRANSLATOR.translate_text(
+            text, target_lang=tar_nation_dict[target_lang]
+        )
         return result.text
     # 지원하지 않는 언어일 때
     except:
         result = TRANSLATOR.translate_text(text, target_lang="EN-US")
         return result.text
-
-

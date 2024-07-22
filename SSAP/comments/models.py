@@ -1,5 +1,6 @@
-from django.db import models
 from django.conf import settings
+from django.db import models
+
 from articles.models import *
 from stories.models import *
 
@@ -23,7 +24,7 @@ class Article_Comment(models.Model):
 
 
 class Story_Comment(models.Model):
-    story = models.ForeignKey(Story,on_delete=models.CASCADE)
+    story = models.ForeignKey(Story, on_delete=models.CASCADE)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,

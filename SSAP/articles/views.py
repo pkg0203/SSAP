@@ -1,11 +1,12 @@
 from django.shortcuts import get_object_or_404
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Article, ArticleLike, ArticleBookmark
-from .serializers import ArticleSerializer,ArticleDetailSerializer
+
+from .models import Article, ArticleBookmark, ArticleLike
 from .permissions import IsAdminOrReadOnly
+from .serializers import ArticleDetailSerializer, ArticleSerializer
 
 
 class ArticleListAPIView(APIView):
@@ -13,10 +14,12 @@ class ArticleListAPIView(APIView):
 
     def get(self, request):
         articles = Article.objects.all()
-        serializer = ArticleSerializer(articles, many=True, context={'request': request})
+        serializer = ArticleSerializer(
+            articles, many=True, context={"request": request}
+        )
         return Response(serializer.data)
 
-    def post(self, request):    
+    def post(self, request):
         serializer = ArticleSerializer(data=request.data)
         self.check_object_permissions(self.request, serializer)
         if serializer.is_valid(raise_exception=True):

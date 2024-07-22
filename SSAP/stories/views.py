@@ -1,15 +1,17 @@
 from django.shortcuts import get_object_or_404
-
-from .models import Story, StoryLike, StoryBookmark
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import StorySerializer,StoryDetailSerializer
-from .permissions import IsLoginOrReadOnly,IsSelfOrReadOnly
+
+from .models import Story, StoryBookmark, StoryLike
+from .permissions import IsLoginOrReadOnly, IsSelfOrReadOnly
+from .serializers import StoryDetailSerializer, StorySerializer
+
 
 class StoryListAPIView(APIView):
-    permission_classes=[IsLoginOrReadOnly]
+    permission_classes = [IsLoginOrReadOnly]
+
     def get(self, request):
         stories = Story.objects.all()
         serializer = StorySerializer(stories, many=True)
@@ -23,7 +25,8 @@ class StoryListAPIView(APIView):
 
 
 class StoryDetailAPIView(APIView):
-    permission_classes=[IsSelfOrReadOnly]
+    permission_classes = [IsSelfOrReadOnly]
+
     def get_object(self, pk):
         story = get_object_or_404(Story, pk=pk)
         self.check_object_permissions(self.request, story)

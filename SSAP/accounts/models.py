@@ -1,7 +1,9 @@
 from datetime import timezone
+
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+
 
 # 헬퍼 클래스
 class UserManager(BaseUserManager):
@@ -9,7 +11,7 @@ class UserManager(BaseUserManager):
         if not email:
             raise ValueError("The Email must be set")
         email = self.normalize_email(email)
-        user = self.model(username=username,email=email, **extra_fields)
+        user = self.model(username=username, email=email, **extra_fields)
         user.set_password(password)
         user.save()
         return user
@@ -23,7 +25,7 @@ class UserManager(BaseUserManager):
             raise ValueError(_("Superuser must have is_staff=True."))
         if extra_fields.get("is_superuser") is not True:
             raise ValueError(_("Superuser must have is_superuser=True."))
-        return self.create_user(username,email, password, **extra_fields)
+        return self.create_user(username, email, password, **extra_fields)
 
 
 class User(AbstractUser):
@@ -35,7 +37,7 @@ class User(AbstractUser):
     updated_at = models.DateTimeField(auto_now=True)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ['username', 'nation']
+    REQUIRED_FIELDS = ["username", "nation"]
 
     objects = UserManager()
 

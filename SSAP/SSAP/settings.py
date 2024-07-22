@@ -1,7 +1,8 @@
-from pathlib import Path
-from datetime import timedelta
-from . import config
 import os
+from datetime import timedelta
+from pathlib import Path
+
+from . import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +24,7 @@ ALLOWED_HOSTS = [
     "13.125.129.225",
     "127.0.0.1",
     "3.38.179.248",
-    "http://www.ssap-tip.com/"
+    "http://www.ssap-tip.com/",
 ]
 
 
@@ -110,7 +111,7 @@ CORS_ORIGIN_WHITELIST = (
     "http://127.0.0.1:8000",
     "http://localhost:5173",
     "http://54.180.231.212",
-    "http://www.ssap-tip.com"
+    "http://www.ssap-tip.com",
 )
 
 ROOT_URLCONF = "SSAP.urls"
