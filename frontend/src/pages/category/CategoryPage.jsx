@@ -20,11 +20,9 @@ const CategoryPage = () => {
                 setArticleItems(response.data.Articles); 
                 setStoryItems(response.data.Stories); 
 
-            } catch (err) {
-                setError(err.message || 'Error loading category');
+            } catch (err) {              
             }
-        }
-
+        };
         fetchCategoryData();
     }, [category]);
 

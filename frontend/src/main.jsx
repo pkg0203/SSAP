@@ -75,12 +75,8 @@ const router = createBrowserRouter([
         element: <Registration />,
       },
       {
-        path: "/mypage",
+        path: "/profile/:username/:profile_menu",
         element: <MyProfile />,
-      },
-      {
-        path: "/profile",
-        element: <Profile />,
       },
       // 시연용
       {

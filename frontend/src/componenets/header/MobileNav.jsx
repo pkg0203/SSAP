@@ -11,6 +11,8 @@ const MobileNav = ({ menuItems, logo, onClose, hideLeft, onOpen, isLogin }) => {
     // 로그아웃 후 추가 작업이 필요하면 여기에 추가합니다.
   };
 
+  const username = "ssap" //여기에 유저네임을 보관할 수 있어야 함. 전역 상태로 관리해야 할 듯
+
   return (
     <div>
       <div className="flex justify-between items-center px-6 py-4 shadow">
@@ -30,7 +32,7 @@ const MobileNav = ({ menuItems, logo, onClose, hideLeft, onOpen, isLogin }) => {
           {isLogin ? (
             <>
               <li>
-                <Link to={"/mypage"}>
+                <Link to={"/profile/" + username + "/bookmarked"}>
                   <button onClick={onClose} className='text-secondary px-4 py-2 rounded'>My page</button>
                 </Link>
               </li>
