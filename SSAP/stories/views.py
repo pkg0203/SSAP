@@ -4,8 +4,9 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Story, StoryBookmark, StoryLike
 from SSAP.permissions import IsOwner
+
+from .models import Story, StoryBookmark, StoryLike
 from .serializers import StoryDetailSerializer, StorySerializer
 
 

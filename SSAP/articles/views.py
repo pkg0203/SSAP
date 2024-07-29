@@ -4,13 +4,14 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from SSAP.permissions import IsAdmin, ReadOnly
+
 from .models import Article, ArticleBookmark, ArticleLike
-from SSAP.permissions import IsAdmin,ReadOnly
 from .serializers import ArticleDetailSerializer, ArticleSerializer
 
 
 class ArticleListAPIView(APIView):
-    permission_classes = [IsAdmin|ReadOnly]
+    permission_classes = [IsAdmin | ReadOnly]
 
     def get(self, request):
         articles = Article.objects.all()

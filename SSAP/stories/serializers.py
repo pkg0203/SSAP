@@ -1,8 +1,7 @@
 from datetime import datetime, timedelta, timezone
 
-from rest_framework import serializers
-
 from comments.serializers import StoryCommentSerializer
+from rest_framework import serializers
 
 from .models import Story, StoryBookmark, StoryLike
 

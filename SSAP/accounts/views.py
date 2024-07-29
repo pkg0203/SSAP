@@ -1,10 +1,19 @@
 from json.decoder import JSONDecodeError
 
 import requests
+from allauth.account import app_settings as allauth_settings
+from allauth.account.utils import complete_signup
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.providers.google import views as google_view
 from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+from articles.models import *
+from articles.serializers import ArticleSerializer
+from comments.models import *
+from comments.serializers import *
+from dj_rest_auth.app_settings import (JWTSerializer, TokenSerializer,
+                                       create_token)
 from dj_rest_auth.registration.views import RegisterView, SocialLoginView
+from dj_rest_auth.utils import jwt_encode
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
@@ -15,16 +24,12 @@ from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
-from articles.models import *
-from articles.serializers import ArticleSerializer
-from comments.models import *
-from comments.serializers import *
 from stories.models import *
 from stories.serializers import StorySerializer
 
+from SSAP.permissions import IsOwner, ReadOnly
+
 from .models import User
-from SSAP.permissions import IsOwner,ReadOnly
 from .serializers import UserSerializer
 
 BASE_URL = "http://13.125.129.225/"
@@ -225,13 +230,6 @@ class UserCommentsAPIView(ListAPIView):
                 "Story_Comments": story_comments.data,
             }
         )
-
-
-from allauth.account import app_settings as allauth_settings
-from allauth.account.utils import complete_signup
-from dj_rest_auth.app_settings import (JWTSerializer, TokenSerializer,
-                                       create_token)
-from dj_rest_auth.utils import jwt_encode
 
 
 class CustomRegisterView(RegisterView):
