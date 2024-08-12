@@ -1,17 +1,20 @@
+import datetime
+
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAdminUser
-from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import *
-from .models import Event
-from .serializers import EventViewSerializer, EventCreateSerializer
-from .permissions import IsAdminOrReadOnly
-import datetime
+from rest_framework.views import APIView
+
 from accounts.models import User
+from SSAP.permissions import IsAdmin, ReadOnly
+
+from .models import Event
+from .serializers import EventCreateSerializer, EventViewSerializer
 
 
 class EventAPIView(APIView):
-    permission_classes = [IsAdminOrReadOnly]
+    permission_classes = [IsAdmin | ReadOnly]
 
     # 이번 달에 속한 이벤트만 가져오도록
     def get(self, request):

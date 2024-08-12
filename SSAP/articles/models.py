@@ -1,5 +1,6 @@
-from django.db import models
 from django.conf import settings
+from django.db import models
+
 
 # Create your models here.
 class Article(models.Model):
@@ -10,10 +11,10 @@ class Article(models.Model):
     category = models.CharField(max_length=30)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
     @property
     def article_comments(self):
         return self.comments.all()
-    
 
 
 class ArticleLike(models.Model):

@@ -1,6 +1,7 @@
-import openai
-import sys
 import os
+import sys
+
+import openai
 
 # 현재 파일의 디렉토리 경로를 구합니다.
 current_path = os.path.dirname(__file__)

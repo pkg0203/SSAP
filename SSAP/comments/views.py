@@ -1,13 +1,15 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Article_Comment, Story_Comment
+from django.http import Http404
+from django.shortcuts import get_object_or_404, redirect, render
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 from articles.models import Article
 from stories.models import Story
+
+from .models import Article_Comment, Story_Comment
 from .serializers import ArticleCommentSerializer, StoryCommentSerializer
-from rest_framework.views import APIView
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from django.http import Http404
 
 
 # Comment on Article
@@ -94,9 +96,7 @@ class StoryCommentAPIView(APIView):
     def post(self, request, pk):
         serializer = StoryCommentSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            serializer.save(
-                user=request.user, story=get_object_or_404(Story, pk=pk)
-            )
+            serializer.save(user=request.user, story=get_object_or_404(Story, pk=pk))
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -116,7 +116,7 @@ class StoryCommentAPIView(APIView):
         )
 
     def delete(self, request, pk):
-        comment_pk=pk
+        comment_pk = pk
         comment = get_object_or_404(Story_Comment, pk=comment_pk)
         if request.user == comment.user:
             comment.delete()
