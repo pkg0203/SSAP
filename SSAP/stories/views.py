@@ -4,23 +4,14 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-<<<<<<< HEAD
 from SSAP.permissions import IsOwner
 
 from .models import Story, StoryBookmark, StoryLike
-=======
-from .models import Story, StoryBookmark, StoryLike
-from .permissions import IsLoginOrReadOnly, IsSelfOrReadOnly
->>>>>>> af089218a4d7ad9dad26105b63869871f23f5668
 from .serializers import StoryDetailSerializer, StorySerializer
 
 
 class StoryListAPIView(APIView):
-<<<<<<< HEAD
     permission_classes = [IsAuthenticated | IsOwner]
-=======
-    permission_classes = [IsLoginOrReadOnly]
->>>>>>> af089218a4d7ad9dad26105b63869871f23f5668
 
     def get(self, request):
         stories = Story.objects.all()
@@ -35,11 +26,7 @@ class StoryListAPIView(APIView):
 
 
 class StoryDetailAPIView(APIView):
-<<<<<<< HEAD
     permission_classes = [IsAuthenticated | IsOwner]
-=======
-    permission_classes = [IsSelfOrReadOnly]
->>>>>>> af089218a4d7ad9dad26105b63869871f23f5668
 
     def get_object(self, pk):
         story = get_object_or_404(Story, pk=pk)
