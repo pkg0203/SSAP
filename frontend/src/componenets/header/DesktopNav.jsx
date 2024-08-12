@@ -14,7 +14,7 @@ const DesktopNav = ({ menuItems, logo }) => {
   const username = "ssap" //여기에 유저네임을 보관할 수 있어야 함. 전역 상태로 관리해야 할 듯
 
   return (
-    <div className="h-16 flex justify-between items-center px-6 lg:px-12 shadow">
+    <div className="h-16 flex justify-between items-center px-6 lg:px-12">
       <div className="flex items-center">
         <Link to="/">
           <img src={logo} alt="logo" className="logo" />
