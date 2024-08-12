@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import APiClient from '../api/APiClient'
-import Pagenation from '../pagenation/Pagenation'
 import { Link } from 'react-router-dom'
-// import './community.css'
 import Story from '../../componenets/Story';
+import axios from 'axios'
 
 function CategoryItem({ name, href, backgroundColor, color }) {
     const style = {
@@ -23,61 +21,44 @@ function CategoryItem({ name, href, backgroundColor, color }) {
 function CategoryList() {
     return (
         <div className='flex flex-wrap items-center justify-center gap-8'>
-            <CategoryItem name="shopping" href="/categories/shopping" backgroundColor="#FFA9A9" color="#1E1D30" />
-            <CategoryItem name="traffic" href="/categories/traffic" backgroundColor="#FFD8A9" color="#1E1D30" />
-            <CategoryItem name="food" href="/categories/food" backgroundColor="#D4FFA9" color="#1E1D30" />
-            <CategoryItem name="health" href="/categories/health" backgroundColor="#A9FFD1" color="#1E1D30" />
-            <CategoryItem name="festival" href="/categories/festival" backgroundColor="#A9F0FF" color="#1E1D30" />
-            <CategoryItem name="lifestyle" href="/categories/lifestyle" backgroundColor="#A9BCFF" color="#1E1D30" />
+            <CategoryItem name="SHOPPING" href="/categories/SHOPPING" backgroundColor="#FFA9A9" color="#1E1D30" />
+            <CategoryItem name="TRANSPORTATION" href="/categories/TRANSPORTATION" backgroundColor="#FFD8A9" color="#1E1D30" />
+            <CategoryItem name="FOOD" href="/categories/FOOD" backgroundColor="#D4FFA9" color="#1E1D30" />
+            <CategoryItem name="HEALTH" href="/categories/HEALTH" backgroundColor="#A9FFD1" color="#1E1D30" />
+            <CategoryItem name="FESTIVAL" href="/categories/FESTIVAL" backgroundColor="#A9F0FF" color="#1E1D30" />
+            <CategoryItem name="LIFESTYLE" href="/categories/LIFESTYLE" backgroundColor="#A9BCFF" color="#1E1D30" />
         </div>
     );
 }
 
 const Community = () => {
-    const [posts, setPosts] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [endPages, setEndPages] = useState(1);
-
+    const [items, setItems] = useState([]);
     useEffect(() => {
-        const fetchPosts = async () => {
+        const getStories = async () => {
             try {
                 const response = await axios.get('http://13.125.129.225/ssap/stories/');
-                setItems(response.data); // Update state with response data                
+                setItems(response.data);                
             }
             catch (error) {
                 console.error('Error fetching latest items:', error);
             }
         };
-        fetchPosts();
-    }, [currentPage]);
+        getStories();
+    }, []);
 
     return (
-        <div className="community-container">
-            <main className="community-main">
-                <CategoryList />
-                <div className="content-list">
-                    {posts.map((post) => (
-                        <div className="community-content" key={post.id}>
-                            <h2>{post.title}</h2>
-                            <div className="community-post">
-                                <img src={post.profile_image} alt="Profile" className="community-profile-img" />
-                                <div>
-                                    <h3>{post.author}</h3>
-                                    <p>{post.description}</p>
-                                </div>
-                            </div>
-                            <p className="community-body-text">{post.body}</p>
-                        </div>
-                    ))}
-                    <Pagenation 
-                        currentPage={currentPage} 
-                        endPages={endPages} 
-                        onPageChange={(page) => setCurrentPage(page)} 
-                    />
-                </div>
-            </main>
+        <div className='px-5 xl:px-10 py-16'>
+            <CategoryList />
+            <h2 className='text-3xl mb-8 font-semibold text-secondary sm:text-5xl sm:leading-relaxed'>Community</h2>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
+                {
+                    items.length > 0 ? items.map((item, index) => (
+                        <Story key={item.id} item={item} />
+                    )) : <p>Loading...</p>
+                }
+            </div>
         </div>
-    );
+    )
 };
 
 export default Community;

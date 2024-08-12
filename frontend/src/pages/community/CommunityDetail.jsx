@@ -1,70 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import APiClient from '../api/APiClient';
-import { useParams } from 'react-router-dom';
-import './community.css';
+import React from 'react';
+import { useLoaderData } from 'react-router-dom';
+import StoryComments from '../../componenets/StoryComments';
 
 const CommunityDetail = () => {
-    const { postId } = useParams();
-    const [post, setPost] = useState(null);
-    const [comments, setComments] = useState([]);
-
-    useEffect(() => {
-        const fetchPost = async () => {
-            try {
-                const response = await APiClient.get(`/api/posts/${postId}`);
-                setPost(response.data);
-            } catch (error) {
-                console.error('Error fetching post:', error);
-            }
-        };
-
-        const fetchComments = async () => {
-            try {
-                const response = await APiClient.get(`/api/posts/${postId}/comments`);
-                setComments(response.data);
-            } catch (error) {
-                console.error('Error fetching comments:', error);
-            }
-        };
-
-        fetchPost();
-        fetchComments();
-    }, [postId]);
-
-    if (!post) {
-        return <div>Loading...</div>;
-    }
+    const item = useLoaderData();
 
     return (
-        <div className="community-container">
-            <main className="community-main">
-                <div className="content-detail">
-                    <h2>{post.title}</h2>
-                    <div className="community-post">
-                        <img src={post.profile_image} alt="Profile" className="community-profile-img" />
-                        <div>
-                            <h3>{post.author}</h3>
-                            <p>{post.description}</p>
-                        </div>
-                    </div>
-                    <p className="community-body-text">{post.body}</p>
+        <section className='min-h-dvh md:flex justify-center items-center md:bg-eggshell'>
+            <div className='bg-[#ffffff] p-8 md:my-[5rem] md:py-8 pb-8 md:rounded-xl'>
+                <picture>
+                    <img src={item.img} alt="" className='md:max-w-[90%] w-full md:h-[570px] md:rounded-xl md:mx-auto' />
+                </picture>
+
+                <div className='px-8'>
+                    <h1 className='text-4xl mt-12 text-secondary'>{item.title}</h1>
+                    <h3>By: {item.username}</h3>
+                    <article>
+                        <h2>{item.content}</h2>
+                    </article>
                 </div>
-                <div className="comments-section">
-                    {comments.map((comment) => (
-                        <div className="community-comment" key={comment.id}>
-                            <img src={comment.profile_image} alt="Profile" className="community-profile-img" />
-                            <div>
-                                <h3>{comment.author}</h3>
-                                <p>{comment.text}</p>
-                            </div>
-                        </div>
-                    ))}
+
+                <div className='comments-section'>
+                    <StoryComments comments={item.story_comments} storyId={item.id} />
                 </div>
-            </main>
-        </div>
-    );
-};
+                    
+            </div>
+        </section>
+    )
+}
 
 export default CommunityDetail;
-
-

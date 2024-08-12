@@ -1,7 +1,8 @@
-from pathlib import Path
-from datetime import timedelta
-from . import config
 import os
+from datetime import timedelta
+from pathlib import Path
+
+from . import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +22,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "13.125.129.225",
-    '127.0.0.1',
+    "127.0.0.1",
+    "3.38.179.248",
+    "http://www.ssap-tip.com/",
 ]
 
 
@@ -59,9 +62,9 @@ INSTALLED_APPS = [
     # For debug
     "django_seed",
     # CORS
-    'corsheaders',
+    "corsheaders",
     # S3 storages
-    'storages',
+    "storages",
 ]
 
 
@@ -78,7 +81,7 @@ ACCOUNT_EMAIL_VERIFICATION = "none"  # 회원가입시 별도의 email 인증 �
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
@@ -87,14 +90,14 @@ REST_FRAMEWORK = {
 REST_USE_JWT = True
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=120),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "REFRESH_TOKEN_LIFETIME": timedelta(minutes=60),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
 }
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -104,7 +107,12 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-CORS_ORIGIN_WHITELIST = ('http://127.0.0.1:8000', 'http://localhost:5173','http://3.38.179.248')
+CORS_ORIGIN_WHITELIST = (
+    "http://127.0.0.1:8000",
+    "http://localhost:5173",
+    "http://54.180.231.212",
+    "http://www.ssap-tip.com",
+)
 
 ROOT_URLCONF = "SSAP.urls"
 
@@ -173,11 +181,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_URL = "static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -193,18 +201,12 @@ AWS_S3_FILE_OVERWRITE = False
 
 
 STORAGES = {
-
-    # Media file (image) management   
+    # Media file (image) management
     "default": {
         "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
     },
-    
     # CSS and JS file management
     "staticfiles": {
         "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
     },
 }
-
-
-
-

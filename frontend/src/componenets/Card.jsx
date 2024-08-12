@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom'
 // 카테고리 버튼 색 지정
 const Card = ({item}) => {
     const categoryStyles = {
-        shoppong: {backgroundColor: "#FFA9A9", color: "#1E1D30"},
-        transportation: {backgroundColor: "#FFD8A9", color: "#1E1D30"},
-        food: {backgroundColor: "#D4FFA9", color: "#1E1D30"},
-        health: {backgroundColor: "#A9FFD1", color: "#1E1D30"},
-        festival: {backgroundColor: "#A9F0FF", color: "#1E1D30"},
-        lifestyle: {backgroundColor: "#A9BCFF", color: "#1E1D30"},
+        SHOPPING: {backgroundColor: "#FFA9A9", color: "#1E1D30"},
+        TRANSPORTATION: {backgroundColor: "#FFD8A9", color: "#1E1D30"},
+        FOOD: {backgroundColor: "#D4FFA9", color: "#1E1D30"},
+        HEALTH: {backgroundColor: "#A9FFD1", color: "#1E1D30"},
+        FESTIVAL: {backgroundColor: "#A9F0FF", color: "#1E1D30"},
+        LIFESTYLE: {backgroundColor: "#A9BCFF", color: "#1E1D30"},
         default: {backgroundColor: "#FFFFFF", color: "#1E1D30"},
     };
     const getCategoryStyle = (category) => {
@@ -30,13 +30,17 @@ const Card = ({item}) => {
                     </Link>
 
                     {/* 카드별 카테고리 표시 */}
-                    <div>
+                    <div className='flex justify-between items-center flex-wrap'>
                         <button className={'mt-6 py-2 px-4 font-medium rounded-lg shadow-md hover:shadow-lg transition duration-300'}
                         style={{
                             backgroundColor: categoryStyle.backgroundColor,
                             color: categoryStyle.color
                         }}
                         >{item?.category}</button>
+
+                        {/* <div className='flex items-center py-2 mt-6'>
+                            <span className='ml-2'>{item?.created_at}</span>    
+                        </div> */}
                     </div>
                 </div>
             </div>

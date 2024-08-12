@@ -1,22 +1,26 @@
 from django.shortcuts import get_object_or_404
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Article, ArticleLike, ArticleBookmark
-from .serializers import ArticleSerializer,ArticleDetailSerializer
-from .permissions import IsAdminOrReadOnly
+
+from SSAP.permissions import IsAdmin, ReadOnly
+
+from .models import Article, ArticleBookmark, ArticleLike
+from .serializers import ArticleDetailSerializer, ArticleSerializer
 
 
 class ArticleListAPIView(APIView):
-    permission_classes = [IsAdminOrReadOnly]
+    permission_classes = [IsAdmin | ReadOnly]
 
     def get(self, request):
         articles = Article.objects.all()
-        serializer = ArticleSerializer(articles, many=True, context={'request': request})
+        serializer = ArticleSerializer(
+            articles, many=True, context={"request": request}
+        )
         return Response(serializer.data)
 
-    def post(self, request):    
+    def post(self, request):
         serializer = ArticleSerializer(data=request.data)
         self.check_object_permissions(self.request, serializer)
         if serializer.is_valid(raise_exception=True):
@@ -25,7 +29,7 @@ class ArticleListAPIView(APIView):
 
 
 class ArticleDetailAPIView(APIView):
-    permission_classes = [IsAdminOrReadOnly]
+    permission_classes = [IsAdmin | ReadOnly]
 
     def get_object(self, pk):
         article = get_object_or_404(Article, pk=pk)

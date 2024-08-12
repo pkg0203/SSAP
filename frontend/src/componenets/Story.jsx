@@ -29,7 +29,7 @@ const Story = ({item}) => {
                         <h1 className='text-gray-700 font-bold text-2x1 mb-8 hover:text-gray-900 hover:cursor-pointer'>{item?.title}</h1>
                     </Link>
 
-                    {/* 카드별 카테고리 표시 */}
+                    {/* 스토리별 카테고리 표시 */}
                     <div>
                         <button className={'mt-6 py-2 px-4 font-medium rounded-lg shadow-md hover:shadow-lg transition duration-300'}
                         style={{

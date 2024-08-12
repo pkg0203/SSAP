@@ -20,8 +20,10 @@ import Community from './pages/community/Community.jsx'
 import CommunityDetail from './pages/community/CommunityDetail.jsx'
 import Login from './pages/login/Login.jsx'
 import Registration from './pages/login/Registration.jsx'
-
 import { RecoilRoot } from "recoil";
+import Featpage from './pages/Featpage.jsx'
+import Profile from './pages/profile/Profile.jsx'
+import MyProfile from './pages/profile/MyProfile.jsx'
 
 
 const router = createBrowserRouter([
@@ -36,7 +38,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/categories/:category",
-        element: <CategoryPage />,
+        element: <CategoryPage />,       
       },
       {
         path: "/search",
@@ -60,8 +62,9 @@ const router = createBrowserRouter([
         element: <Community />,
       },
       {
-        path: "/community/:postId",
+        path: "/community/:id",
         element: <CommunityDetail />,
+        loader: ({ params }) => fetch(`http://13.125.129.225/ssap/stories/${params.id}`),
       },
       {
         path: "/login",
@@ -70,6 +73,19 @@ const router = createBrowserRouter([
       {
         path: "/registration",
         element: <Registration />,
+      },
+      {
+        path: "/mypage",
+        element: <MyProfile />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
+      },
+      // 시연용
+      {
+        path: "/feat",
+        element: <Featpage />,
       }
     ],
   },

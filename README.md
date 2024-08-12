@@ -10,7 +10,7 @@
 
 ## ⏱️ 개발기간
 
-- ### 2024.05.13(월) ~ 2024.06.13(목)
+- ### 2024.05.13(월) ~ ( 진행 중 )
 
 </br>
 
@@ -19,6 +19,14 @@
 
 </br>
 </br>
+
+## 🏗️ 서비스 아키텍처
+
+<img width="827" alt="Architecture drawio (3) drawio" src="https://github.com/pkg0203/SSAP/assets/141356379/52e75769-4864-4c40-95d1-352f44268400">
+
+</br>
+</br>
+
 
 ## 🧑‍🤝‍🧑 팀 멤버 구성
 
@@ -54,8 +62,16 @@
 </br>
 
 ## 🚊 API 명세
+
+- ### 아래의 도메인 뒤에 End point를 붙여주셔야 합니다.
+
+- ### http://13.125.129.225/
+</br>
+  
 |Index|Http Method|Authorization|End point|Description|
 |---|---|---|---|---|
+||GET|None|**`ssap/`**|추천 article과 story - 북마크,좋아요가 높고 최신순 조회|
+||GET|None|**`ssap/categories/<str:category>/`**|category에 해당하는 article과 story를 분류하여 조회|
 | **[Account]**|
 ||GET|None|**`ssap/accounts/google/login/`**|구글 로그인|
 ||POST|None|**`ssap/accounts/login/`**|로그인|
@@ -79,13 +95,13 @@
 ||POST|**User with Login**|**`ssap/articles/like/<pk>/`**|article 좋아요|
 ||POST|**User with Login**|**`ssap/articles/bookmark/<pk>/`**|article 북마크|
 |**[Stories]**|
-||GET|None|**`ssap/stories/`**|article 리스트 조회|
-||POST|**User with Login**|**`ssap/stories/`**|article 생성|
-||GET|**User with Login**|**`ssap/stories/<pk>/`**|article 상세 조회(댓글과 대댓글도 조회하게 됨)|
-||PUT|**Only Self**|**`ssap/stories/<pk>/`**|article 수정|
-||DELETE|**Only Self**|**`ssap/stories/<pk>/`**|article 삭제|
-||POST|**User with Login**|**`ssap/stories/like/<pk>/`**|article 좋아요|
-||POST|**User with Login**|**`ssap/stories/bookmark/<pk>/`**|article 북마크|
+||GET|None|**`ssap/stories/`**|story 리스트 조회|
+||POST|**User with Login**|**`ssap/stories/`**|story 생성|
+||GET|**User with Login**|**`ssap/stories/<pk>/`**|story 상세 조회(댓글과 대댓글도 조회하게 됨)|
+||PUT|**Only Self**|**`ssap/stories/<pk>/`**|story 수정|
+||DELETE|**Only Self**|**`ssap/stories/<pk>/`**|story 삭제|
+||POST|**User with Login**|**`ssap/stories/like/<pk>/`**|story 좋아요|
+||POST|**User with Login**|**`ssap/stories/bookmark/<pk>/`**|story 북마크|
 |**[Comments]**|
 ||POST|**User with Login**|**`ssap/comments/article/<article_pk>/`**|article에 댓글 생성|
 ||PUT|**Only Self**|**`ssap/comments/article/<comment_pk>/`**|article에 댓글 수정|
@@ -111,7 +127,7 @@
 </br>
 </br>
 
-## ⚜️ Front End Pages
+## ⚜️ Frontend Pages
 |Authorization|Domain|Description|
 |---|---|---|
 |None|**`{{domain}}`**|메인 페이지|
