@@ -20,7 +20,7 @@ function CategoryItem({ name, href, backgroundColor, color }) {
 
 function CategoryList() {
     return (
-        <div className='flex flex-wrap items-center justify-center gap-8'>
+        <div className='flex flex-wrap items-center justify-center gap-8 mb-20'>
             <CategoryItem name="SHOPPING" href="/categories/SHOPPING" backgroundColor="#FFA9A9" color="#1E1D30" />
             <CategoryItem name="TRANSPORTATION" href="/categories/TRANSPORTATION" backgroundColor="#FFD8A9" color="#1E1D30" />
             <CategoryItem name="FOOD" href="/categories/FOOD" backgroundColor="#D4FFA9" color="#1E1D30" />
@@ -37,7 +37,8 @@ const Community = () => {
         const getStories = async () => {
             try {
                 const response = await axios.get('http://13.125.129.225/ssap/stories/');
-                setItems(response.data);                
+                setItems(response.data);   
+                console.log(response.data)             
             }
             catch (error) {
                 console.error('Error fetching latest items:', error);
@@ -49,17 +50,17 @@ const Community = () => {
     return (
         <div className='px-5 xl:px-10 py-16'>
             <CategoryList />
-            <h2 className='text-3xl mb-8 font-semibold text-secondary sm:text-5xl sm:leading-relaxed'>Community</h2>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
-                {
-                    items.length > 0 ? items.map((item, index) => (
+            <div className="container mx-auto px-4">
+                <div className="max-w-screen-xl mx-auto">
+                    <div className="sm:mx-4 md:mx-8 lg:mx-40 xl:mx-60 2xl:mx-60">
+                    {items.map((item, imdex) => (
                         <Story key={item.id} item={item} />
-                    )) : <p>Loading...</p>
-                }
+                    ))}
+                    </div>
+                </div>
             </div>
         </div>
     )
 };
 
 export default Community;
-

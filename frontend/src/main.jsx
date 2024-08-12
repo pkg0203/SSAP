@@ -22,7 +22,6 @@ import Login from './pages/login/Login.jsx'
 import Registration from './pages/login/Registration.jsx'
 import { RecoilRoot } from "recoil";
 import Featpage from './pages/Featpage.jsx'
-import Profile from './pages/profile/Profile.jsx'
 import MyProfile from './pages/profile/MyProfile.jsx'
 
 
@@ -75,12 +74,8 @@ const router = createBrowserRouter([
         element: <Registration />,
       },
       {
-        path: "/mypage",
+        path: "/profile/:username/:profile_menu",
         element: <MyProfile />,
-      },
-      {
-        path: "/profile",
-        element: <Profile />,
       },
       // 시연용
       {

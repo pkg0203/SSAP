@@ -1,49 +1,42 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import ProfileWrapper from './ProfileWrapper';
+import { useParams } from 'react-router';
+import axios from 'axios';
+import Card from '../../componenets/Card';
 
 const MyProfile = () => {
+  const {profile_menu, username} = useParams();
+  const [articleItems, setArticleItems] = useState([]);
+
+  useEffect(() => {
+    const fetchSavedArticleData = async () => {
+      try {
+        const response = await axios.get(`http://13.125.129.225/ssap/accounts/${profile_menu}/article/${username}/`);
+        setArticleItems(response.data);                
+      }catch (err) {
+      }
+    };
+    fetchSavedArticleData();
+  }, [profile_menu, username]);
+
   return (
     <div className='grid place-items-center px-6 lg:px-12 py-20'>
-        <div className='mb-10'>
+        <div className='grid place-items-center mb-10'>
             <img src="" alt="profile" className='w-40 h-40' />
-            <h1 className='text-center'>name</h1>
+            <h1 className='text-xl font-semibold'>{username}</h1>
+            <h2 className=''>nation</h2>
+            <h3 className=''>No introduction has been entered yet.</h3>
         </div>
         <div>
-            <Link to='/' className='text-xl mr-10 font-semibold text-secondary'>Saved</Link>
-            <Link to='/' className='text-xl mr-10 font-semibold text-secondary'>Likes</Link>
-            <Link to='/' className='text-xl mr-10 font-semibold text-secondary'>Posts</Link>
-            <Link to='/' className='text-xl mr-10 font-semibold text-secondary'>Commnets</Link>
+            <ProfileWrapper />
         </div>
-
-        {/* <div className='mt-20 flex justify-between'>
-            <h2 className='text-3xl mt-7 mb-11 font-semibold text-secondary'>Save</h2>
-            <Link to='/' className='mt-16 text-lg font-semibold text-secondary'>View All</Link>
-        </div>
-
         <ul className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
-            {articleItems.length > 0 ? (
-                articleItems.slice(0, 4).map((item) => (
+            {
+                articleItems.length > 0 ? articleItems.slice(0, 4).map((item, index) => (
                     <Card key={item.id} item={item} />
-                ))
-            ) : (
-                <p>We don't have any tips to share at this time, but please be patient😊</p>
-            )}
+                )): <p>You don't have any saved content yet😊 </p>
+            }
         </ul>
-
-        <div className='mt-20 flex justify-between'>
-            <h2 className='text-3xl mt-7 mb-11 font-semibold text-secondary'>Community</h2>
-            <Link to='/' className='mt-16 text-lg font-semibold text-secondary align-text-bottom'>View All</Link>
-        </div>
-
-        <ul className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
-            {storyItems.length > 0 ? (
-                storyItems.slice(0, 4).map((item) => (
-                    <Story key={item.id} item={item} />
-                ))
-            ) : (
-                <p>You're the one who gets to write the first post🥰</p>
-            )}
-        </ul> */}
     </div>
   );
 };
