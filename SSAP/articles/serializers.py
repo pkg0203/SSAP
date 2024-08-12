@@ -1,6 +1,7 @@
+from rest_framework import serializers
+
 from comments.models import Article_Comment
 from comments.serializers import ArticleCommentSerializer
-from rest_framework import serializers
 
 from .models import Article, ArticleBookmark, ArticleLike
 
