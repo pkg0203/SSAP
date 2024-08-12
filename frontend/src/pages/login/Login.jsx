@@ -11,8 +11,8 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const setAcessToken = useSetRecoilState(TokenAtom);
   const navigate = useNavigate();
+  const setAcessToken = useSetRecoilState(TokenAtom);
   const isLogin = useRecoilValue(isLoginSelector);
 
   const handleSubmit = async (e) => {
@@ -24,7 +24,6 @@ const Login = () => {
       const response = await axios.post(LOGIN_URL, { email, password });
       setAcessToken(response.data.access_token);
       navigate('/');
-      console.log(response.data.access_token);
     } catch (err) {
       setError('Failed to login. Please check your email and password.');
     } finally {
