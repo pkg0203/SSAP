@@ -1,7 +1,8 @@
-from pathlib import Path
-from datetime import timedelta
-from . import config
 import os
+from datetime import timedelta
+from pathlib import Path
+
+from . import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +24,7 @@ ALLOWED_HOSTS = [
     "13.125.129.225",
     "127.0.0.1",
     "3.38.179.248",
-    "http://www.ssap-tip.com/"
+    "http://www.ssap-tip.com/",
 ]
 
 
@@ -75,9 +76,22 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = "email"
-ACCOUNT_EMAIL_VERIFICATION = "none"  # 회원가입시 별도의 email 인증 생략
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = (
+    "django.core.mail.backends.smtp.EmailBackend"  # 메일링을 위해 console -> smtp 변경
+)
+# 메일링 구현을 위해 추가
+EMAIL_HOST = "smtp.naver.com"  # 메일 호스트 서버
+EMAIL_PORT = 587  # gmail과 통신하는 포트
+EMAIL_USE_TLS = True  # TLS 보안 방법
+EMAIL_HOST_USER = "sj04173@naver.com"  
+EMAIL_HOST_PASSWORD = "kgo6qrk743"  # 발신할 메일의 비밀번호
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+URL_FRONT = "http://ssap-tip.com"  # 공개적인 웹페이지가 있다면 등록
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1  # 링크 유효기간
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "SSAP"  # 이메일에 자동으로 표시되는 사이트 정보
+
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
@@ -110,7 +124,7 @@ CORS_ORIGIN_WHITELIST = (
     "http://127.0.0.1:8000",
     "http://localhost:5173",
     "http://54.180.231.212",
-    "http://www.ssap-tip.com"
+    "http://www.ssap-tip.com",
 )
 
 ROOT_URLCONF = "SSAP.urls"

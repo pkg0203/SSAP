@@ -1,13 +1,16 @@
+import datetime
+
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAdminUser
-from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import *
-from .models import Event
-from .serializers import EventViewSerializer, EventCreateSerializer
-from .permissions import IsAdminOrReadOnly
-import datetime
+from rest_framework.views import APIView
+
 from accounts.models import User
+
+from .models import Event
+from .permissions import IsAdminOrReadOnly
+from .serializers import EventCreateSerializer, EventViewSerializer
 
 
 class EventAPIView(APIView):

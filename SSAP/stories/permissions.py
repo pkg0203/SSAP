@@ -10,7 +10,8 @@ class IsLoginOrReadOnly(permissions.BasePermission):
 
         # 그외의 메소드에 대해서는 admin인 경우만 True
         return request.user.is_authenticated
-    
+
+
 class IsSelfOrReadOnly(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:

@@ -9,4 +9,4 @@ class IsSelfOrReadOnly(permissions.BasePermission):
             return True
 
         # 그외의 메소드에 대해서는 본인인 경우만 허용
-        return request.user==obj.user
+        return request.user == obj.user
