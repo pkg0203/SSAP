@@ -1,0 +1,11 @@
+{% autoescape off %}
+welcome to the SSAP!
+
+Hello, {% username %}
+we are so glad to meet you, and we'll work on your SSAP-easy life in KOREA :&#41;
+
+please click the link below to complete sign up.
+
+http://{{http://www.ssap-tip.com/}}{% url 'users:activate' uid=uid token=token %}
+
+{% endautoescape %}
