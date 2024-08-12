@@ -12,6 +12,10 @@ from SSAP.permissions import IsAdmin, ReadOnly
 from .models import Event
 from .serializers import EventCreateSerializer, EventViewSerializer
 
+from .models import Event
+from .permissions import IsAdminOrReadOnly
+from .serializers import EventCreateSerializer, EventViewSerializer
+
 
 class EventAPIView(APIView):
     permission_classes = [IsAdmin | ReadOnly]

@@ -4,9 +4,14 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+<<<<<<< HEAD
 from SSAP.permissions import IsAdmin, ReadOnly
 
 from .models import Article, ArticleBookmark, ArticleLike
+=======
+from .models import Article, ArticleBookmark, ArticleLike
+from .permissions import IsAdminOrReadOnly
+>>>>>>> af089218a4d7ad9dad26105b63869871f23f5668
 from .serializers import ArticleDetailSerializer, ArticleSerializer
 
 
