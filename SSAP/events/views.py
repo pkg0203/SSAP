@@ -1,12 +1,12 @@
 import datetime
 
-from accounts.models import User
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 from rest_framework.status import *
 from rest_framework.views import APIView
 
+from accounts.models import User
 from SSAP.permissions import IsAdmin, ReadOnly
 
 from .models import Event

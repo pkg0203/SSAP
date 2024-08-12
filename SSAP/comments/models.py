@@ -1,6 +1,7 @@
-from articles.models import *
 from django.conf import settings
 from django.db import models
+
+from articles.models import *
 from stories.models import *
 
 
