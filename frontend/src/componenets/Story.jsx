@@ -35,7 +35,7 @@ const Story = ({item}) => {
     });
 
     return (
-        <div className="font-sans mb-4 bg-white rounded-lg shadow-md p-4 h-40">
+        <div className="font-sans mb-4 bg-white rounded-lg shadow-md p-4 h-45">
             <div className="flex">
                 <Link to={`/community/${item.id}`}>
                     <div className="flex-grow overflow-hidden">
@@ -51,14 +51,14 @@ const Story = ({item}) => {
                 </div>
                 )}
             </div>
-            <div className="flex justify-between items-center text-sm text-gray-500">
+            <div className="flex justify-between items-center text-sm mt-4">
                 <div className="flex"> 
                     <img src alt="Avatar" className="w-6 h-6 rounded-full mr-2" />
                     <span className="text-gray-400 mr-2">{item.user}</span>
                     <span className="text-gray-400 mr-2">•</span>
                     <span className="text-gray-400 mr-2">{formattedDate} {formattedTime}</span>
                 </div> 
-                <div className="text-sm text-gray-400 mt-1">댓글 0 • 추천 0 • 조회수 0</div>
+                <div className="text-gray-400">댓글 0 • 추천 0 • 조회수 0</div>
             </div>
         </div>
     )
